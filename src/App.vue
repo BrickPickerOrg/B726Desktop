@@ -1,29 +1,74 @@
+<!-- @format -->
+
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+    <div class="app-container">
+      <div class="layout-center">
+        <div class="layout-sidebar-wrapper">
+          <LayoutSidebar></LayoutSidebar>
+        </div>
+        <div class="layout-main-wrapper">
+          <LayoutHeader></LayoutHeader>
+          <router-view />
+        </div>
+      </div>
+      <div class="layout-bottom">
+        <LayoutFooter></LayoutFooter>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import HelloWorld from "./components/HelloWorld.vue";
+import { provideRequest } from '@/plugins/request';
+import LayoutHeader from '@/layout/header/header.vue';
+import LayoutFooter from '@/layout/footer/footer.vue';
+import LayoutSidebar from '@/layout/sidebar/sidebar.vue';
 
-@Options({
+export default {
+  setup() {
+    // 注册全局request请求
+    provideRequest();
+  },
   components: {
-    HelloWorld
+    LayoutHeader,
+    LayoutFooter,
+    LayoutSidebar
   }
-})
-export default class App extends Vue {}
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss">
+@import '@/assets/styles/styles.scss';
+
+body {
+  background: #eee;
+}
+
+.app-container {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 800px;
+  height: 500px;
+  background: $body-bg;
+
+  .layout-center {
+    flex: 1;
+    display: flex;
+    flex-flow: row nowrap;
+
+    .layout-sidebar-wrapper {
+      width: 100px;
+    }
+
+    .layout-main-wrapper {
+      flex: 1;
+    }
+  }
+
+  .layout-bottom {
+    height: 50px;
+    background: $player-bg;
+  }
 }
 </style>

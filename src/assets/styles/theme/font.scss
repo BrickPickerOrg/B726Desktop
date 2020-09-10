@@ -1,0 +1,69 @@
+@font-face {
+  font-family: 'iconfont';
+  src: url('//at.alicdn.com/t/font_1989956_35wnujehho1.eot');
+  src: url('//at.alicdn.com/t/font_1989956_35wnujehho1.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_1989956_35wnujehho1.woff2') format('woff2'),
+    url('//at.alicdn.com/t/font_1989956_35wnujehho1.woff') format('woff'),
+    url('//at.alicdn.com/t/font_1989956_35wnujehho1.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_1989956_35wnujehho1.svg#iconfont') format('svg');
+}
+
+[class^="iconfont-"],
+[class*=" iconfont-"] {
+  font-family: 'iconfont' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.iconfont-play-single:before {
+  content: "\e734";
+}
+
+.iconfont-play:before {
+  content: "\e787";
+}
+
+.iconfont-pause:before {
+  content: "\e658";
+}
+
+.iconfont-prev:before {
+  content: "\e6ac";
+}
+
+.iconfont-next:before {
+  content: "\e6a9";
+}
+
+.iconfont-back:before {
+  content: "\e666";
+}
+
+.iconfont-go:before {
+  content: "\e665";
+}
+
+.iconfont-circle-single:before {
+  content: "\e611";
+}
+
+.iconfont-circle-list:before {
+  content: "\e610";
+}
+
+.iconfont-heart:before {
+  content: "\e612";
+}
+
+.iconfont-search:before {
+  content: "\e699";
+}
+
+.iconfont-voiceprint:before {
+  content: "\e6fe";
+}

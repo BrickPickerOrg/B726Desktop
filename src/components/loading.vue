@@ -1,0 +1,82 @@
+<!-- @format -->
+
+<template>
+  <div class="line-scale-pulse-out">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+export default defineComponent({});
+</script>
+
+<style lang="scss">
+@import '@/assets/styles/theme/conf.scss';
+$margin: 2px !default;
+$line-height: 35px !default;
+$line-width: 4px !default;
+
+@function delay($interval, $count, $index) {
+  @return ($index * $interval) - ($interval * $count);
+}
+
+@mixin global-animation() {
+  animation-fill-mode: both;
+}
+
+@mixin lines() {
+  @include global-bg();
+
+  width: $line-width;
+  height: $line-height;
+  border-radius: 2px;
+  margin: $margin;
+}
+
+@mixin global-bg() {
+  background-color: $primary-color;
+}
+
+@keyframes line-scale-pulse-out {
+  0% {
+    transform: scaley(1);
+  }
+
+  50% {
+    transform: scaley(0.4);
+  }
+
+  100% {
+    transform: scaley(1);
+  }
+}
+
+.line-scale-pulse-out {
+  width: 40px;
+  height: 40px;
+
+  > div {
+    @include lines();
+    @include global-animation();
+
+    display: inline-block;
+    animation: line-scale-pulse-out 0.9s delay(0.2s, 3, 0) infinite
+      cubic-bezier(0.85, 0.25, 0.37, 0.85);
+
+    &:nth-child(2),
+    &:nth-child(4) {
+      animation-delay: delay(0.2s, 3, 1) !important;
+    }
+
+    &:nth-child(1),
+    &:nth-child(5) {
+      animation-delay: delay(0.2s, 3, 2) !important;
+    }
+  }
+}
+</style>

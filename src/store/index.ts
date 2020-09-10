@@ -1,8 +1,10 @@
-import { createStore } from "vuex";
+/** @format */
+
+import { playing } from './playing/index';
+import { createStore } from 'vuex';
 
 export default createStore({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules: {}
+  modules: {
+    playing
+  }
 });
