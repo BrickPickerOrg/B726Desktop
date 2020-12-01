@@ -1,5 +1,3 @@
-<!-- @format -->
-
 <template>
   <div class="line-scale-pulse-out">
     <div></div>

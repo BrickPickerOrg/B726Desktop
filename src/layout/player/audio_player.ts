@@ -1,5 +1,3 @@
-/** @format */
-
 export enum AudioPlayerState {
   STOPPED, //停止播放
   PLAYING, //开始播放

@@ -1,9 +1,7 @@
-<!-- @format -->
-
 <template>
   <audio
     :src="audioUrl"
-    style="display: none;"
+    style="display: none"
     ref="audioPlayer"
     loop="false"
     autoplay="autoplay"
@@ -18,7 +16,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, SetupContext } from 'vue';
-import { AudioPlayerState } from '@/components/player/audio_player';
+import { AudioPlayerState } from './audio_player';
 import Utils from '@/common/utils';
 
 export default defineComponent({
@@ -56,9 +54,9 @@ export default defineComponent({
 
     const timeupdateHandle = (event: Event) => {
       const audioPlayer = event.target as HTMLMediaElement;
-      const _duration = audioPlayer.duration;
-      const _currentTime = audioPlayer.currentTime;
-      emit('onAudioPositionChanged', _duration, _currentTime, _currentTime / _duration);
+      const duration = audioPlayer.duration;
+      const currentTime = audioPlayer.currentTime;
+      emit('onAudioPositionChanged', duration, currentTime, currentTime / duration);
     };
 
     // 当发生故障并且文件突然不可用时触发

@@ -1,29 +1,31 @@
-<!-- @format -->
-
 <template>
   <div class="layout-header">
-    <search></search>
+    <History></History>
+    <Search></Search>
   </div>
 </template>
 
 <script lang="ts">
-import search from '@/components/search.vue';
+import History from '@/layout/history.vue';
+import Search from '@/layout/search.vue';
 export default {
   components: {
-    search
+    History,
+    Search
   }
 };
 </script>
 
 <style lang="scss">
 @import '@/assets/styles/theme/conf.scss';
+
 .layout-header {
-  height: 40px;
-  background-color: $sidebar-bg;
+  height: 60px;
+  background-color: $body-bg;
   border-bottom: 1px solid $border-color;
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 }
 </style>

@@ -1,4 +1,55 @@
+@import './conf';
+
 * {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
+  font-family: Microsoft YaHei, tahoma, arial, Hiragino Sans GB, sans-serif;
+}
+
+.ellipsis-text {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 14px;
+  line-height: 14px;
+  font-size: 12px;
+}
+
+*[data-occupy-show='show'] {
+  position: relative;
+  overflow: hidden;
+  border-radius: 3px;
+
+  &::after {
+    display: block;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $placeholder;
+    z-index: 1;
+  }
+
+  &::before {
+    display: block;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150%;
+    height: 100%;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgba($font-second-color, 0.5), transparent);
+    animation: loadingtranslate 900ms infinite;
+    z-index: 2;
+  }
+}
+
+@keyframes loadingtranslate {
+  100% {
+    transform: translateX(100%);
+  }
 }

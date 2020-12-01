@@ -135,28 +135,6 @@
    list-style: none;
  }
 
- ::scrollbar {
-   width: 5px;
-   height: 5px;
- }
-
- ::scrollbar-track-piece {
-   background-color: rgba(0, 0, 0, 0.2);
-   border-radius: 6px;
- }
-
- ::scrollbar-thumb:vertical {
-   height: 5px;
-   background-color: rgba(125, 125, 125, 0.7);
-   border-radius: 6px;
- }
-
- ::scrollbar-thumb:horizontal {
-   width: 5px;
-   background-color: rgba(125, 125, 125, 0.7);
-   border-radius: 6px;
- }
-
  html,
  body {
    width: 100%;

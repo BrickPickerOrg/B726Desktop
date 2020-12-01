@@ -10,5 +10,5 @@ module.exports = {
   bracketSpacing: true,
   jsxBracketSameLine: true,
   proseWrap: 'always',
-  insertPragma: true
-};
+  // insertPragma: true
+}

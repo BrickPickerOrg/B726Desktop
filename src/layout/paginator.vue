@@ -39,6 +39,10 @@ import { computed, defineComponent, ref, watch } from 'vue';
 
 export default defineComponent({
   props: {
+    page: {
+      type: [Number, String],
+      default: 1
+    },
     totalPage: {
       type: Number,
       default: 1
@@ -46,7 +50,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const totalPage = computed(() => props.totalPage);
-    const currentPage = ref<number>(1);
+    const currentPage = ref<number>(parseInt(props.page.toString()));
 
     const prevDisabled = computed(() => currentPage.value === 1);
     const nextDisabled = computed(() => currentPage.value === totalPage.value);
@@ -84,16 +88,21 @@ export default defineComponent({
   align-items: center;
 
   .paginator-btn {
-    min-width: 23px;
-    padding: 2px;
+    width: 30px;
+    height: 30px;
     outline: none;
-    border: 1px solid $border-color;
+    border: 1px solid rgba($font-second-color, 0.2);
     background-color: transparent;
     color: $font-second-color;
     margin: 0 3px;
-    border-radius: 5px;
+    border-radius: 50%;
     font-weight: 500;
     cursor: pointer;
+
+    &:hover {
+      background-color: $primary-color;
+      color: $body-bg;
+    }
 
     &:disabled {
       cursor: default;
@@ -107,8 +116,8 @@ export default defineComponent({
 
     &.paginator-count-btn {
       border: none;
-
       &:hover {
+        background-color: transparent;
         color: $primary-color;
       }
 

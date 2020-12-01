@@ -1,8 +1,6 @@
-<!-- @format -->
-
 <template>
   <div class="progress">
-    <div class="loaded" :style="{ width: _progress + '%' }"></div>
+    <div class="loaded" :style="{ width: progress + '%' }"></div>
   </div>
   <div class="player-container">
     <div class="audio-player-wrapper">
@@ -14,15 +12,16 @@
       ></AudioPlayer>
     </div>
     <div class="artist-info-wrapper">
-      <img :src="playing.picUrl" class="artist-cover" />
+      <mg-loading v-show="playing.id" class="voiceprint" />
+      <img :src="playing.cover" class="artist-cover" />
       <div class="artist-text-wrapper">
-        <span class="artist-name">{{ playing.name }} {{ playing.singer }}</span>
+        <span class="artist-name">{{ playing.name }} - {{ getSingersName(playing.singer) }}</span>
         <span class="current-lyric">{{ getCurrentLyric() }}</span>
       </div>
       <div class="duration-wrapper">
-        <span class="time">{{ _position }}</span>
-        <span>·</span>
-        <span class="time">{{ _duration }}</span>
+        <span class="time">{{ position }}</span>
+        <span>/</span>
+        <span class="time">{{ duration }}</span>
       </div>
       <div class="options-wrapper">
         <button class="player-options-btn iconfont-circle-single"></button>
@@ -33,7 +32,7 @@
           @click="changePlayState(audioPlayer)"
         ></button>
         <button class="player-options-btn iconfont-next"></button>
-        <button class="player-options-btn iconfont-heart"></button>
+        <button class="player-options-btn iconfont-heart-line"></button>
       </div>
     </div>
   </div>
@@ -42,30 +41,32 @@
 <script lang="ts">
 import { useStore } from 'vuex';
 import { computed, reactive, defineComponent, ref, onMounted, watch } from 'vue';
-import { AudioPlayerState } from '@/components/player/audio_player';
-import AudioPlayer from '@/components/player/audio_player.vue';
+import { AudioPlayerState } from '@/layout/player/audio_player';
+import AudioPlayer from '@/layout/player/audio_player.vue';
 import Utils from '@/common/utils';
+import usePlayerFn from '@/methods/player.ts';
 
 export default defineComponent({
   components: {
     AudioPlayer
   },
   setup() {
+    const { getSingersName } = usePlayerFn();
     const $store = useStore();
     const playing = computed(() => $store.state.playing);
 
-    const _duration = ref<string>('00:00');
-    const _position = ref<string>('00:00');
-    const _progress = ref<number>(0);
+    const duration = ref<string>('00:00');
+    const position = ref<string>('00:00');
+    const progress = ref<number>(0);
 
-    watch(playing.value, nowPlaying => {
+    watch(playing.value, (nowPlaying) => {
       load(nowPlaying.url);
     });
 
     // 获取当前时间该显示的歌词
     let currentLyric = '';
     const getCurrentLyric = () => {
-      currentLyric = playing.value.lyric[_position.value] || currentLyric;
+      currentLyric = playing.value.lyric[position.value] || currentLyric;
       return currentLyric;
     };
 
@@ -90,10 +91,10 @@ export default defineComponent({
       !playing.value.playState ? play() : pause();
     };
 
-    const onAudioPositionChanged = (duration: number, position: number, progress: number) => {
-      _duration.value = Utils.formatSeconds(duration || 0);
-      _position.value = Utils.formatSeconds(position || 0);
-      _progress.value = progress * 100;
+    const onAudioPositionChanged = (_duration: number, _position: number, _progress: number) => {
+      duration.value = Utils.formatSeconds(_duration || 0);
+      position.value = Utils.formatSeconds(_position || 0);
+      progress.value = _progress * 100;
     };
 
     // 音频播放状态改变
@@ -120,16 +121,17 @@ export default defineComponent({
     return {
       playing,
       audioPlayer,
-      _duration,
-      _position,
-      _progress,
+      duration,
+      position,
+      progress,
       getCurrentLyric,
       changePlayState,
       load,
       play,
       pause,
       onAudioPositionChanged,
-      onPlayerStateChanged
+      onPlayerStateChanged,
+      getSingersName
     };
   }
 });
@@ -150,21 +152,25 @@ export default defineComponent({
   }
 }
 
+.voiceprint {
+  transform: scale(0.7);
+}
+
 .player-container {
-  height: 50px;
+  height: 70px;
 
   .artist-info-wrapper {
     box-sizing: border-box;
     padding: 5px;
-    height: 50px;
+  height: 70px;
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-start;
     align-items: center;
 
     .artist-cover {
-      width: 30px;
-      height: 30px;
+      width: 40px;
+      height: 40px;
       border-radius: 5px;
       margin: 10px 0 10px 10px;
     }
@@ -181,20 +187,25 @@ export default defineComponent({
 
     .artist-name {
       display: block;
-      margin-bottom: 2px;
-      font-size: 13px;
+      margin-bottom: 6px;
+      font-size: 12px;
       color: $font-color;
     }
 
     .current-lyric {
       display: block;
-      font-size: 12px;
-      color: $font-second-color;
+      font-size: 13px;
+      color: #8b919f;
+      word-break: keep-all;
+      white-space: nowrap;
+      width: 350px;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
 
     .duration-wrapper {
-      font-size: 12px;
-      color: $font-color;
+      font-size: 13px;
+      color: $font-second-color;
       transform: scale(0.8);
 
       span.time {
@@ -202,7 +213,7 @@ export default defineComponent({
         width: 35px;
         text-align: center;
         color: $font-second-color;
-        font-weight: 600;
+        font-weight: 400;
       }
     }
 
@@ -217,15 +228,16 @@ export default defineComponent({
     .player-options-btn {
       border: none;
       background: transparent;
-      font-size: 18px;
-      color: $font-second-color;
+      font-size: 23px;
+      color: rgba($font-second-color, 0.7) ;
       margin: 0 10px;
       cursor: pointer;
       outline: none;
+      font-weight: 700;
 
       &.iconfont-pause,
       &.iconfont-play {
-        font-size: 34px;
+        font-size: 39px;
         color: $primary-color;
         margin: 0;
       }

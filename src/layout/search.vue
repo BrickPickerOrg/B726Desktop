@@ -1,8 +1,12 @@
-<!-- @format -->
-
 <template>
   <div class="search-wrapper">
-    <input class="search-input" type="text" v-model="keyword" @keydown.enter="queryMusic" />
+    <input
+      class="search-input"
+      placeholder="搜索音乐"
+      type="text"
+      v-model="keyword"
+      @keydown.enter="queryMusic"
+    />
     <a class="search-submit-btn iconfont-search" href="javascript:;" @click="queryMusic"></a>
   </div>
 </template>
@@ -17,7 +21,7 @@ export default defineComponent({
     const $route = useRoute();
     const keyword = ref($route.query.keyword || '');
     const queryMusic = () => {
-      $router.push(`/result?keyword=${keyword.value.toString()}`);
+      $router.push(`/search?keyword=${keyword.value.toString()}`);
     };
 
     return {
@@ -32,19 +36,23 @@ export default defineComponent({
 @import '@/assets/styles/theme/conf.scss';
 
 .search-wrapper {
-  background-color: $card-bg;
+  background-color: $card-color;
   padding: 5px 10px;
   border-radius: 20px;
   overflow: hidden;
   margin-left: 20px;
 
   .search-input {
-    width: 230px;
+    width: 200px;
     background-color: transparent;
     outline: none;
     font-size: 12px;
-    color: $font-second-color;
+    color: $font-color;
     margin-left: 10px;
+
+    &::placeholder {
+      color: $font-second-color;
+    }
   }
 
   .search-submit-btn {

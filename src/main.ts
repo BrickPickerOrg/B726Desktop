@@ -1,17 +1,21 @@
-/** @format */
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
+import store from './store'
+import components from './components/components'
+import { LoadingDirective, Occupy } from './plugins/directive'
+import './assets/styles/theme/font.scss'
 
-import { createApp } from 'vue';
-import App from './App.vue';
-import router from './router';
-import store from './store';
-import { LoadingDirective } from './plugins/directive';
-import './assets/styles/theme/font.scss';
+const app = createApp(App)
 
-const app = createApp(App);
+for (const component in components) {
+  app.component(`mg-${component}`, components[component]) //
+}
 
-app.directive('m-loading', LoadingDirective);
+app.directive('loading', LoadingDirective)
+app.directive('occupy', Occupy)
 
 app
   .use(store)
   .use(router)
-  .mount('#app');
+  .mount('#app')

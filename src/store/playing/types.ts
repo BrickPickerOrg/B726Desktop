@@ -6,11 +6,10 @@ export interface playingState {
   name: string;
   id: string;
   cid: string;
-  singerId: string[];
-  singer: string;
+  singer: Array<{id:string, name:string}>;
   albumName?: string;
   albumId?: string;
-  picUrl?: string;
+  cover?: string;
   url?: string;
   lyric: Record<string, string>;
 }

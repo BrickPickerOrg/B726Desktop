@@ -4,6 +4,7 @@ module.exports = {
   devServer: {
     host: "localhost",
     port: 3001,
-    proxy: "http://api.migu.jsososo.com"
+    proxy: "http://localhost:3030"
+    // proxy: "http://bknds.jiajiale.site"
   }
-};
+}

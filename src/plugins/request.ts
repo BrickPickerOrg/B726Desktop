@@ -1,12 +1,9 @@
-/** @format */
-
 import { provide, inject } from 'vue';
 import Service from './service';
 
 interface ServiceModel {
   axios: any;
   req: Function;
-  get: Function;
 }
 
 export const service: ServiceModel = new Service({

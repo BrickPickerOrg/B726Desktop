@@ -1,5 +1,3 @@
-/** @format */
-
 import axios from 'axios';
 
 interface AxiosConfig {
@@ -30,9 +28,7 @@ export default class Service {
     });
 
     this.axios.interceptors.request.use(
-      (config: any) => {
-        return config;
-      },
+      (config: any) => config,
       (error: any) => {
         Promise.reject(error);
       }
@@ -50,10 +46,6 @@ export default class Service {
         }
       }
     );
-  }
-
-  get(params: any) {
-    return axios.get(params);
   }
 
   async req(params: RequestParams) {

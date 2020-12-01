@@ -1,7 +1,5 @@
-<!-- @format -->
-
 <template>
-  <div id="app">
+  <div id="app" onselectstart="return false;">
     <div class="app-container">
       <div class="layout-center">
         <div class="layout-sidebar-wrapper">
@@ -42,15 +40,18 @@ export default {
 @import '@/assets/styles/styles.scss';
 
 body {
-  background: #eee;
+  background: rgb(121, 121, 121);
 }
 
 .app-container {
   display: flex;
   flex-flow: column nowrap;
-  width: 800px;
-  height: 500px;
+  width: 1000px;
+  /* height: 600px; */
   background: $body-bg;
+  margin: 0 auto;
+  border-radius: 18px;
+  overflow: hidden;
 
   .layout-center {
     flex: 1;
@@ -58,7 +59,9 @@ body {
     flex-flow: row nowrap;
 
     .layout-sidebar-wrapper {
-      width: 100px;
+      width: 200px;
+      background-color: $sidebar-bg;
+      border-right: 1px solid $border-color;
     }
 
     .layout-main-wrapper {
@@ -67,7 +70,7 @@ body {
   }
 
   .layout-bottom {
-    height: 50px;
+    height: 70px;
     background: $player-bg;
   }
 }

@@ -13,11 +13,10 @@ const state: playingState = {
   name: '',
   id: '',
   cid: '',
-  singerId: [''],
-  singer: '',
+  singer: [{id: '', name: ''}],
   albumName: '',
   albumId: '',
-  picUrl: 'https://data.quanziapp.com/files/sBAKxwj/FEF818C9-51CF-430C-AE8A-4EE9A4C47CD1.png',
+  cover: 'https://data.quanziapp.com/files/sBAKxwj/FEF818C9-51CF-430C-AE8A-4EE9A4C47CD1.png',
   url: '',
   lyric: { '': '' }
 };
