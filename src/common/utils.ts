@@ -1,5 +1,3 @@
-/** @format */
-
 export default class Utils {
   public static formatSeconds(value: number): string {
     const secondsNumber = parseInt(value.toString());

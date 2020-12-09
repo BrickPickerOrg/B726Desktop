@@ -1,6 +1,5 @@
 <template>
   <div class="home-container">
-    <div style="width: 200px; color: #fff"></div>
     <div class="home-title">
       <span class="title">发现更多宝藏歌单</span>
       <span class="more">更多<i class="iconfont-go"></i></span>
@@ -34,27 +33,49 @@
         </div>
       </div>
     </div>
+    <div class="home-title">
+      <span class="title">新专辑抢先听</span>
+    </div>
+    <div class="album-items-wrap">
+        <div class="album-wrap" v-for="album in homeData.albums" :key="album.id">
+          <Album :album="album"></Album>
+        </div>
+      </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, watch } from 'vue';
-import { useRouter } from 'vue-router';
+import {
+  defineComponent,
+  ref,
+  computed,
+  watch
+} from 'vue';
+import {
+  useRouter
+} from 'vue-router';
 import useApi from '@/methods/api';
 import usePlayerFn from '@/methods/player.ts';
 import PlaylistItems from '@/views/playlist_items.vue';
+import Album from '@/views/album.vue';
 
 export default defineComponent({
   components: {
-    PlaylistItems
+    PlaylistItems,
+    Album
   },
 
   setup() {
     const $router = useRouter();
-    const { getSingersName, playCheckMusic } = usePlayerFn();
-    const { miGuMusicHomeApi } = useApi();
-    let occupy = ref<boolean>(true);
-    let homeData = ref<any>({});
+    const {
+      getSingersName,
+      playCheckMusic
+    } = usePlayerFn();
+    const {
+      miGuMusicHomeApi
+    } = useApi();
+    let occupy = ref < boolean > (true);
+    let homeData = ref < any > ({});
 
     const miGuMusicHome = async () => {
       occupy.value = true;
@@ -254,6 +275,12 @@ export default defineComponent({
         }
       }
     }
+  }
+
+  .album-items-wrap {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
   }
 }
 </style>
