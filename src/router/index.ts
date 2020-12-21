@@ -4,7 +4,7 @@ import Index from '../pages/index.vue';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'Index',
+    name: 'Home',
     component: Index
   },
   {
