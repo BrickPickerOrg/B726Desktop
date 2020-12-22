@@ -41,6 +41,14 @@
         <Album :album="album"></Album>
       </div>
     </div>
+    <div class="home-title">
+      <span class="title">数字专辑</span>
+    </div>
+    <div class="album-items-wrap">
+      <div class="album-wrap" v-for="digital in homeData.digital" :key="digital.id">
+        <Album :album="digital" digital></Album>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -50,7 +58,7 @@ import { useRouter } from 'vue-router';
 import useApi from '@/methods/api';
 import usePlayerFn from '@/methods/player.ts';
 import PlaylistItems from '@/views/playlist_items.vue';
-import Album from '@/views/album.vue';
+import Album from '@/views/album_item.vue';
 
 export default defineComponent({
   components: {
@@ -98,7 +106,7 @@ export default defineComponent({
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
-    margin: 30px 0 10px;
+    margin: 0 0 10px;
 
     .title {
       font-size: 18px;
@@ -120,7 +128,7 @@ export default defineComponent({
   .home-song-items-wrap {
     display: flex;
     flex-flow: row wrap;
-    margin: 20px 0;
+    margin: 20px 0 40px;
 
     .song-items-wrap-left {
       position: relative;
@@ -269,7 +277,7 @@ export default defineComponent({
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
-    margin-top: 20px;
+    margin: 20px 0 40px;
   }
 }
 </style>

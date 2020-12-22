@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="singer-songlist">
-      <SongList :musicList="singerAllSong" :hideList="['cover']"></SongList>
+      <IntroSonglist :songList="singerAllSong" :intro="singerDetail.intro"></IntroSonglist>
     </div>
     <Paginator :totalPage="totalPage" @changePage="changePage"></Paginator>
   </div>
@@ -25,12 +25,12 @@ import { defineComponent, ref, computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 import useApi from '@/methods/api';
-import SongList from '@/views/song_list.vue';
+import IntroSonglist from '@/views/intro_songlist.vue';
 import Paginator from '@/layout/paginator.vue';
 
 export default defineComponent({
   components: {
-    SongList,
+    IntroSonglist,
     Paginator
   },
 

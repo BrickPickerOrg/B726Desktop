@@ -36,6 +36,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/singer', //歌手详情
     name: 'Singer',
     component: () => import('../pages/singer/index.vue')
+  },
+  {
+    path: '/albumDetail', //专辑详情
+    name: 'AlbumDetail',
+    component: () => import('../pages/album/detail.vue')
   }
 ];
 

@@ -50,7 +50,7 @@ body {
   /* height: 600px; */
   background: $body-bg;
   margin: 0 auto;
-  border-radius: 18px;
+  border-radius: 3px;
   overflow: hidden;
 
   .layout-center {

@@ -36,8 +36,8 @@ export default defineComponent({
 @import '@/assets/styles/theme/conf.scss';
 
 .search-wrapper {
-  background-color: $card-color;
-  padding: 5px 10px;
+  background-color: rgba($font-second-color, 0.15);
+  padding: 7px 10px;
   border-radius: 20px;
   overflow: hidden;
   margin-left: 20px;

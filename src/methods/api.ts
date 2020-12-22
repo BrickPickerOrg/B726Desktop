@@ -102,6 +102,17 @@ const useApi = () => {
     })
   }
 
+  // 专辑详情
+  const getAlbumDetailApi = ({ id = '' }) => {
+    return service.req({
+      url: '/migu/album/album_detail',
+      data: {
+        id,
+      }
+    })
+  }
+
+
   return {
     miGuMusicHomeApi,
     queryMiGuMusicByKeywordApi,
@@ -112,7 +123,8 @@ const useApi = () => {
     getPlaylistItemsApi,
     getPlaylistDetailApi,
     getSingerDetailApi,
-    getSingerAllSongApi
+    getSingerAllSongApi,
+    getAlbumDetailApi
   }
 }
 

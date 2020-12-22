@@ -41,7 +41,7 @@
             </p>
           </td>
           <td v-if="!hideList.includes('album')">
-            <p class="ellipsis-text" style="max-width: 170px" :title="getAlbumName(item.album)">
+            <p class="ellipsis-text album-name" style="max-width: 170px" :title="getAlbumName(item.album)" @click.stop="viewAlbumDetail(item.album.id)">
               {{ getAlbumName(item.album) }}
             </p>
           </td>
@@ -89,13 +89,23 @@ export default defineComponent({
       });
     };
 
+    const viewAlbumDetail = (id: string) => {
+      $router.push({
+        path: `/albumDetail`,
+        query: {
+          id
+        }
+      });
+    };
+
     return {
       playing,
       getSingersName,
       getAlbumName,
       playCheckMusic,
       isPlayingMusic,
-      viewSingerDetail
+      viewSingerDetail,
+      viewAlbumDetail
     };
   }
 });
@@ -186,6 +196,14 @@ export default defineComponent({
       span {
         color: $font-second-color;
       }
+    }
+  }
+
+  .album-name {
+    cursor: pointer;
+
+    &:hover {
+      color: $primary-color;
     }
   }
 

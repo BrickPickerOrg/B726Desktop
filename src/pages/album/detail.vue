@@ -2,25 +2,30 @@
   <div class="detail-container">
     <div class="detail-content-header" v-occupy="occupy">
       <div class="cover-wrap" data-occupy="occupy">
-        <mg-image :src="playlistDetail.cover" alt="" class="cover-img" />
+        <mg-image :src="albumDetail.cover" alt="" class="cover-img" />
       </div>
       <div class="detail-content-header-info">
-        <span class="name" data-occupy="occupy">{{ playlistDetail.name }}</span>
-        <div class="tag-wrap">
-          <div class="tag" v-for="(tag, index) in playlistDetail.tags" :key="tag.id">
+        <span class="name" data-occupy="occupy">{{ albumDetail.albumName }}</span>
+        <div class="singer-wrap">
+          <div
+            class="singer"
+            v-for="(singer, index) in albumDetail.singers"
+            :key="singer.id"
+            @click.stop="viewSingerDetail(singer.id)"
+          >
             <span class="line" v-show="index !== 0">/</span>
-            <span>{{ tag.title }}</span>
+            <span>{{ singer.name }}</span>
           </div>
         </div>
         <div class="info-button-wrap" data-occupy="occupy">
           <div class="info-button fill-button"><i class="iconfont-play"></i>播放全部</div>
           <div class="info-button"><i class="iconfont-download"></i>全部下载</div>
         </div>
-        <span class="intro" data-occupy="occupy">{{ playlistDetail.intro }}</span>
+        <span class="intro" data-occupy="occupy">{{ albumDetail.intro }}</span>
       </div>
     </div>
     <div class="detail-songlist">
-      <IntroSonglist :songList="playlistDetail.songList" :intro="playlistDetail.intro"></IntroSonglist>
+      <IntroSonglist :songList="albumDetail.songList" :intro="albumDetail.intro"></IntroSonglist>
     </div>
   </div>
 </template>
@@ -38,25 +43,36 @@ export default defineComponent({
   },
 
   setup() {
-    const { getPlaylistDetailApi } = useApi();
+    const { getAlbumDetailApi } = useApi();
+    const $router = useRouter();
     const $route = useRoute();
     let occupy = ref<Boolean>(true);
-    let playlistDetail = ref<any>({});
+    let albumDetail = ref<any>({});
 
-    const getPlaylistDetail = async (id: String) => {
+    const getAlbumDetail = async (id: String) => {
       occupy.value = true;
-      const playlistDetailRes: any = await getPlaylistDetailApi({
+      const albumDetailRes: any = await getAlbumDetailApi({
         id: <string>id
       });
       occupy.value = false;
-      playlistDetail.value = playlistDetailRes.data;
+      albumDetail.value = albumDetailRes.data;
     };
 
-    getPlaylistDetail(<string>$route.query.id);
+    getAlbumDetail(<string>$route.query.id);
+
+    const viewSingerDetail = (id: string) => {
+      $router.push({
+        path: `/singer`,
+        query: {
+          id
+        }
+      });
+    };
 
     return {
       occupy,
-      playlistDetail
+      albumDetail,
+      viewSingerDetail
     };
   }
 });
@@ -120,11 +136,11 @@ export default defineComponent({
         -webkit-line-clamp: 2;
       }
 
-      .tag-wrap {
+      .singer-wrap {
         display: flex;
         flex-flow: row nowrap;
 
-        .tag {
+        .singer {
           font-size: 12px;
           border-radius: 20px;
 

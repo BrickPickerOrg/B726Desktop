@@ -1,10 +1,10 @@
 <template>
-  <div class="album-item-wrap" v-occupy="ownOccupy">
+  <div :class="digital ? 'digital-item-wrap' : 'album-item-wrap'" v-occupy="ownOccupy">
     <!-- <div class="cover-img-wrap" data-occupy="occupy"> -->
-    <div class="cover-img-wrap">
+    <div class="cover-img-wrap" @click.stop="viewAlbumDetail(ownAlbum.id)">
       <mg-image :src="ownAlbum.coverUrl" :alt="ownAlbum.albumName" class="cover-img" />
-      <div class="digital-tag">数字专辑</div>
-      <span class="update-time"><i class="iconfont-headset"></i> {{ ownAlbum.time }}</span>
+      <div class="digital-tag" v-if="digital">数字专辑</div>
+      <span class="update-time">{{ ownAlbum.time }}</span>
     </div>
     <!-- <div class="playlist-name" data-occupy="occupy"> -->
     <div class="playlist-name">
@@ -27,6 +27,10 @@ export default defineComponent({
     album: {
       type: Object,
       default: () => {}
+    },
+    digital: {
+      type: Boolean,
+      default: false
     },
     occupy: {
       type: Boolean,
@@ -62,9 +66,10 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@/assets/styles/theme/conf.scss';
 
-.album-item-wrap {
+.album-item-wrap,
+.digital-item-wrap {
   position: relative;
-  width: 135px;
+  width: 145px;
   height: 155px;
   background-image: url('https://cdnmusic.migu.cn/v3/static/img/index/album-cover-gold.png');
   background-size: 115px auto;
@@ -102,8 +107,35 @@ export default defineComponent({
     font-size: 12px;
   }
 
+  .digital-tag {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    background-color: rgba($primary-color, 0.8);
+    padding: 4px 5px;
+    font-size: 12px;
+    border-radius: 6px 0 6px 0;
+    color: $body-bg;
+  }
+
+  .update-time {
+    position: absolute;
+    bottom: 2px;
+    right: 0;
+    background-color: rgba($body-bg, 0.9);
+    padding: 4px 6px;
+    font-size: 12px;
+    border-radius: 16px;
+    color: $font-color;
+    transform: scale(0.8);
+  }
+
   &:hover {
     background-position: 23px 5px;
   }
+}
+
+.album-item-wrap {
+  background-image: url('https://cdnmusic.migu.cn/v3/static/img/index/album-cover.png');
 }
 </style>
