@@ -1,4 +1,6 @@
 import axios from 'axios';
+import fileDownload from 'js-file-download';
+import JsFileDownloader from 'js-file-downloader';
 
 interface AxiosConfig {
   baseUrl: string;
@@ -46,6 +48,13 @@ export default class Service {
         }
       }
     );
+  }
+
+  async download(url: string, filename: string) {
+    // const res = this.axios.get(url, { responseType: 'blob' })
+    // fileDownload(res.data, filename);
+
+    new JsFileDownloader({ url: url })
   }
 
   async req(params: RequestParams) {

@@ -1,6 +1,7 @@
 <template>
   <div class="progress">
     <div class="loaded" :style="{ width: progress + '%' }"></div>
+    <div class="range" :style="{ left: progress - 0.5 + '%' }"></div>
   </div>
   <div class="player-container">
     <div class="audio-player-wrapper">
@@ -40,27 +41,38 @@
 
 <script lang="ts">
 import { useStore } from 'vuex';
-import { computed, reactive, defineComponent, ref, onMounted, watch } from 'vue';
+import { computed, defineComponent, ref, watch } from 'vue';
 import { AudioPlayerState } from '@/layout/player/audio_player';
 import AudioPlayer from '@/layout/player/audio_player.vue';
 import Utils from '@/common/utils';
 import usePlayerFn from '@/methods/player.ts';
 
 export default defineComponent({
+  props: ['moveProgress'],
+
   components: {
     AudioPlayer
   },
-  setup() {
+
+  setup(props) {
     const { getSingersName } = usePlayerFn();
+
     const $store = useStore();
     const playing = computed(() => $store.state.playing);
+    const moveProgress = ref(() => props.moveProgress);
 
     const duration = ref<string>('00:00');
     const position = ref<string>('00:00');
-    const progress = ref<number>(0);
+    const progress = ref(0);
+
+    const mouseDown = ref(false);
 
     watch(playing.value, (nowPlaying) => {
       load(nowPlaying.url);
+    });
+
+    watch(moveProgress.value, (moveProgress) => {
+      progress.value = moveProgress;
     });
 
     // 获取当前时间该显示的歌词
@@ -86,15 +98,21 @@ export default defineComponent({
       $store.dispatch('playing/setPlayState', false);
     };
 
+    const seek = () => {
+      audioPlayer.value.seek(progress.value);
+    };
+
     const changePlayState = () => {
       if (!playing.value.url) return;
       !playing.value.playState ? play() : pause();
     };
 
     const onAudioPositionChanged = (_duration: number, _position: number, _progress: number) => {
-      duration.value = Utils.formatSeconds(_duration || 0);
-      position.value = Utils.formatSeconds(_position || 0);
-      progress.value = _progress * 100;
+      if (!mouseDown.value) {
+        duration.value = Utils.formatSeconds(_duration || 0);
+        position.value = Utils.formatSeconds(_position || 0);
+        progress.value = _progress * 100;
+      }
     };
 
     // 音频播放状态改变
@@ -118,6 +136,21 @@ export default defineComponent({
       }
     };
 
+    const rangeMousedown = () => {
+      mouseDown.value = true;
+    };
+
+    const rangeMousemove = () => {};
+
+    const rangeMouseleave = (e: any) => {
+      mouseDown.value = false;
+    };
+
+    const rangeMouseup = (e: any) => {
+      if (mouseDown.value) seek();
+      mouseDown.value = false;
+    };
+
     return {
       playing,
       audioPlayer,
@@ -129,9 +162,14 @@ export default defineComponent({
       load,
       play,
       pause,
+      seek,
       onAudioPositionChanged,
       onPlayerStateChanged,
-      getSingersName
+      getSingersName,
+      rangeMousedown,
+      rangeMousemove,
+      rangeMouseleave,
+      rangeMouseup
     };
   }
 });
@@ -145,10 +183,30 @@ export default defineComponent({
   flex-flow: row nowrap;
   height: 2px;
   background-color: rgba($border-color, 0.5);
+  position: relative;
 
   .loaded {
     height: 2px;
     background-color: $primary-color;
+  }
+
+  .range {
+    display: none;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: -4px;
+    left: 0;
+    border-radius: 50%;
+    background-color: $primary-color;
+    box-shadow: 0 0 10px 2px rgba($primary-color, 0.6);
+    /* cursor: ew-resize; */
+  }
+
+  &:hover {
+    .range {
+      display: block;
+    }
   }
 }
 
@@ -162,7 +220,7 @@ export default defineComponent({
   .artist-info-wrapper {
     box-sizing: border-box;
     padding: 5px;
-  height: 70px;
+    height: 70px;
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-start;
@@ -229,7 +287,7 @@ export default defineComponent({
       border: none;
       background: transparent;
       font-size: 23px;
-      color: rgba($font-second-color, 0.7) ;
+      color: rgba($font-second-color, 0.7);
       margin: 0 10px;
       cursor: pointer;
       outline: none;

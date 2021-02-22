@@ -4,6 +4,7 @@
       <thead>
         <tr>
           <th v-if="!hideList.includes('index')" width="64px"></th>
+          <th width="60px"></th>
           <th v-if="!hideList.includes('cover')" width="30px">封面</th>
           <th v-if="!hideList.includes('name')">歌曲名</th>
           <th v-if="!hideList.includes('singer')">歌手</th>
@@ -18,6 +19,9 @@
               <span v-show="!isPlayingMusic(item)" class="music-index">{{ index + 1 }}</span>
               <a class="music-list-btn iconfont-heart-line" href="javascript:;"></a>
             </div>
+          </td>
+          <td>
+            <a @click="getMiGuMusicAudioUrl(item)">立即下载</a>
           </td>
           <td v-if="!hideList.includes('cover')">
             <div class="cover-wrap">
@@ -52,11 +56,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import usePlayerFn from '@/methods/player.ts';
 import { SONG_LIST_ITEMS_PLACEHOLDR } from './placeholder_data';
+import useRequests from '@/methods/api.ts';
 
 export default defineComponent({
   props: {
@@ -72,6 +77,7 @@ export default defineComponent({
 
   setup(props) {
     const { getSingersName, getAlbumName, playCheckMusic } = usePlayerFn();
+    const { getMiGuMusicAudioUrlApi } = useRequests();
     const $router = useRouter();
     const $store = useStore();
     const playing = computed(() => $store.state.playing);
@@ -98,6 +104,22 @@ export default defineComponent({
       });
     };
 
+    const getMiGuMusicAudioUrl = async (song: any) => {
+      let url
+      try {
+        const audioUrl = await getMiGuMusicAudioUrlApi({
+          id: song.id,
+          name: song.songName,
+          singer: getSingersName(song.singers)
+        });
+        url = audioUrl.data.url;
+        window.open(url)
+      } catch (error) {
+        url = ''
+      }
+      return url
+    }
+
     return {
       playing,
       getSingersName,
@@ -105,7 +127,8 @@ export default defineComponent({
       playCheckMusic,
       isPlayingMusic,
       viewSingerDetail,
-      viewAlbumDetail
+      viewAlbumDetail,
+      getMiGuMusicAudioUrl
     };
   }
 });

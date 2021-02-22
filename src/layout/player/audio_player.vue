@@ -50,7 +50,10 @@ export default defineComponent({
     };
 
     // 设置播放进度 progress 值0到1
-    const seek = (progress: number) => {};
+    const seek = (progress: number) => {
+      const duration = (audioPlayer.value as HTMLMediaElement).duration;
+      (audioPlayer.value as HTMLMediaElement).currentTime = duration * ( progress / 100);
+    };
 
     const timeupdateHandle = (event: Event) => {
       const audioPlayer = event.target as HTMLMediaElement;
@@ -74,6 +77,7 @@ export default defineComponent({
       load,
       play,
       pause,
+      seek,
       canplayHandle,
       timeupdateHandle,
       errorHandle,
