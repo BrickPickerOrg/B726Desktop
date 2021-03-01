@@ -4,11 +4,11 @@
       <thead>
         <tr>
           <th v-if="!hideList.includes('index')" width="64px"></th>
-          <th width="60px"></th>
           <th v-if="!hideList.includes('cover')" width="30px">封面</th>
           <th v-if="!hideList.includes('name')">歌曲名</th>
           <th v-if="!hideList.includes('singer')">歌手</th>
           <th v-if="!hideList.includes('album')">专辑</th>
+          <th width="60px"></th>
         </tr>
       </thead>
       <tbody>
@@ -19,9 +19,6 @@
               <span v-show="!isPlayingMusic(item)" class="music-index">{{ index + 1 }}</span>
               <a class="music-list-btn iconfont-heart-line" href="javascript:;"></a>
             </div>
-          </td>
-          <td>
-            <a @click="getMiGuMusicAudioUrl(item)">立即下载</a>
           </td>
           <td v-if="!hideList.includes('cover')">
             <div class="cover-wrap">
@@ -48,6 +45,9 @@
             <p class="ellipsis-text album-name" style="max-width: 170px" :title="getAlbumName(item.album)" @click.stop="viewAlbumDetail(item.album.id)">
               {{ getAlbumName(item.album) }}
             </p>
+          </td>
+          <td>
+            <a @click="getMiGuMusicAudioUrl(item)">获取音频</a>
           </td>
         </tr>
       </tbody>

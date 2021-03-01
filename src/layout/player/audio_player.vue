@@ -17,7 +17,7 @@
 <script lang="ts">
 import { defineComponent, ref, SetupContext } from 'vue';
 import { AudioPlayerState } from './audio_player';
-import Utils from '@/common/utils';
+// import Utils from '@/common/utils';
 
 export default defineComponent({
   setup(props, { emit }: SetupContext) {
@@ -49,7 +49,7 @@ export default defineComponent({
       emit('onPlayerStateChanged', AudioPlayerState.CANPLAY);
     };
 
-    // 设置播放进度 progress 值0到1
+    // 设置播放进度 progress
     const seek = (progress: number) => {
       const duration = (audioPlayer.value as HTMLMediaElement).duration;
       (audioPlayer.value as HTMLMediaElement).currentTime = duration * ( progress / 100);
