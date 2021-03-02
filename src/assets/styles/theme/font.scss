@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'iconfont';  /* project id 1989956 */
-  src: url('//at.alicdn.com/t/font_1989956_kkvin3mt7wi.eot');
-  src: url('//at.alicdn.com/t/font_1989956_kkvin3mt7wi.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_1989956_kkvin3mt7wi.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_1989956_kkvin3mt7wi.woff') format('woff'),
-  url('//at.alicdn.com/t/font_1989956_kkvin3mt7wi.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_1989956_kkvin3mt7wi.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_1989956_kbuxs94eatb.eot');
+  src: url('//at.alicdn.com/t/font_1989956_kbuxs94eatb.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1989956_kbuxs94eatb.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1989956_kbuxs94eatb.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1989956_kbuxs94eatb.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1989956_kbuxs94eatb.svg#iconfont') format('svg');
 }
 
 [class^="iconfont-"],
@@ -85,9 +85,13 @@
 }
 
 .iconfont-download:before {
-  content: "\e604";
+  content: "\e609";
 }
 
 .iconfont-headset:before {
   content: "\e605";
+}
+
+.iconfont-volume:before {
+  content: "\e629";
 }

@@ -34,6 +34,8 @@
         ></button>
         <button class="player-options-btn iconfont-next"></button>
         <button class="player-options-btn iconfont-heart-line"></button>
+        <button class="player-options-btn iconfont-volume"></button>
+        <Volume @volumeChange="volumeChangeHandle"></Volume>
       </div>
     </div>
   </div>
@@ -43,6 +45,7 @@
 import { useStore } from 'vuex';
 import { computed, defineComponent, ref, watch } from 'vue';
 import { AudioPlayerState } from '@/layout/player/audio_player';
+import Volume from '@/layout/volume/volume.vue';
 import AudioPlayer from '@/layout/player/audio_player.vue';
 import Utils from '@/common/utils';
 import usePlayerFn from '@/methods/player.ts';
@@ -51,7 +54,8 @@ export default defineComponent({
   props: ['moveProgress'],
 
   components: {
-    AudioPlayer
+    AudioPlayer,
+    Volume
   },
 
   setup(props) {
@@ -151,6 +155,11 @@ export default defineComponent({
       mouseDown.value = false;
     };
 
+    // 调节音频音量大小
+    const volumeChangeHandle = (volume: number) => {
+      audioPlayer.value.setVolume(volume);
+    }
+
     return {
       playing,
       audioPlayer,
@@ -169,7 +178,8 @@ export default defineComponent({
       rangeMousedown,
       rangeMousemove,
       rangeMouseleave,
-      rangeMouseup
+      rangeMouseup,
+      volumeChangeHandle
     };
   }
 });
@@ -256,7 +266,7 @@ export default defineComponent({
       color: #8b919f;
       word-break: keep-all;
       white-space: nowrap;
-      width: 350px;
+      width: 320px;
       text-overflow: ellipsis;
       overflow: hidden;
     }

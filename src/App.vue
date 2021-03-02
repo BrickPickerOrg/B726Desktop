@@ -36,7 +36,7 @@ export default {
     // 注册全局request请求
     provideRequest();
 
-    const container = ref<HTMLMediaElement>();
+    const container = ref<HTMLElement>();
     const layoutFooter = ref();
     
     const mouseDown = ref(false);

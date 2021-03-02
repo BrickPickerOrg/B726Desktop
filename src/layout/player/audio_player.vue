@@ -17,7 +17,6 @@
 <script lang="ts">
 import { defineComponent, ref, SetupContext } from 'vue';
 import { AudioPlayerState } from './audio_player';
-// import Utils from '@/common/utils';
 
 export default defineComponent({
   setup(props, { emit }: SetupContext) {
@@ -44,17 +43,25 @@ export default defineComponent({
       emit('onPlayerStateChanged', AudioPlayerState.PAUSED);
     };
 
-    const canplayHandle = (event: Event) => {
-      const audioPlayer = event.target as HTMLMediaElement;
+    const canplayHandle = () => {
       emit('onPlayerStateChanged', AudioPlayerState.CANPLAY);
     };
 
-    // 设置播放进度 progress
+    // 设置播放进度
     const seek = (progress: number) => {
       const duration = (audioPlayer.value as HTMLMediaElement).duration;
       (audioPlayer.value as HTMLMediaElement).currentTime = duration * ( progress / 100);
     };
 
+    // 设置播放器音量
+    const setVolume = (volume: number) => {
+      (audioPlayer.value as HTMLMediaElement).volume = volume;
+    }
+
+    // 音量改变时触发
+    const volumeChangeHandle = () => {};
+
+    // 播放中
     const timeupdateHandle = (event: Event) => {
       const audioPlayer = event.target as HTMLMediaElement;
       const duration = audioPlayer.duration;
@@ -68,9 +75,6 @@ export default defineComponent({
     // 播放结束
     const endedHandle = () => {};
 
-    // 音量改变时触发
-    const volumeChangeHandle = () => {};
-
     return {
       audioUrl,
       audioPlayer,
@@ -79,6 +83,7 @@ export default defineComponent({
       pause,
       seek,
       canplayHandle,
+      setVolume,
       timeupdateHandle,
       errorHandle,
       endedHandle,
