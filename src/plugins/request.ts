@@ -7,7 +7,7 @@ interface ServiceModel {
 }
 
 export const service: ServiceModel = new Service({
-  baseUrl: process.env.VUE_APP_API_BASE_URL,
+  baseUrl: 'http://bknds.jiajiale.site',
   timeout: 5000
 });
 
@@ -15,9 +15,11 @@ const RequestSymbol = Symbol();
 const _request = () => {
   return service;
 };
+
 export function provideRequest() {
   provide(RequestSymbol, _request);
 }
+
 export function useRequest(): ServiceModel {
   const request: Function | undefined = inject(RequestSymbol);
   if (!request) {

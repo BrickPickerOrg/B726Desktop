@@ -60,12 +60,12 @@ export default {
       }
     };
 
-    const mouseleave = (e: any) => {
+    const mouseleave = () => {
       mouseDown.value = false;
       layoutFooter.value.rangeMouseleave()
     };
 
-    const mouseup = (e: any) => {
+    const mouseup = () => {
       mouseDown.value = false;
       layoutFooter.value.rangeMouseup()
     };
@@ -94,6 +94,7 @@ export default {
 
 body {
   background: rgb(121, 121, 121);
+  overflow: hidden;
 }
 
 .app-container {
