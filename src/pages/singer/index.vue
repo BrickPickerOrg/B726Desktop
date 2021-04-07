@@ -23,7 +23,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import useApi from '@/methods/api';
+import useApi from '@/plugins/api';
 import IntroSonglist from '@/views/intro_songlist.vue';
 import Paginator from '@/layout/paginator.vue';
 

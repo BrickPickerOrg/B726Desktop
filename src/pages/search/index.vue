@@ -8,7 +8,7 @@
 <script lang="ts">
 import { defineComponent, ref, computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import useApi from '@/methods/api';
+import useApi from '@/plugins/api';
 import SongList from '@/views/song_list.vue';
 import Paginator from '@/layout/paginator.vue';
 

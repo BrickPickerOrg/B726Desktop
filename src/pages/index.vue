@@ -54,8 +54,8 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import useApi from '@/methods/api';
-import usePlayerFn from '@/methods/player';
+import useApi from '@/plugins/api';
+import usePlayerFn from '@/plugins/player';
 import PlaylistItems from '@/views/playlist_items.vue';
 import Album from '@/views/album_item.vue';
 

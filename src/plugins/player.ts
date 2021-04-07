@@ -1,5 +1,5 @@
 import { useStore } from 'vuex'
-import useRequests from '@/methods/api'
+import useRequests from '@/plugins/api'
 import useLocalListHandle from "@/plugins/localList";
 
 interface Singer {

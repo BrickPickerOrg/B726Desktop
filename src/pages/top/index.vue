@@ -37,7 +37,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import useApi from '@/methods/api';
+import useApi from '@/plugins/api';
 import TOP_DATA from '@/layout/sidebar/top';
 import SongList from '@/views/song_list.vue';
 

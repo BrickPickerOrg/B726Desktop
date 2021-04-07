@@ -89,9 +89,9 @@
 import { defineComponent, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import usePlayerFn from "@/methods/player";
+import usePlayerFn from "@/plugins/player";
 import { SONG_LIST_ITEMS_PLACEHOLDR } from "./placeholder_data";
-import useRequests from "@/methods/api";
+import useRequests from "@/plugins/api";
 
 export default defineComponent({
   props: {

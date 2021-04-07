@@ -17,10 +17,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, watch } from 'vue';
+import { defineComponent, computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { PLAYLIST_ITEMS_PLACEHOLDR } from './placeholder_data';
-import usePlayerFn from '@/methods/player.ts';
+import usePlayerFn from '@/plugins/player';
 
 export default defineComponent({
   props: {

@@ -19,7 +19,7 @@ const useLocalListHandle = () => {
   // 列表新增歌曲
   const insertMusicToList = (music: Music) => {
     if (!isListBeIncluded(music.id)) {
-      list.push(music)
+      list.unshift(music)
       saveLocalList()
     }
   }

@@ -51,7 +51,7 @@ import { AudioPlayerState } from "@/layout/player/audio_player";
 import Volume from "@/layout/volume/volume.vue";
 import AudioPlayer from "@/layout/player/audio_player.vue";
 import Utils from "@/common/utils";
-import usePlayerFn from "@/methods/player";
+import usePlayerFn from "@/plugins/player";
 import { useRouter } from 'vue-router';
 
 export default defineComponent({
