@@ -12,23 +12,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
-import MENU from './menu';
+import { defineComponent } from "vue";
+import MENU from "./menu";
 
 export default defineComponent({
-  setup(props, { emit }) {
+  setup() {
     const sidebarData = MENU;
     return {
-      sidebarData
+      sidebarData,
     };
-  }
+  },
 });
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/theme/conf.scss';
+@import "@/assets/styles/theme/conf.scss";
 
 .sidebar-container {
+  padding: 20px 0 0 0;
   .menu-item {
     margin: 15px 0;
     font-size: 13px;
@@ -64,7 +65,7 @@ export default defineComponent({
         bottom: 0;
         width: 0;
         display: block;
-        content: '';
+        content: "";
         border-left: 4px solid transparent;
         transition: all 600ms;
       }

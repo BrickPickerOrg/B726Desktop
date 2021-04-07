@@ -7,66 +7,86 @@
       <div class="detail-content-header-info">
         <span class="name" data-occupy="occupy">{{ playlistDetail.name }}</span>
         <div class="tag-wrap">
-          <div class="tag" v-for="(tag, index) in playlistDetail.tags" :key="tag.id">
+          <div
+            class="tag"
+            v-for="(tag, index) in playlistDetail.tags"
+            :key="tag.id"
+          >
             <span class="line" v-show="index !== 0">/</span>
             <span>{{ tag.title }}</span>
           </div>
         </div>
         <div class="info-button-wrap" data-occupy="occupy">
-          <div class="info-button fill-button"><i class="iconfont-play"></i>播放全部</div>
-          <div class="info-button"><i class="iconfont-download"></i>全部下载</div>
+          <div class="info-button fill-button" @click.stop="playAll">
+            <i class="iconfont-play"></i>播放全部
+          </div>
+          <div class="info-button">
+            <i class="iconfont-download"></i>全部下载
+          </div>
         </div>
-        <span class="intro" data-occupy="occupy">{{ playlistDetail.intro }}</span>
+        <span class="intro" data-occupy="occupy">{{
+          playlistDetail.intro
+        }}</span>
       </div>
     </div>
     <div class="detail-songlist">
-      <IntroSonglist :songList="playlistDetail.songList" :intro="playlistDetail.intro"></IntroSonglist>
+      <IntroSonglist
+        :songList="playlistDetail.songList"
+        :intro="playlistDetail.intro"
+      ></IntroSonglist>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { useStore } from 'vuex';
-import useApi from '@/methods/api';
-import IntroSonglist from '@/views/intro_songlist.vue';
+import { defineComponent, ref } from "vue";
+import { useRoute } from "vue-router";
+import useApi from "@/methods/api";
+import IntroSonglist from "@/views/intro_songlist.vue";
+import usePlayerFn from '@/methods/player';
 
 export default defineComponent({
   components: {
-    IntroSonglist
+    IntroSonglist,
   },
 
   setup() {
     const { getPlaylistDetailApi } = useApi();
+    const { playAllList } = usePlayerFn();
+
     const $route = useRoute();
     let occupy = ref<Boolean>(true);
     let playlistDetail = ref<any>({});
 
-    const getPlaylistDetail = async (id: String) => {
+    const getPlaylistDetail = async (id: string) => {
       occupy.value = true;
       const playlistDetailRes: any = await getPlaylistDetailApi({
-        id: <string>id
+        id,
       });
       occupy.value = false;
       playlistDetail.value = playlistDetailRes.data;
     };
 
-    getPlaylistDetail(<string>$route.query.id);
+    const playAll = () => {
+      playAllList(playlistDetail.value.songList)
+    }
+
+    getPlaylistDetail($route.query.id as string);
 
     return {
       occupy,
-      playlistDetail
+      playlistDetail,
+      playAll
     };
-  }
+  },
 });
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/theme/conf.scss';
+@import "@/assets/styles/theme/conf.scss";
 
 .detail-container {
-  height: 509px;
+  height: 528px;
   overflow-x: hidden;
 
   .detail-content-header {

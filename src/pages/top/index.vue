@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, watch } from 'vue';
+import { defineComponent, ref } from 'vue';
 import useApi from '@/methods/api';
 import TOP_DATA from '@/layout/sidebar/top';
 import SongList from '@/views/song_list.vue';
@@ -53,15 +53,15 @@ export default defineComponent({
     let checkedTopType = ref<any>(topTypes.value[0]['types'][0]);
     let topMusicInfo = ref<any>({});
 
-    const getListByTopType = async (type: String) => {
+    const getListByTopType = async (type: string) => {
       occupy.value = true;
-      const topListRes: any = await getListByTopTypeApi({ type: <string>type });
+      const topListRes: any = await getListByTopTypeApi({ type: type });
       occupy.value = false;
       topMusicInfo.value = topListRes.data;
     };
 
     // 选择排行榜类型
-    const checkTopType = (topType: { typeName: String; typeCode: String }) => {
+    const checkTopType = (topType: { typeName: string; typeCode: string }) => {
       checkedTopType.value = topType;
       getListByTopType(topType['typeCode']);
     };
@@ -83,7 +83,7 @@ export default defineComponent({
 @import '@/assets/styles/theme/conf.scss';
 
 .top-container {
-  height: 508px;
+  height: 528px;
   overflow-x: hidden;
   display: flex;
   flex-flow: row nowrap;
@@ -118,7 +118,7 @@ export default defineComponent({
   }
 
   .top-content {
-    height: 508px;
+    height: 528px;
     overflow-x: hidden;
   }
 

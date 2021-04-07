@@ -38,9 +38,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, watch } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useStore } from 'vuex';
 import { LIST_ITEMS_PLACEHOLDR, PLAYLIST_TYPES } from './playlist';
 import useApi from '@/methods/api';
 import Paginator from '@/layout/paginator.vue';
@@ -145,7 +144,7 @@ export default defineComponent({
 @import '@/assets/styles/theme/conf.scss';
 
 .playlist-items-container {
-  height: 508px;
+  height: 528px;
   overflow-x: hidden;
   padding: 10px 20px 0 20px;
   box-sizing: border-box;

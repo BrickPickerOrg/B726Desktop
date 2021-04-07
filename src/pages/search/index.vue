@@ -8,7 +8,7 @@
 <script lang="ts">
 import { defineComponent, ref, computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import useApi from '@/methods/api.ts';
+import useApi from '@/methods/api';
 import SongList from '@/views/song_list.vue';
 import Paginator from '@/layout/paginator.vue';
 
@@ -27,7 +27,7 @@ export default defineComponent({
 
     const queryMiGuMusic = async (page = 1) => {
       const queryRes: any = await queryMiGuMusicByKeywordApi({
-        text: <string>keyword.value,
+        text: keyword.value as string,
         page: page
       });
       musicList.value = queryRes.data;
@@ -38,7 +38,7 @@ export default defineComponent({
       queryMiGuMusic(page);
     };
 
-    watch(keyword, (newKeyword) => {
+    watch(keyword, () => {
       queryMiGuMusic();
     });
 
@@ -58,7 +58,7 @@ export default defineComponent({
 @import '@/assets/styles/theme/conf.scss';
 
 .result-container {
-  height: 509px;
+  height: 528px;
   overflow-x: hidden;
 }
 </style>

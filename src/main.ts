@@ -5,6 +5,7 @@ import store from './store'
 import components from './components/components'
 import { LoadingDirective, Occupy } from './plugins/directive'
 import './assets/styles/theme/font.scss'
+import { downloadFile } from './win/download'
 
 const app = createApp(App)
 

@@ -37,13 +37,13 @@ export default defineComponent({
 
 .search-wrapper {
   background-color: rgba($font-second-color, 0.15);
-  padding: 7px 10px;
+  padding: 9px 10px;
   border-radius: 20px;
   overflow: hidden;
   margin-left: 20px;
 
   .search-input {
-    width: 200px;
+    width: 170px;
     background-color: transparent;
     outline: none;
     font-size: 12px;
@@ -62,6 +62,7 @@ export default defineComponent({
     height: 20px;
     line-height: 20px;
     text-align: center;
+    font-size: 20px;
   }
 }
 </style>

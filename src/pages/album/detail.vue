@@ -31,9 +31,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, watch } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useStore } from 'vuex';
 import useApi from '@/methods/api';
 import IntroSonglist from '@/views/intro_songlist.vue';
 
@@ -52,13 +51,13 @@ export default defineComponent({
     const getAlbumDetail = async (id: String) => {
       occupy.value = true;
       const albumDetailRes: any = await getAlbumDetailApi({
-        id: <string>id
+        id: id as string
       });
       occupy.value = false;
       albumDetail.value = albumDetailRes.data;
     };
 
-    getAlbumDetail(<string>$route.query.id);
+    getAlbumDetail($route.query.id as string);
 
     const viewSingerDetail = (id: string) => {
       $router.push({
@@ -82,7 +81,7 @@ export default defineComponent({
 @import '@/assets/styles/theme/conf.scss';
 
 .detail-container {
-  height: 509px;
+  height: 528px;
   overflow-x: hidden;
 
   .detail-content-header {

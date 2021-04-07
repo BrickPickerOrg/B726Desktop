@@ -21,9 +21,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, watch } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { useStore } from 'vuex';
 import useApi from '@/methods/api';
 import IntroSonglist from '@/views/intro_songlist.vue';
 import Paginator from '@/layout/paginator.vue';
@@ -46,7 +45,7 @@ export default defineComponent({
     const getSingerDetail = async (id: string) => {
       occupy.value = true;
       const singerDetailRes: any = await getSingerDetailApi({
-        id: <string>id
+        id: id as string
       });
       occupy.value = false;
       singerDetail.value = singerDetailRes.data;
@@ -54,19 +53,19 @@ export default defineComponent({
 
     const getSingerAllSong = async (id: string, page: number) => {
       const singerAllSongRes: any = await getSingerAllSongApi({
-        id: <string>id,
-        page: <number>page
+        id: id as string,
+        page: page as number
       });
       singerAllSong.value = singerAllSongRes.data.songlist;
       totalPage.value = singerAllSongRes.data.total;
     };
 
     const changePage = (page: number) => {
-      getSingerAllSong(<string>$route.query.id, page)
+      getSingerAllSong($route.query.id as string, page)
     };
 
-    getSingerDetail(<string>$route.query.id);
-    getSingerAllSong(<string>$route.query.id, page.value)
+    getSingerDetail($route.query.id as string);
+    getSingerAllSong($route.query.id as string, page.value)
 
     return {
       occupy,
@@ -83,7 +82,7 @@ export default defineComponent({
 @import '@/assets/styles/theme/conf.scss';
 
 .singer-container {
-  height: 509px;
+  height: 528px;
   overflow-x: hidden;
 
   .singer-content-header {

@@ -1,8 +1,6 @@
 'use strict'
-
 import { app, protocol, BrowserWindow, Menu } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
-// import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 protocol.registerSchemesAsPrivileged([
@@ -11,15 +9,15 @@ protocol.registerSchemesAsPrivileged([
 
 async function createWindow() {
   Menu.setApplicationMenu(null);
-  // Create the browser window.
   const win = new BrowserWindow({
     width: isDevelopment ? 1500 : 1000,
     height: 660,
     fullscreenable: false, // 是否允许全屏
     backgroundColor: '#eee', // 背景颜色
-    // titleBarStyle: 'customButtonsOnHover', // 标题栏的样式，有hidden、hiddenInset、customButtonsOnHover等
+    // frame: false,
+    titleBarStyle: 'hidden', // 标题栏的样式，有hidden、hiddenInset、customButtonsOnHover等
     resizable: false, // 是否允许拉伸大小
-    transparent: false, // 是否是透明窗口（仅macOS）
+    transparent: true, // 是否是透明窗口（仅macOS）
     autoHideMenuBar: true,
     title: '听青',
     webPreferences: {
@@ -32,12 +30,10 @@ async function createWindow() {
   })
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
-    // Load the url of the dev server if in development mode
     await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
     if (!process.env.IS_TEST) win.webContents.openDevTools()
   } else {
     createProtocol('app')
-    // Load the index.html when not in development
     win.loadURL('app://./index.html')
   }
 }
@@ -77,3 +73,5 @@ if (isDevelopment) {
     })
   }
 }
+
+

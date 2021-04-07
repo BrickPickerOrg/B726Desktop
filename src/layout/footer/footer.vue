@@ -16,7 +16,9 @@
       <mg-loading v-show="playing.id" class="voiceprint" />
       <img :src="playing.cover" class="artist-cover" />
       <div class="artist-text-wrapper">
-        <span class="artist-name">{{ playing.name }} - {{ getSingersName(playing.singer) }}</span>
+        <span class="artist-name"
+          >{{ playing.name }} - {{ getSingersName(playing.singer) }}</span
+        >
         <span class="current-lyric">{{ getCurrentLyric() }}</span>
       </div>
       <div class="duration-wrapper">
@@ -36,37 +38,40 @@
         <button class="player-options-btn iconfont-heart-line"></button>
         <button class="player-options-btn iconfont-volume"></button>
         <Volume @volumeChange="volumeChangeHandle"></Volume>
+        <button class="player-options-btn iconfont-list" @click.stop="viewLocalList"></button>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { useStore } from 'vuex';
-import { computed, defineComponent, ref, watch } from 'vue';
-import { AudioPlayerState } from '@/layout/player/audio_player';
-import Volume from '@/layout/volume/volume.vue';
-import AudioPlayer from '@/layout/player/audio_player.vue';
-import Utils from '@/common/utils';
-import usePlayerFn from '@/methods/player.ts';
+import { useStore } from "vuex";
+import { computed, defineComponent, ref, watch } from "vue";
+import { AudioPlayerState } from "@/layout/player/audio_player";
+import Volume from "@/layout/volume/volume.vue";
+import AudioPlayer from "@/layout/player/audio_player.vue";
+import Utils from "@/common/utils";
+import usePlayerFn from "@/methods/player";
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
-  props: ['moveProgress'],
+  props: ["moveProgress"],
 
   components: {
     AudioPlayer,
-    Volume
+    Volume,
   },
 
   setup(props) {
     const { getSingersName } = usePlayerFn();
 
     const $store = useStore();
+    const $router = useRouter();
     const playing = computed(() => $store.state.playing);
     const moveProgress = ref(() => props.moveProgress);
 
-    const duration = ref<string>('00:00');
-    const position = ref<string>('00:00');
+    const duration = ref<string>("00:00");
+    const position = ref<string>("00:00");
     const progress = ref(0);
 
     const mouseDown = ref(false);
@@ -80,7 +85,7 @@ export default defineComponent({
     });
 
     // 获取当前时间该显示的歌词
-    let currentLyric = '';
+    let currentLyric = "";
     const getCurrentLyric = () => {
       currentLyric = playing.value.lyric[position.value] || currentLyric;
       return currentLyric;
@@ -94,12 +99,12 @@ export default defineComponent({
 
     const play = () => {
       audioPlayer.value.play();
-      $store.dispatch('playing/setPlayState', true);
+      $store.dispatch("playing/setPlayState", true);
     };
 
     const pause = () => {
       audioPlayer.value.pause();
-      $store.dispatch('playing/setPlayState', false);
+      $store.dispatch("playing/setPlayState", false);
     };
 
     const seek = () => {
@@ -111,7 +116,11 @@ export default defineComponent({
       !playing.value.playState ? play() : pause();
     };
 
-    const onAudioPositionChanged = (_duration: number, _position: number, _progress: number) => {
+    const onAudioPositionChanged = (
+      _duration: number,
+      _position: number,
+      _progress: number
+    ) => {
       if (!mouseDown.value) {
         duration.value = Utils.formatSeconds(_duration || 0);
         position.value = Utils.formatSeconds(_position || 0);
@@ -123,20 +132,20 @@ export default defineComponent({
     const onPlayerStateChanged = (state: AudioPlayerState) => {
       // 开始播放
       if (state == AudioPlayerState.PLAYING) {
-        $store.dispatch('playing/setPlayState', true);
+        $store.dispatch("playing/setPlayState", true);
       }
       // 暂停播放
       if (state == AudioPlayerState.PAUSED) {
-        $store.dispatch('playing/setPlayState', false);
+        $store.dispatch("playing/setPlayState", false);
       }
       // 播放完毕
       if (state == AudioPlayerState.COMPLETED) {
-        console.log('播放完毕');
+        console.log("播放完毕");
       }
       // 停止播放
       if (state == AudioPlayerState.STOPPED) {
-        $store.dispatch('playing/setPlayState', false);
-        console.log('停止播放');
+        $store.dispatch("playing/setPlayState", false);
+        console.log("停止播放");
       }
     };
 
@@ -146,11 +155,11 @@ export default defineComponent({
 
     const rangeMousemove = () => {};
 
-    const rangeMouseleave = (e: any) => {
+    const rangeMouseleave = () => {
       mouseDown.value = false;
     };
 
-    const rangeMouseup = (e: any) => {
+    const rangeMouseup = () => {
       if (mouseDown.value) seek();
       mouseDown.value = false;
     };
@@ -158,7 +167,12 @@ export default defineComponent({
     // 调节音频音量大小
     const volumeChangeHandle = (volume: number) => {
       audioPlayer.value.setVolume(volume);
-    }
+    };
+
+    // 跳转播放列表
+    const viewLocalList = () => {
+      $router.push(`/localList`);
+    };
 
     return {
       playing,
@@ -179,14 +193,15 @@ export default defineComponent({
       rangeMousemove,
       rangeMouseleave,
       rangeMouseup,
-      volumeChangeHandle
+      volumeChangeHandle,
+      viewLocalList
     };
-  }
+  },
 });
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/theme/conf.scss';
+@import "@/assets/styles/theme/conf.scss";
 
 .progress {
   display: flex;
@@ -308,6 +323,10 @@ export default defineComponent({
         font-size: 39px;
         color: $primary-color;
         margin: 0;
+      }
+
+      &.iconfont-list {
+        margin: 0 0 0 10px;
       }
     }
   }

@@ -41,6 +41,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/albumDetail', //专辑详情
     name: 'AlbumDetail',
     component: () => import('../pages/album/detail.vue')
+  },
+  {
+    path: '/localList', //播放列表
+    name: 'LocalList',
+    component: () => import('../pages/list/list.vue')
   }
 ];
 

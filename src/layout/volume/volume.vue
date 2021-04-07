@@ -14,18 +14,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, SetupContext } from 'vue';
-import AudioPlayer from '@/layout/player/audio_player.vue';
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   components: {
-    AudioPlayer
   },
 
-  setup(props, { emit }: SetupContext) {
+  setup(props, { emit }) {
     const volumeBox = ref<HTMLElement>();
     const mouseDown = ref(false);
-    const progress = ref(100);
+    const progress = ref(100); //初始100%音量
 
     const progressChange = (e: any) => {
       const totalWidth = volumeBox.value?.offsetWidth as number;
@@ -49,11 +47,11 @@ export default defineComponent({
       if (mouseDown.value) progressChange(e)
     };
 
-    const mouseleave = (e: any) => {
+    const mouseleave = () => {
       mouseDown.value = false;
     };
 
-    const mouseup = (e: any) => {
+    const mouseup = () => {
       mouseDown.value = false;
     };
 

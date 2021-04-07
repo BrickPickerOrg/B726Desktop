@@ -53,10 +53,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, watch } from 'vue';
-import { useRouter } from 'vue-router';
+import { defineComponent, ref } from 'vue';
 import useApi from '@/methods/api';
-import usePlayerFn from '@/methods/player.ts';
+import usePlayerFn from '@/methods/player';
 import PlaylistItems from '@/views/playlist_items.vue';
 import Album from '@/views/album_item.vue';
 
@@ -67,7 +66,6 @@ export default defineComponent({
   },
 
   setup() {
-    const $router = useRouter();
     const { getSingersName, playCheckMusic } = usePlayerFn();
     const { miGuMusicHomeApi } = useApi();
     let occupy = ref<boolean>(true);
@@ -78,6 +76,7 @@ export default defineComponent({
       const homeDataRes: any = await miGuMusicHomeApi();
       occupy.value = false;
       homeData.value = homeDataRes.data;
+      homeData.value.playlist.splice(10, 12)
     };
 
     miGuMusicHome();
@@ -96,7 +95,7 @@ export default defineComponent({
 @import '@/assets/styles/theme/conf.scss';
 
 .home-container {
-  height: 508px;
+  height: 528px;
   padding: 15px;
   overflow-x: hidden;
   box-sizing: border-box;

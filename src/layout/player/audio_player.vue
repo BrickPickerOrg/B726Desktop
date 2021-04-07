@@ -15,11 +15,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, SetupContext } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { AudioPlayerState } from './audio_player';
 
 export default defineComponent({
-  setup(props, { emit }: SetupContext) {
+  setup(props, { emit }) {
     const audioPlayer = ref<HTMLMediaElement>();
     const audioUrl = ref<String>('');
 

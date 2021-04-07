@@ -3,21 +3,26 @@
     <table>
       <thead>
         <tr>
-          <th v-if="!hideList.includes('index')" width="64px"></th>
+          <th v-if="!hideList.includes('index')" width="24px"></th>
           <th v-if="!hideList.includes('cover')" width="30px">封面</th>
           <th v-if="!hideList.includes('name')">歌曲名</th>
           <th v-if="!hideList.includes('singer')">歌手</th>
           <th v-if="!hideList.includes('album')">专辑</th>
-          <th width="60px"></th>
+          <th width="80px"></th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item, index) in musicList" :key="item.id" @dblclick="playCheckMusic(item)">
+        <tr
+          v-for="(item, index) in musicList"
+          :key="item.id"
+          @dblclick="playCheckMusic(item)"
+        >
           <td v-if="!hideList.includes('index')">
             <div class="flex">
               <mg-loading v-show="isPlayingMusic(item)" class="voiceprint" />
-              <span v-show="!isPlayingMusic(item)" class="music-index">{{ index + 1 }}</span>
-              <a class="music-list-btn iconfont-heart-line" href="javascript:;"></a>
+              <span v-show="!isPlayingMusic(item)" class="music-index">{{
+                index + 1
+              }}</span>
             </div>
           </td>
           <td v-if="!hideList.includes('cover')">
@@ -26,12 +31,20 @@
             </div>
           </td>
           <td v-if="!hideList.includes('name')">
-            <p class="ellipsis-text" style="max-width: 250px" :title="item.songName">
+            <p
+              class="ellipsis-text"
+              style="max-width: 250px"
+              :title="item.songName"
+            >
               {{ item.songName }}
             </p>
           </td>
           <td v-if="!hideList.includes('singer')">
-            <p class="ellipsis-text" style="max-width: 100px" :title="getSingersName(item.singers)">
+            <p
+              class="ellipsis-text"
+              style="max-width: 100px"
+              :title="getSingersName(item.singers)"
+            >
               <span
                 class="singer"
                 v-for="(singer, index) in item.singers"
@@ -42,12 +55,29 @@
             </p>
           </td>
           <td v-if="!hideList.includes('album')">
-            <p class="ellipsis-text album-name" style="max-width: 170px" :title="getAlbumName(item.album)" @click.stop="viewAlbumDetail(item.album.id)">
+            <p
+              class="ellipsis-text album-name"
+              style="max-width: 170px"
+              :title="getAlbumName(item.album)"
+              @click.stop="viewAlbumDetail(item.album.id)"
+            >
               {{ getAlbumName(item.album) }}
             </p>
           </td>
           <td>
-            <a @click="getMiGuMusicAudioUrl(item)">获取音频</a>
+            <div class="options-wrap">
+              <a
+                class="music-list-btn iconfont-heart-line"
+                href="javascript:;"
+              ></a>
+              <a
+                class="music-list-btn iconfont-download"
+                href="javascript:;"
+                @click="getMiGuMusicAudioUrl(item)"
+              ></a>
+              <a class="music-list-btn iconfont-delete" href="javascript:;" v-if="showDeleteButton"></a>
+              <a class="music-list-btn iconfont-more" href="javascript:;" v-if="!showDeleteButton"></a>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -56,26 +86,30 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { useStore } from 'vuex';
-import usePlayerFn from '@/methods/player.ts';
-import { SONG_LIST_ITEMS_PLACEHOLDR } from './placeholder_data';
-import useRequests from '@/methods/api.ts';
+import { defineComponent, computed } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+import usePlayerFn from "@/methods/player";
+import { SONG_LIST_ITEMS_PLACEHOLDR } from "./placeholder_data";
+import useRequests from "@/methods/api";
 
 export default defineComponent({
   props: {
     musicList: {
       type: Array,
-      default: () => SONG_LIST_ITEMS_PLACEHOLDR
+      default: () => SONG_LIST_ITEMS_PLACEHOLDR,
     },
     hideList: {
       type: Array,
-      default: () => [] // ['index', 'cover', 'name', 'singer', 'album']
-    }
+      default: () => [], // ['index', 'cover', 'name', 'singer', 'album']
+    },
+    showDeleteButton: {
+      type: Boolean,
+      default: false,
+    },
   },
 
-  setup(props) {
+  setup() {
     const { getSingersName, getAlbumName, playCheckMusic } = usePlayerFn();
     const { getMiGuMusicAudioUrlApi } = useRequests();
     const $router = useRouter();
@@ -83,15 +117,17 @@ export default defineComponent({
     const playing = computed(() => $store.state.playing);
 
     const isPlayingMusic = (item: any) => {
-      return playing.value.id === item.id && playing.value.platform === item.platform;
+      return (
+        playing.value.id === item.id && playing.value.platform === item.platform
+      );
     };
 
     const viewSingerDetail = (id: string) => {
       $router.push({
         path: `/singer`,
         query: {
-          id
-        }
+          id,
+        },
       });
     };
 
@@ -99,26 +135,26 @@ export default defineComponent({
       $router.push({
         path: `/albumDetail`,
         query: {
-          id
-        }
+          id,
+        },
       });
     };
 
     const getMiGuMusicAudioUrl = async (song: any) => {
-      let url
+      let url;
       try {
         const audioUrl = await getMiGuMusicAudioUrlApi({
           id: song.id,
           name: song.songName,
-          singer: getSingersName(song.singers)
+          singer: getSingersName(song.singers),
         });
         url = audioUrl.data.url;
-        window.open(url)
+        window.open(url);
       } catch (error) {
-        url = ''
+        url = "";
       }
-      return url
-    }
+      return url;
+    };
 
     return {
       playing,
@@ -128,14 +164,14 @@ export default defineComponent({
       isPlayingMusic,
       viewSingerDetail,
       viewAlbumDetail,
-      getMiGuMusicAudioUrl
+      getMiGuMusicAudioUrl,
     };
-  }
+  },
 });
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/theme/conf.scss';
+@import "@/assets/styles/theme/conf.scss";
 
 .song-list-container {
   overflow-x: hidden;
@@ -235,6 +271,12 @@ export default defineComponent({
     color: $font-second-color;
     font-size: 22px;
     position: relative;
+  }
+
+  .options-wrap {
+    display: flex;
+    flex-flow: row nowrap;
+    /* justify-content: space-between; */
   }
 }
 </style>

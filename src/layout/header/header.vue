@@ -6,8 +6,8 @@
 </template>
 
 <script lang="ts">
-import History from '@/layout/history.vue';
-import Search from '@/layout/search.vue';
+import History from '@/layout/header/history.vue';
+import Search from '@/layout/header/search.vue';
 export default {
   components: {
     History,
@@ -27,5 +27,6 @@ export default {
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: center;
+  -webkit-app-region: drag;
 }
 </style>
