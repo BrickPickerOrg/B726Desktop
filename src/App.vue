@@ -93,7 +93,7 @@ export default {
 @import '@/assets/styles/styles.scss';
 
 body {
-  background: rgb(121, 121, 121);
+  background: transparent;
   overflow: hidden;
 }
 
@@ -104,7 +104,7 @@ body {
   /* height: 600px; */
   background: $body-bg;
   margin: 0 auto;
-  border-radius: 3px;
+  border-radius: 15px;
   overflow: hidden;
 
   .layout-center {

@@ -13,19 +13,18 @@ async function createWindow() {
     width: isDevelopment ? 1500 : 1000,
     height: 660,
     fullscreenable: false, // 是否允许全屏
-    backgroundColor: '#eee', // 背景颜色
-    // frame: false,
-    titleBarStyle: 'hidden', // 标题栏的样式，有hidden、hiddenInset、customButtonsOnHover等
+    backgroundColor: '#00000000', // 背景颜色
+    frame: false,
+    titleBarStyle: 'hiddenInset', // 标题栏的样式，有hidden、hiddenInset、customButtonsOnHover等
     resizable: false, // 是否允许拉伸大小
     transparent: true, // 是否是透明窗口（仅macOS）
     autoHideMenuBar: true,
     title: '听青',
     webPreferences: {
+      devTools: isDevelopment,
       webSecurity: false, //跨域限制
       contextIsolation: false,
       enableRemoteModule: true,
-      nodeIntegration: (process.env
-        .ELECTRON_NODE_INTEGRATION as unknown) as boolean,
     },
   })
 

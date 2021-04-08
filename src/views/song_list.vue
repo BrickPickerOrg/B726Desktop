@@ -42,7 +42,7 @@
           <td v-if="!hideList.includes('singer')">
             <p
               class="ellipsis-text"
-              style="max-width: 100px"
+              style="max-width: 200px"
               :title="getSingersName(item.singers)"
             >
               <span
