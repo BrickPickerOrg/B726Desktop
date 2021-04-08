@@ -14,22 +14,25 @@
         </div>
         <div class="layout-main-wrapper">
           <LayoutHeader></LayoutHeader>
-          <router-view />
+          <router-view></router-view>
         </div>
       </div>
       <div class="layout-bottom">
-        <LayoutFooter ref="layoutFooter" :moveProgress="moveProgress"></LayoutFooter>
+        <LayoutFooter
+          ref="layoutFooter"
+          :moveProgress="moveProgress"
+        ></LayoutFooter>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { ref } from 'vue';
-import { provideRequest } from '@/plugins/request';
-import LayoutHeader from '@/layout/header/header.vue';
-import LayoutFooter from '@/layout/footer/footer.vue';
-import LayoutSidebar from '@/layout/sidebar/sidebar.vue';
+import { ref } from "vue";
+import { provideRequest } from "@/plugins/request";
+import LayoutHeader from "@/layout/header/header.vue";
+import LayoutFooter from "@/layout/footer/footer.vue";
+import LayoutSidebar from "@/layout/sidebar/sidebar.vue";
 
 export default {
   setup() {
@@ -38,16 +41,16 @@ export default {
 
     const container = ref<HTMLElement>();
     const layoutFooter = ref();
-    
+
     const mouseDown = ref(false);
     const originX = ref(0);
     const moveProgress = ref(0);
 
     const rangeMousedown = (e: any) => {
-      if (e.srcElement.className === 'range') {
+      if (e.srcElement.className === "range") {
         mouseDown.value = true;
         originX.value = container.value?.offsetLeft as number;
-        layoutFooter.value.rangeMousedown()
+        layoutFooter.value.rangeMousedown();
       }
     };
 
@@ -56,18 +59,18 @@ export default {
         const totalWidth = container.value?.offsetWidth as number;
         const moveX = e.pageX - originX.value;
         moveProgress.value = (moveX / totalWidth) * 100;
-        layoutFooter.value.rangeMousemove()
+        layoutFooter.value.rangeMousemove();
       }
     };
 
     const mouseleave = () => {
       mouseDown.value = false;
-      layoutFooter.value.rangeMouseleave()
+      layoutFooter.value.rangeMouseleave();
     };
 
     const mouseup = () => {
       mouseDown.value = false;
-      layoutFooter.value.rangeMouseup()
+      layoutFooter.value.rangeMouseup();
     };
 
     return {
@@ -77,20 +80,20 @@ export default {
       mouseleave,
       mouseup,
       moveProgress,
-      layoutFooter
+      layoutFooter,
     };
   },
 
   components: {
     LayoutHeader,
     LayoutFooter,
-    LayoutSidebar
-  }
+    LayoutSidebar,
+  },
 };
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/styles.scss';
+@import "@/assets/styles/styles.scss";
 
 body {
   background: transparent;
@@ -101,10 +104,9 @@ body {
   display: flex;
   flex-flow: column nowrap;
   width: 1000px;
-  /* height: 600px; */
   background: $body-bg;
   margin: 0 auto;
-  border-radius: 15px;
+  border-radius: 22px;
   overflow: hidden;
 
   .layout-center {

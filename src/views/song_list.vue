@@ -200,7 +200,7 @@ export default defineComponent({
       padding: 9px;
       font-size: 12px;
       text-align: left;
-      color: $font-second-color;
+      color: $font-color;
       vertical-align: middle;
     }
   }
@@ -244,7 +244,7 @@ export default defineComponent({
     span {
       display: inline-block;
       margin: 0 2px;
-      color: $font-second-color;
+      color: $font-color;
       font-size: 12px;
       transform: scale(0.8);
     }

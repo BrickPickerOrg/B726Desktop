@@ -2,7 +2,7 @@
   <div class="home-container">
     <div class="home-title">
       <span class="title">发现更多宝藏歌单</span>
-      <span class="more">更多<i class="iconfont-go"></i></span>
+      <span class="more" @click.stop="viewPlaylistSquare">更多<i class="iconfont-go"></i></span>
     </div>
     <PlaylistItems :items="homeData.playlist" :occupy="occupy"></PlaylistItems>
     <div class="home-song-items-wrap">
@@ -54,6 +54,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import useApi from '@/plugins/api';
 import usePlayerFn from '@/plugins/player';
 import PlaylistItems from '@/views/playlist_items.vue';
@@ -68,6 +69,7 @@ export default defineComponent({
   setup() {
     const { getSingersName, playCheckMusic, playAllList } = usePlayerFn();
     const { miGuMusicHomeApi } = useApi();
+    const $router = useRouter();
     let occupy = ref<boolean>(true);
     let homeData = ref<any>({});
 
@@ -77,6 +79,12 @@ export default defineComponent({
       occupy.value = false;
       homeData.value = homeDataRes.data;
       homeData.value.playlist.splice(10, 12)
+    };
+
+    const viewPlaylistSquare = () => {
+      $router.push({
+        path: `/playlist`
+      });
     };
 
     const playAll = () => {
@@ -90,6 +98,7 @@ export default defineComponent({
       homeData,
       getSingersName,
       playCheckMusic,
+      viewPlaylistSquare,
       playAll
     };
   }
@@ -118,13 +127,12 @@ export default defineComponent({
     }
 
     .more {
-      font-size: 13px;
+      font-size: 14px;
       color: $font-second-color;
       cursor: pointer;
 
       &:hover {
         color: $font-color;
-        text-decoration: underline;
       }
     }
   }
