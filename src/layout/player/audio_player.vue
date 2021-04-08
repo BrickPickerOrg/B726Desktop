@@ -7,7 +7,6 @@
     @timeupdate="timeupdateHandle"
     @canplay="canplayHandle"
     @ended="endedHandle"
-    @emptied="errorHandle"
     @error="errorHandle"
     @volumechange="volumeChangeHandle"
   ></audio>
@@ -85,14 +84,13 @@ export default defineComponent({
 
     // 当发生故障并且文件突然不可用时触发
     const errorHandle = () => {
-      console.log("error");
+      // console.log("error");
     };
 
     // 播放结束
     const endedHandle = () => {
       // 默认列表循环
       const mode = localStorage.getItem("playMode") || PlayMode.LOOP.toString();
-      console.log(mode)
       if (mode === PlayMode.RANDOM.toString()) {
         // 随机播放
       }
@@ -100,7 +98,6 @@ export default defineComponent({
         // 列表循环
         const nextMusic = $localList.nextMusic(playingSong.value.id);
         playCheckMusic(nextMusic);
-        play();
       }
       if (mode === PlayMode.SINGLE_LOOP.toString()) {
         // 单曲循环
@@ -125,7 +122,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style lang="scss">
-@import "@/assets/styles/theme/conf.scss";
-</style>

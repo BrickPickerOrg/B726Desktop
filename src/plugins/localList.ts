@@ -13,7 +13,7 @@ const useLocalListHandle = () => {
 
   // 获取本地音乐播放列表
   const getLocalList = () => {
-    return list
+    return JSON.parse(localStorage.getItem('musicLocalList') || '[]')
   }
 
   // 列表新增歌曲
@@ -55,7 +55,7 @@ const useLocalListHandle = () => {
 
   // 根据ID获取当前歌曲在列表中的Index
   const getMusicIndexOfList = (id: string) => {
-    const _list = list.map((music: Music) => music.id)
+    const _list = getLocalList().map((music: Music) => music.id)
     return _list.indexOf(id)
   }
 
@@ -64,19 +64,19 @@ const useLocalListHandle = () => {
     const currentIndex = getMusicIndexOfList(id)
     if (currentIndex === 0) {
       // 当前是最后一首
-      return list[list.length - 1]
+      return getLocalList()[getLocalList().length - 1]
     }
-    return list[currentIndex - 1]
+    return getLocalList()[currentIndex - 1]
   }
 
   // 根据ID获取当前歌曲的下一首
   const nextMusic = (id: string) => {
     const currentIndex = getMusicIndexOfList(id)
-    if (currentIndex === list.length - 1) {
+    if (currentIndex === getLocalList().length - 1) {
       // 当前是最后一首
-      return list[0]
+      return getLocalList()[0]
     }
-    return list[currentIndex + 1]
+    return getLocalList()[currentIndex + 1]
   }
 
   return {

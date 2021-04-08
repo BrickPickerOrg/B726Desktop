@@ -27,18 +27,31 @@
         <span class="time">{{ duration }}</span>
       </div>
       <div class="options-wrapper">
-        <button class="player-options-btn iconfont-circle-single"></button>
-        <button class="player-options-btn iconfont-prev"></button>
+        <button
+          class="player-options-btn"
+          :class="getPlayModeIcon()"
+          @click.stop="changePlayMode"
+        ></button>
+        <button
+          class="player-options-btn iconfont-prev"
+          @click.stop="prevMusicHandle"
+        ></button>
         <button
           class="player-options-btn"
           :class="playing.playState ? 'iconfont-pause' : 'iconfont-play'"
-          @click="changePlayState(audioPlayer)"
+          @click.stop="changePlayState(audioPlayer)"
         ></button>
-        <button class="player-options-btn iconfont-next"></button>
+        <button
+          class="player-options-btn iconfont-next"
+          @click.stop="nextMusicHandle"
+        ></button>
         <button class="player-options-btn iconfont-heart-line"></button>
         <button class="player-options-btn iconfont-volume"></button>
         <Volume @volumeChange="volumeChangeHandle"></Volume>
-        <button class="player-options-btn iconfont-list" @click.stop="viewLocalList"></button>
+        <button
+          class="player-options-btn iconfont-list"
+          @click.stop="viewLocalList"
+        ></button>
       </div>
     </div>
   </div>
@@ -52,7 +65,9 @@ import Volume from "@/layout/volume/volume.vue";
 import AudioPlayer from "@/layout/player/audio_player.vue";
 import Utils from "@/common/utils";
 import usePlayerFn from "@/plugins/player";
-import { useRouter } from 'vue-router';
+import useLocalListHandle from "@/plugins/localList";
+import { useRouter } from "vue-router";
+import { PlayMode } from "@/layout/player/audio_player";
 
 export default defineComponent({
   props: ["moveProgress"],
@@ -63,12 +78,18 @@ export default defineComponent({
   },
 
   setup(props) {
-    const { getSingersName } = usePlayerFn();
+    const { getSingersName, playCheckMusic } = usePlayerFn();
+    const { prevMusic, nextMusic } = useLocalListHandle();
 
     const $store = useStore();
     const $router = useRouter();
     const playing = computed(() => $store.state.playing);
     const moveProgress = ref(() => props.moveProgress);
+
+    // 默认列表循环播放
+    const playMode = ref(
+      localStorage.getItem("playMode") || PlayMode.LOOP.toString()
+    );
 
     const duration = ref<string>("00:00");
     const position = ref<string>("00:00");
@@ -174,6 +195,39 @@ export default defineComponent({
       $router.push(`/localList`);
     };
 
+    // 改变播放模式
+    const changePlayMode = () => {
+      if (playMode.value === PlayMode.LOOP.toString()) {
+        localStorage.setItem("playMode", PlayMode.SINGLE_LOOP.toString());
+        playMode.value = PlayMode.SINGLE_LOOP.toString()
+        return;
+      }
+      if (playMode.value === PlayMode.SINGLE_LOOP.toString()) {
+        localStorage.setItem("playMode", PlayMode.LOOP.toString());
+        playMode.value = PlayMode.LOOP.toString()
+        return;
+      }
+    };
+
+    const getPlayModeIcon = () => {
+      if (playMode.value === PlayMode.LOOP.toString())
+        return "iconfont-circle-list";
+      if (playMode.value === PlayMode.SINGLE_LOOP.toString())
+        return "iconfont-circle-single";
+    };
+
+    // 上一首
+    const prevMusicHandle = () => {
+      const prev = prevMusic(playing.value.id);
+      playCheckMusic(prev);
+    };
+
+    // 下一首
+    const nextMusicHandle = () => {
+      const next = nextMusic(playing.value.id);
+      playCheckMusic(next);
+    };
+
     return {
       playing,
       audioPlayer,
@@ -194,7 +248,11 @@ export default defineComponent({
       rangeMouseleave,
       rangeMouseup,
       volumeChangeHandle,
-      viewLocalList
+      viewLocalList,
+      getPlayModeIcon,
+      changePlayMode,
+      prevMusicHandle,
+      nextMusicHandle,
     };
   },
 });
@@ -316,13 +374,21 @@ export default defineComponent({
       margin: 0 10px;
       cursor: pointer;
       outline: none;
-      font-weight: 700;
+      font-weight: 500;
+
+      &:hover {
+        color: $font-color;
+      }
 
       &.iconfont-pause,
       &.iconfont-play {
         font-size: 39px;
         color: $primary-color;
         margin: 0;
+
+        &:hover {
+          color: darken($primary-color, 5);
+        }
       }
 
       &.iconfont-list {
