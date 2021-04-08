@@ -54,7 +54,7 @@ const usePlayerFn = () => {
     getSingersName,
     getAlbumName,
     playCheckMusic,
-    playAllList
+    playAllList,
   }
 }
 

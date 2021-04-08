@@ -6,3 +6,9 @@ export enum AudioPlayerState {
   COMPLETED, //播放完毕
   CANPLAY //播放完毕
 }
+
+export enum PlayMode {
+  RANDOM, //随机播放
+  LOOP, //列表循环
+  SINGLE_LOOP, //单曲循环
+}

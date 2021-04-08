@@ -23,7 +23,7 @@
         <div class="top-content-header-info">
           <span class="top-name" data-occupy="occupy">{{ checkedTopType.typeName }}</span>
           <div class="info-button-wrap" data-occupy="occupy">
-            <div class="info-button fill-button"><i class="iconfont-play"></i>全部播放</div>
+            <div class="info-button fill-button" @click.stop="playAll"><i class="iconfont-play"></i>全部播放</div>
             <div class="info-button"><i class="iconfont-download"></i>全部下载</div>
           </div>
         </div>
@@ -40,6 +40,7 @@ import { defineComponent, ref } from 'vue';
 import useApi from '@/plugins/api';
 import TOP_DATA from '@/layout/sidebar/top';
 import SongList from '@/views/song_list.vue';
+import usePlayerFn from '@/plugins/player';
 
 export default defineComponent({
   components: {
@@ -48,6 +49,7 @@ export default defineComponent({
 
   setup() {
     const { getListByTopTypeApi } = useApi();
+    const { playAllList } = usePlayerFn();
     let occupy = ref<Boolean>(true);
     let topTypes = ref<any>(TOP_DATA);
     let checkedTopType = ref<any>(topTypes.value[0]['types'][0]);
@@ -66,6 +68,10 @@ export default defineComponent({
       getListByTopType(topType['typeCode']);
     };
 
+    const playAll = () => {
+      playAllList(topMusicInfo.value.items)
+    }
+
     getListByTopType(checkedTopType.value['typeCode']);
 
     return {
@@ -73,6 +79,7 @@ export default defineComponent({
       topTypes,
       checkedTopType,
       topMusicInfo,
+      playAll,
       checkTopType
     };
   }

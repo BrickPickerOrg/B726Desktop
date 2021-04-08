@@ -227,7 +227,7 @@ export default defineComponent({
 
     img {
       width: 100%;
-      border-radius: 30px;
+      border-radius: 3px;
     }
   }
 

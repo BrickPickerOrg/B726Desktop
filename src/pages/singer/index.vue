@@ -7,7 +7,7 @@
       <div class="singer-content-header-info">
         <span class="name" data-occupy="occupy">{{ singerDetail.name }}</span>
         <div class="info-button-wrap" data-occupy="occupy">
-          <div class="info-button fill-button"><i class="iconfont-play"></i>播放全部</div>
+          <div class="info-button fill-button" @click.stop="playAll"><i class="iconfont-play"></i>播放全部</div>
           <div class="info-button"><i class="iconfont-download"></i>全部下载</div>
         </div>
         <span class="intro" data-occupy="occupy">{{ singerDetail.intro }}</span>
@@ -26,6 +26,7 @@ import { useRoute } from 'vue-router';
 import useApi from '@/plugins/api';
 import IntroSonglist from '@/views/intro_songlist.vue';
 import Paginator from '@/layout/paginator.vue';
+import usePlayerFn from '@/plugins/player';
 
 export default defineComponent({
   components: {
@@ -35,6 +36,7 @@ export default defineComponent({
 
   setup() {
     const { getSingerDetailApi, getSingerAllSongApi } = useApi();
+    const { playAllList } = usePlayerFn();
     const $route = useRoute();
     let occupy = ref<boolean>(true);
     let singerDetail = ref<any>({});
@@ -50,6 +52,10 @@ export default defineComponent({
       occupy.value = false;
       singerDetail.value = singerDetailRes.data;
     };
+
+    const playAll = () => {
+      playAllList(singerAllSong.value)
+    }
 
     const getSingerAllSong = async (id: string, page: number) => {
       const singerAllSongRes: any = await getSingerAllSongApi({
@@ -71,6 +77,7 @@ export default defineComponent({
       occupy,
       singerDetail,
       singerAllSong,
+      playAll,
       totalPage,
       changePage
     };

@@ -10,7 +10,7 @@
         <div class="img-box" v-for="img in homeData.songsImgBox" :key="img"><img :src="img" /></div>
         <div class="img-mask">
           <div class="title">新歌速递</div>
-          <div class="play-all-btn">播放全部</div>
+          <div class="play-all-btn" @click.stop="playAll">播放全部</div>
         </div>
       </div>
       <div class="song-items-wrap-right">
@@ -66,7 +66,7 @@ export default defineComponent({
   },
 
   setup() {
-    const { getSingersName, playCheckMusic } = usePlayerFn();
+    const { getSingersName, playCheckMusic, playAllList } = usePlayerFn();
     const { miGuMusicHomeApi } = useApi();
     let occupy = ref<boolean>(true);
     let homeData = ref<any>({});
@@ -79,13 +79,18 @@ export default defineComponent({
       homeData.value.playlist.splice(10, 12)
     };
 
+    const playAll = () => {
+      playAllList(homeData.value.songs)
+    }
+
     miGuMusicHome();
 
     return {
       occupy,
       homeData,
       getSingersName,
-      playCheckMusic
+      playCheckMusic,
+      playAll
     };
   }
 });

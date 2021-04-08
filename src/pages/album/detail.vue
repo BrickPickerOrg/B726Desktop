@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="info-button-wrap" data-occupy="occupy">
-          <div class="info-button fill-button"><i class="iconfont-play"></i>播放全部</div>
+          <div class="info-button fill-button" @click.stop="playAll"><i class="iconfont-play"></i>播放全部</div>
           <div class="info-button"><i class="iconfont-download"></i>全部下载</div>
         </div>
         <span class="intro" data-occupy="occupy">{{ albumDetail.intro }}</span>
@@ -35,6 +35,7 @@ import { defineComponent, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import useApi from '@/plugins/api';
 import IntroSonglist from '@/views/intro_songlist.vue';
+import usePlayerFn from '@/plugins/player';
 
 export default defineComponent({
   components: {
@@ -43,6 +44,7 @@ export default defineComponent({
 
   setup() {
     const { getAlbumDetailApi } = useApi();
+    const { playAllList } = usePlayerFn();
     const $router = useRouter();
     const $route = useRoute();
     let occupy = ref<Boolean>(true);
@@ -68,10 +70,15 @@ export default defineComponent({
       });
     };
 
+    const playAll = () => {
+      playAllList(albumDetail.value.songList)
+    }
+
     return {
       occupy,
       albumDetail,
-      viewSingerDetail
+      viewSingerDetail,
+      playAll
     };
   }
 });
