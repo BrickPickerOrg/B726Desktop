@@ -88,7 +88,7 @@ export default defineComponent({
 @import '@/assets/styles/theme/conf.scss';
 
 .detail-container {
-  height: 528px;
+  height: 488px;
   overflow-x: hidden;
 
   .detail-content-header {

@@ -266,7 +266,10 @@ export default defineComponent({
   flex-flow: row nowrap;
   height: 2px;
   background-color: rgba($border-color, 0.5);
-  position: relative;
+  position: absolute;
+  bottom: 7px;
+  left: 15px;
+  right: 15px;
 
   .loaded {
     height: 2px;

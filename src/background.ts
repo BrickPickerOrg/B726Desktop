@@ -10,8 +10,8 @@ protocol.registerSchemesAsPrivileged([
 async function createWindow() {
   Menu.setApplicationMenu(null);
   const win = new BrowserWindow({
-    // width: isDevelopment ? 1500 : 1000,
-    width: 1000,
+    // width: isDevelopment ? 1700 : 1200,
+    width: 1200,
     height: 660,
     fullscreenable: false, // 是否允许全屏
     backgroundColor: '#00000000', // 背景颜色
@@ -74,5 +74,3 @@ if (isDevelopment) {
     })
   }
 }
-
-

@@ -1,2 +1,3 @@
 # B726
-<img src="1.jpg"/>
+<img src="light.jpg"/>
+<img src="dark.jpg"/>

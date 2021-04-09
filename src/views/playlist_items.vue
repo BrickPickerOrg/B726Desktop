@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, watch } from 'vue';
+import { defineComponent, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { PLAYLIST_ITEMS_PLACEHOLDR } from './placeholder_data';
 
@@ -61,15 +61,15 @@ export default defineComponent({
 
   .playlist-item {
     margin-top: 20px;
-    width: 135px;
+    width: 155px;
     box-sizing: border-box;
 
     .cover-img-wrap {
-      width: 135px;
-      height: 135px;
+      width: 155px;
+      height: 155px;
       position: relative;
       top: 0;
-      border-radius: 4px;
+      border-radius: 20px;
       overflow: hidden;
       cursor: pointer;
       margin-bottom: 10px;

@@ -101,12 +101,15 @@ body {
 }
 
 .app-container {
+  position: relative;
+  padding-bottom: 70px;
   display: flex;
   flex-flow: column nowrap;
-  width: 1000px;
-  background: $body-bg;
+  width: 1200px;
+  /* background: $body-bg; */
+  background-image: linear-gradient(45deg, $gradient-bg-s, $gradient-bg-c, $gradient-bg-e);
   margin: 0 auto;
-  border-radius: 22px;
+  border-radius: 20px;
   overflow: hidden;
 
   .layout-center {
@@ -116,18 +119,26 @@ body {
 
     .layout-sidebar-wrapper {
       width: 200px;
-      background-color: $sidebar-bg;
-      border-right: 1px solid $border-color;
     }
 
     .layout-main-wrapper {
+      background-color: $card-color;
       flex: 1;
+      margin:10px 10px 20px 10px;
+      box-sizing: border-box;
+      border-radius: 20px;
+      padding:5px 10px 5px;
     }
   }
 
   .layout-bottom {
     height: 70px;
     background: $player-bg;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    border-radius: 20px;
   }
 }
 </style>

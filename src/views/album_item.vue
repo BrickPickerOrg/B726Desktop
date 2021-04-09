@@ -68,14 +68,14 @@ export default defineComponent({
 .album-item-wrap,
 .digital-item-wrap {
   position: relative;
-  width: 145px;
-  height: 155px;
+  width: 165px;
+  height: 175px;
   background-image: url('https://cdnmusic.migu.cn/v3/static/img/index/album-cover-gold.png');
-  background-size: 115px auto;
+  background-size: 135px auto;
   background-repeat: no-repeat;
   background-position: 13px 5px;
   margin-bottom: 20px;
-  padding-top: 135px;
+  padding-top: 155px;
   box-sizing: border-box;
   cursor: pointer;
   transition: all 200ms;
@@ -84,8 +84,8 @@ export default defineComponent({
     position: absolute;
     top: 4px;
     left: 0;
-    width: 117px;
-    height: 117px;
+    width: 137px;
+    height: 137px;
     border-radius: 5px;
     overflow: hidden;
 
@@ -96,12 +96,14 @@ export default defineComponent({
   }
 
   .playlist-name {
+    margin-right: 20px;
     color: $font-color;
     font-size: 13px;
     margin-bottom: 5px;
   }
 
   .singers-name {
+    margin-right: 20px;
     color: $font-second-color;
     font-size: 12px;
   }

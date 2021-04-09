@@ -109,7 +109,7 @@ export default defineComponent({
 @import '@/assets/styles/theme/conf.scss';
 
 .home-container {
-  height: 528px;
+  height: 488px;
   padding: 15px;
   overflow-x: hidden;
   box-sizing: border-box;

@@ -144,7 +144,7 @@ export default defineComponent({
 @import '@/assets/styles/theme/conf.scss';
 
 .playlist-items-container {
-  height: 528px;
+  height: 488px;
   overflow-x: hidden;
   padding: 10px 20px 0 20px;
   box-sizing: border-box;
@@ -156,7 +156,7 @@ export default defineComponent({
     justify-content: space-between;
 
     .playlist-type {
-      width: 100px;
+      width: 120px;
       height: 20px;
       line-height: 20px;
       padding: 6px;
@@ -165,7 +165,7 @@ export default defineComponent({
       color: $font-second-color;
       text-align: center;
       font-size: 13px;
-      border-radius: 6px;
+      border-radius: 11px;
       cursor: pointer;
       transition: all 500ms;
 

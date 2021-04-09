@@ -31,7 +31,7 @@ export default defineComponent({
 @import "@/assets/styles/theme/conf.scss";
 
 .local-music-list {
-  height: 528px;
+  height: 488px;
   box-sizing: border-box;
   padding: 20px;
   overflow-x: hidden;

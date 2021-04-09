@@ -58,7 +58,7 @@ export default defineComponent({
 @import '@/assets/styles/theme/conf.scss';
 
 .result-container {
-  height: 528px;
+  height: 488px;
   overflow-x: hidden;
 }
 </style>

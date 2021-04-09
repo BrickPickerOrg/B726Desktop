@@ -31,7 +31,7 @@ export default defineComponent({
 .sidebar-container {
   padding: 20px 0 0 0;
   .menu-item {
-    margin: 15px 0;
+    margin: 15px;
     font-size: 13px;
 
     .menu-link {
@@ -42,6 +42,8 @@ export default defineComponent({
       flex-flow: row nowrap;
       justify-content: flex-start;
       align-items: center;
+      border-radius: 14px;
+      background-color: rgba($card-color, 0);
 
       .icon {
         display: block;
@@ -51,6 +53,7 @@ export default defineComponent({
         font-size: 18px;
         margin-right: 5px;
         text-align: center;
+        color: $primary-color;
       }
 
       .text {
@@ -67,28 +70,19 @@ export default defineComponent({
         display: block;
         content: "";
         border-left: 4px solid transparent;
-        transition: all 600ms;
+        transition: all 700ms;
       }
 
       &.router-link-active {
-        color: $primary-color;
-        &::after {
-          width: 100%;
-          border-left: 4px solid $primary-color;
-          background-image: linear-gradient(
-            to right,
-            rgba($primary-color, 0.4),
-            rgba($primary-color, 0.1),
-            transparent,
-            transparent
-          );
-        }
+        background-color: $card-color;
+        transition: all 700ms;
       }
     }
 
     &:hover {
       .menu-link {
-        color: $primary-color;
+        background-color: $card-color;
+        transition: all 700ms;
       }
     }
   }
