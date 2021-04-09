@@ -2,7 +2,7 @@
   <div class="local-music-list">
     <h2 class="title">播放列表</h2>
     <div class="song-list-wrap">
-      <SongList :musicList="list" showDeleteButton></SongList>
+      <SongList :musicList="list" showDeleteButton @removeMusicFromIdSuccess="removeMusicFromIdSuccess"></SongList>
     </div>
   </div>
 </template>
@@ -20,8 +20,14 @@ export default defineComponent({
   setup() {
     const $localList = useLocalListHandle();
     const list = ref($localList.getLocalList());
+
+    const removeMusicFromIdSuccess = () => {
+      list.value = $localList.getLocalList()
+    }
+
     return {
       list,
+      removeMusicFromIdSuccess
     };
   },
 });

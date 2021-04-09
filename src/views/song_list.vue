@@ -75,8 +75,17 @@
                 href="javascript:;"
                 @click="getMiGuMusicAudioUrl(item)"
               ></a>
-              <a class="music-list-btn iconfont-delete" href="javascript:;" v-if="showDeleteButton"></a>
-              <a class="music-list-btn iconfont-more" href="javascript:;" v-if="!showDeleteButton"></a>
+              <a
+                class="music-list-btn iconfont-delete"
+                href="javascript:;"
+                v-if="showDeleteButton"
+                @click.stop="removeMusicFromIdHandle(item.id)"
+              ></a>
+              <a
+                class="music-list-btn iconfont-more"
+                href="javascript:;"
+                v-if="!showDeleteButton"
+              ></a>
             </div>
           </td>
         </tr>
@@ -92,6 +101,7 @@ import { useStore } from "vuex";
 import usePlayerFn from "@/plugins/player";
 import { SONG_LIST_ITEMS_PLACEHOLDR } from "./placeholder_data";
 import useRequests from "@/plugins/api";
+import useLocalListHandle from "@/plugins/localList";
 
 export default defineComponent({
   props: {
@@ -109,9 +119,11 @@ export default defineComponent({
     },
   },
 
-  setup() {
+  setup(props, { emit }) {
     const { getSingersName, getAlbumName, playCheckMusic } = usePlayerFn();
     const { getMiGuMusicAudioUrlApi } = useRequests();
+    const { removeMusicFromId } = useLocalListHandle();
+
     const $router = useRouter();
     const $store = useStore();
     const playing = computed(() => $store.state.playing);
@@ -156,6 +168,11 @@ export default defineComponent({
       return url;
     };
 
+    const removeMusicFromIdHandle = (id: string) => {
+      removeMusicFromId(id)
+      emit('removeMusicFromIdSuccess')
+    }
+
     return {
       playing,
       getSingersName,
@@ -165,6 +182,7 @@ export default defineComponent({
       viewSingerDetail,
       viewAlbumDetail,
       getMiGuMusicAudioUrl,
+      removeMusicFromIdHandle,
     };
   },
 });

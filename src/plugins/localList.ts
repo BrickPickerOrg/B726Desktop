@@ -62,6 +62,10 @@ const useLocalListHandle = () => {
   // 根据ID获取当前歌曲的上一首
   const prevMusic = (id: string) => {
     const currentIndex = getMusicIndexOfList(id)
+    if (currentIndex === -1) {
+      // 当前播放的歌曲已被从列表中移除 返回列表的第一首
+      return getLocalList()[0]
+    }
     if (currentIndex === 0) {
       // 当前是最后一首
       return getLocalList()[getLocalList().length - 1]
@@ -72,6 +76,10 @@ const useLocalListHandle = () => {
   // 根据ID获取当前歌曲的下一首
   const nextMusic = (id: string) => {
     const currentIndex = getMusicIndexOfList(id)
+    if (currentIndex === -1) {
+      // 当前播放的歌曲已被从列表中移除 返回列表的第一首
+      return getLocalList()[0]
+    }
     if (currentIndex === getLocalList().length - 1) {
       // 当前是最后一首
       return getLocalList()[0]
