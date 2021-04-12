@@ -97,6 +97,11 @@ export default defineComponent({
       if (mode === PlayMode.LOOP.toString()) {
         // 列表循环
         const nextMusic = $localList.nextMusic(playingSong.value.id);
+        if(!nextMusic){
+          // 如果获取不到下一首歌 单曲循环
+          play()
+          return
+        }
         playCheckMusic(nextMusic);
       }
       if (mode === PlayMode.SINGLE_LOOP.toString()) {

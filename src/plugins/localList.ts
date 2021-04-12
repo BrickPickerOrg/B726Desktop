@@ -8,16 +8,18 @@ interface Music {
 }
 
 const useLocalListHandle = () => {
-  // 本地音乐播放列表
-  let list = JSON.parse(localStorage.getItem('musicLocalList') || '[]')
-
   // 获取本地音乐播放列表
   const getLocalList = () => {
     return JSON.parse(localStorage.getItem('musicLocalList') || '[]')
   }
 
+  // 本地音乐播放列表
+  let list = getLocalList()
+  
   // 列表新增歌曲
   const insertMusicToList = (music: Music) => {
+    // 更新本地列表
+    list = getLocalList()
     if (!isListBeIncluded(music.id)) {
       list.unshift(music)
       saveLocalList()

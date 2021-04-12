@@ -57,7 +57,8 @@ export default {
     const rangeMousemove = (e: any) => {
       if (mouseDown.value) {
         const totalWidth = container.value?.offsetWidth as number;
-        const moveX = e.pageX - originX.value;
+        const leftDistance = 10;// 底部播放器到左侧的距离
+        const moveX = e.pageX - originX.value - leftDistance;
         moveProgress.value = (moveX / totalWidth) * 100;
         layoutFooter.value.rangeMousemove();
       }

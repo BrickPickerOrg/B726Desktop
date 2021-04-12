@@ -1,8 +1,18 @@
 <template>
   <div class="local-music-list">
-    <h2 class="title">播放列表</h2>
+    <div class="top">
+      <h2 class="title">播放列表</h2>
+      <div class="clear-btn">
+        <div class="iconfont-delete"></div>
+        <span>清空</span>
+      </div>
+    </div>
     <div class="song-list-wrap">
-      <SongList :musicList="list" showDeleteButton @removeMusicFromIdSuccess="removeMusicFromIdSuccess"></SongList>
+      <SongList
+        :musicList="list"
+        showDeleteButton
+        @removeMusicFromIdSuccess="removeMusicFromIdSuccess"
+      ></SongList>
     </div>
   </div>
 </template>
@@ -22,12 +32,12 @@ export default defineComponent({
     const list = ref($localList.getLocalList());
 
     const removeMusicFromIdSuccess = () => {
-      list.value = $localList.getLocalList()
-    }
+      list.value = $localList.getLocalList();
+    };
 
     return {
       list,
-      removeMusicFromIdSuccess
+      removeMusicFromIdSuccess,
     };
   },
 });
@@ -41,10 +51,34 @@ export default defineComponent({
   box-sizing: border-box;
   padding: 20px;
   overflow-x: hidden;
-  
-  .title {
-    font-size: 22px;
-    color: $font-color;
+
+  .top {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+    .title {
+      font-size: 22px;
+      color: $font-color;
+    }
+
+    .clear-btn {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      font-size: 13px;
+      cursor: pointer;
+      color: $font-color;
+
+      .iconfont-delete {
+        font-size: 16px;
+        margin-right: 3px;
+      }
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
   }
 
   .song-list-wrap {

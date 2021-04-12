@@ -28,7 +28,8 @@ export default defineComponent({
     const progressChange = (e: any) => {
       const totalWidth = volumeBox.value?.offsetWidth as number;
       const originX = volumeBox.value?.offsetLeft as number;
-      const moveX = e.pageX - originX;
+      const leftDistance = 10;// 底部播放器到左侧的距离
+      const moveX = e.pageX - originX - leftDistance;
       progress.value = (moveX / totalWidth) * 100
       if(progress.value > 100) progress.value = 100
       if(progress.value < 0) progress.value = 0
