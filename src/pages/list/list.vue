@@ -2,7 +2,7 @@
   <div class="local-music-list">
     <div class="top">
       <h2 class="title">播放列表</h2>
-      <div class="clear-btn">
+      <div class="clear-btn" @click.stop="clearList">
         <div class="iconfont-delete"></div>
         <span>清空</span>
       </div>
@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, getCurrentInstance, ref } from "vue";
 import SongList from "@/views/song_list.vue";
 import useLocalListHandle from "@/plugins/localList";
 
@@ -30,6 +30,18 @@ export default defineComponent({
   setup() {
     const $localList = useLocalListHandle();
     const list = ref($localList.getLocalList());
+    let { ctx }: any = getCurrentInstance();
+    const clearList = () => {
+      ctx.$confirm({
+        title: "清空列表",
+        message: "确认清空本地播放列表？",
+        confirmText: "确认删除",
+        confirmHandle: () => {
+          $localList.clear()
+          removeMusicFromIdSuccess()
+        },
+      });
+    };
 
     const removeMusicFromIdSuccess = () => {
       list.value = $localList.getLocalList();
@@ -37,6 +49,7 @@ export default defineComponent({
 
     return {
       list,
+      clearList,
       removeMusicFromIdSuccess,
     };
   },
