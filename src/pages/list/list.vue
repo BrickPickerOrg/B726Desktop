@@ -11,7 +11,7 @@
       <SongList
         :musicList="list"
         showDeleteButton
-        @removeMusicFromIdSuccess="removeMusicFromIdSuccess"
+        @removeMusicFromIdSuccess="removeMusicSuccess"
       ></SongList>
     </div>
   </div>
@@ -38,19 +38,19 @@ export default defineComponent({
         confirmText: "确认删除",
         confirmHandle: () => {
           $localList.clear()
-          removeMusicFromIdSuccess()
+          removeMusicSuccess()
         },
       });
     };
 
-    const removeMusicFromIdSuccess = () => {
+    const removeMusicSuccess = () => {
       list.value = $localList.getLocalList();
     };
 
     return {
       list,
       clearList,
-      removeMusicFromIdSuccess,
+      removeMusicSuccess,
     };
   },
 });
