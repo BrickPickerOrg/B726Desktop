@@ -1,14 +1,14 @@
-'use strict'
-import { app, protocol, BrowserWindow, Menu } from 'electron'
+import { app, protocol, BrowserWindow, Menu, dialog } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 const isDevelopment = process.env.NODE_ENV !== 'production'
+import initDownloader from './platform/downloader'
 
 protocol.registerSchemesAsPrivileged([
-  { scheme: 'app', privileges: { secure: true, standard: true } }
+  { scheme: 'app', privileges: { secure: true, standard: true } },
 ])
 
 async function createWindow() {
-  Menu.setApplicationMenu(null);
+  Menu.setApplicationMenu(null)
   const win = new BrowserWindow({
     width: isDevelopment ? 1700 : 1200,
     // width: 1200,
@@ -16,7 +16,7 @@ async function createWindow() {
     fullscreenable: false, // 是否允许全屏
     backgroundColor: '#00000000', // 背景颜色
     frame: false,
-    titleBarStyle: 'hiddenInset', // 标题栏的样式，有hidden、hiddenInset、customButtonsOnHover等
+    // titleBarStyle: 'hiddenInset', // 标题栏的样式，有hidden、hiddenInset、customButtonsOnHover等
     resizable: false, // 是否允许拉伸大小
     transparent: true, // 是否是透明窗口（仅macOS）
     autoHideMenuBar: true,
@@ -27,6 +27,7 @@ async function createWindow() {
       webSecurity: false, //跨域限制
       contextIsolation: false,
       enableRemoteModule: true,
+      nodeIntegration: true
     },
   })
 
@@ -37,6 +38,8 @@ async function createWindow() {
     createProtocol('app')
     win.loadURL('app://./index.html')
   }
+
+  initDownloader()
 }
 
 app.on('window-all-closed', () => {

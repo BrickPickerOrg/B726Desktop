@@ -6,5 +6,10 @@ module.exports = {
     port: 3001,
     proxy: "http://localhost:3030"
     // proxy: "http://bknds.jiajiale.site"
+  },
+  pluginOptions: {
+    electronBuilder: {
+      nodeIntegration: true
+    }
   }
 }

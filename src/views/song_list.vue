@@ -73,7 +73,7 @@
               <a
                 class="music-list-btn iconfont-download"
                 href="javascript:;"
-                @click="getMiGuMusicAudioUrl(item)"
+                @click="download(item)"
               ></a>
               <a
                 class="music-list-btn iconfont-delete"
@@ -152,8 +152,13 @@ export default defineComponent({
       });
     };
 
-    const getMiGuMusicAudioUrl = async (song: any) => {
-      let url;
+    const removeMusicFromIdHandle = (id: string) => {
+      removeMusicFromId(id);
+      emit("removeMusicFromIdSuccess");
+    };
+
+    const download = async (song: any) => {
+      let url = "";
       try {
         const audioUrl = await getMiGuMusicAudioUrlApi({
           id: song.id,
@@ -161,27 +166,25 @@ export default defineComponent({
           singer: getSingersName(song.singers),
         });
         url = audioUrl.data.url;
-        window.open(url);
+        $store.dispatch("downloader/download", {
+          id: song.id,
+          downloadUrl: url,
+          filename: song.songName,
+        });
       } catch (error) {
         url = "";
       }
-      return url;
     };
-
-    const removeMusicFromIdHandle = (id: string) => {
-      removeMusicFromId(id)
-      emit('removeMusicFromIdSuccess')
-    }
 
     return {
       playing,
+      download,
       getSingersName,
       getAlbumName,
       playCheckMusic,
       isPlayingMusic,
       viewSingerDetail,
       viewAlbumDetail,
-      getMiGuMusicAudioUrl,
       removeMusicFromIdHandle,
     };
   },

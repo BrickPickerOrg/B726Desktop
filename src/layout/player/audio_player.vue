@@ -15,9 +15,9 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue";
 import { AudioPlayerState, PlayMode } from "./audio_player";
+import { useStore } from "vuex";
 import usePlayerFn from "@/plugins/player";
 import useLocalListHandle from "@/plugins/localList";
-import { useStore } from "vuex";
 
 export default defineComponent({
   setup(props, { emit }) {

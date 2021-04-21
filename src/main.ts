@@ -5,9 +5,7 @@ import store from './store'
 import components from './components/components'
 import { LoadingDirective, Occupy } from './plugins/directive'
 import './assets/styles/theme/font.scss'
-import { downloadFile } from './win/download'
-
-
+// components
 import Toast from "@/components/toast/toast"
 import Confirm from "@/components/confirm/confirm"
 
@@ -25,7 +23,4 @@ app.use(Toast)
 app.directive('loading', LoadingDirective)
 app.directive('occupy', Occupy)
 
-app
-  .use(store)
-  .use(router)
-  .mount('#app')
+app.use(store).use(router).mount('#app')
