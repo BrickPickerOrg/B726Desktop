@@ -9,7 +9,7 @@
 import { defineComponent, ref, computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import useApi from '@/plugins/api';
-import SongList from '@/views/song_list.vue';
+import SongList from '@/views/songList.vue';
 import Paginator from '@/layout/paginator.vue';
 
 export default defineComponent({

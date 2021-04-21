@@ -16,7 +16,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { PLAYLIST_ITEMS_PLACEHOLDR } from './placeholder_data';
+import { PLAYLIST_ITEMS_PLACEHOLDR } from './placeholderData';
 
 export default defineComponent({
   props: {

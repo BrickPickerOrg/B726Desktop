@@ -10,20 +10,20 @@ protocol.registerSchemesAsPrivileged([
 async function createWindow() {
   Menu.setApplicationMenu(null)
   const win = new BrowserWindow({
-    width: isDevelopment ? 1700 : 1200,
-    // width: 1200,
+    // width: isDevelopment ? 1700 : 1200,
+    width: 1200,
     height: 660,
     fullscreenable: false, // 是否允许全屏
     backgroundColor: '#00000000', // 背景颜色
     frame: false,
-    // titleBarStyle: 'hiddenInset', // 标题栏的样式，有hidden、hiddenInset、customButtonsOnHover等
+    titleBarStyle: 'hiddenInset', // 标题栏的样式，有hidden、hiddenInset、customButtonsOnHover等
     resizable: false, // 是否允许拉伸大小
     transparent: true, // 是否是透明窗口（仅macOS）
     autoHideMenuBar: true,
     title: '听青',
     webPreferences: {
-      devTools: isDevelopment,
-      // devTools: false,
+      // devTools: isDevelopment,
+      devTools: false,
       webSecurity: false, //跨域限制
       contextIsolation: false,
       enableRemoteModule: true,

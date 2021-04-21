@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { defineComponent, getCurrentInstance, ref } from "vue";
-import SongList from "@/views/song_list.vue";
+import SongList from "@/views/songList.vue";
 import useLocalListHandle from "@/plugins/localList";
 
 export default defineComponent({

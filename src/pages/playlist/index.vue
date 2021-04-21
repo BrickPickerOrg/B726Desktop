@@ -43,7 +43,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { LIST_ITEMS_PLACEHOLDR, PLAYLIST_TYPES } from './playlist';
 import useApi from '@/plugins/api';
 import Paginator from '@/layout/paginator.vue';
-import PlaylistItems from '@/views/playlist_items.vue';
+import PlaylistItems from '@/views/playlistItems.vue';
 
 export default defineComponent({
   components: {

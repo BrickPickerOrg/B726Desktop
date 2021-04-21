@@ -57,8 +57,8 @@ import { defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import useApi from '@/plugins/api';
 import usePlayerFn from '@/plugins/player';
-import PlaylistItems from '@/views/playlist_items.vue';
-import Album from '@/views/album_item.vue';
+import PlaylistItems from '@/views/playlistItems.vue';
+import Album from '@/views/albumItem.vue';
 
 export default defineComponent({
   components: {

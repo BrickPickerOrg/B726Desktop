@@ -34,7 +34,7 @@
 import { defineComponent, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import useApi from '@/plugins/api';
-import IntroSonglist from '@/views/intro_songlist.vue';
+import IntroSonglist from '@/views/introSongList.vue';
 import usePlayerFn from '@/plugins/player';
 
 export default defineComponent({
