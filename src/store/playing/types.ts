@@ -1,5 +1,3 @@
-/** @format */
-
 export interface playingState {
   platform: string;
   playState: boolean;

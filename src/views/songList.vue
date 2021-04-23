@@ -71,11 +71,6 @@
                 href="javascript:;"
               ></a>
               <a
-                class="music-list-btn iconfont-download"
-                href="javascript:;"
-                @click="download(item)"
-              ></a>
-              <a
                 class="music-list-btn iconfont-delete"
                 href="javascript:;"
                 v-if="showDeleteButton"
@@ -86,6 +81,7 @@
                 href="javascript:;"
                 v-if="!showDeleteButton"
               ></a>
+              <downloadButton :song="item"></downloadButton>
             </div>
           </td>
         </tr>
@@ -102,6 +98,7 @@ import usePlayerFn from "@/plugins/player";
 import { SONG_LIST_ITEMS_PLACEHOLDR } from "./placeholderData";
 import useRequests from "@/plugins/api";
 import useLocalListHandle from "@/plugins/localList";
+import downloadButton from "@/views/downloadButton.vue"
 
 export default defineComponent({
   props: {
@@ -117,6 +114,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+  },
+
+  components: {
+    downloadButton
   },
 
   setup(props, { emit }) {

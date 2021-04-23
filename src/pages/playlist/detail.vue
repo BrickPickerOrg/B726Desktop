@@ -7,11 +7,7 @@
       <div class="detail-content-header-info">
         <span class="name" data-occupy="occupy">{{ playlistDetail.name }}</span>
         <div class="tag-wrap">
-          <div
-            class="tag"
-            v-for="(tag, index) in playlistDetail.tags"
-            :key="tag.id"
-          >
+          <div class="tag" v-for="(tag, index) in playlistDetail.tags" :key="tag.id">
             <span class="line" v-show="index !== 0">/</span>
             <span>{{ tag.title }}</span>
           </div>
@@ -30,10 +26,10 @@
       </div>
     </div>
     <div class="detail-songlist">
-      <IntroSonglist
+      <introSongList
         :songList="playlistDetail.songList"
         :intro="playlistDetail.intro"
-      ></IntroSonglist>
+      ></introSongList>
     </div>
   </div>
 </template>
@@ -42,12 +38,12 @@
 import { defineComponent, ref } from "vue";
 import { useRoute } from "vue-router";
 import useApi from "@/plugins/api";
-import IntroSonglist from "@/views/introSongList.vue";
-import usePlayerFn from '@/plugins/player';
+import introSongList from "@/views/introSongList.vue";
+import usePlayerFn from "@/plugins/player";
 
 export default defineComponent({
   components: {
-    IntroSonglist,
+    introSongList,
   },
 
   setup() {
@@ -68,15 +64,15 @@ export default defineComponent({
     };
 
     const playAll = () => {
-      playAllList(playlistDetail.value.songList)
-    }
+      playAllList(playlistDetail.value.songList);
+    };
 
     getPlaylistDetail($route.query.id as string);
 
     return {
       occupy,
       playlistDetail,
-      playAll
+      playAll,
     };
   },
 });

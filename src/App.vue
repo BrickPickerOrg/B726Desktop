@@ -33,11 +33,15 @@ import { provideRequest } from "@/plugins/request";
 import LayoutHeader from "@/layout/header/header.vue";
 import LayoutFooter from "@/layout/footer/footer.vue";
 import LayoutSidebar from "@/layout/sidebar/sidebar.vue";
+import { useStore } from "vuex";
 
 export default {
   setup() {
     // 注册全局request请求
     provideRequest();
+
+const $store = useStore();
+$store.dispatch("downloader/init")
 
     const container = ref<HTMLElement>();
     const layoutFooter = ref();

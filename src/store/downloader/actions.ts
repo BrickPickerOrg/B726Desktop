@@ -5,5 +5,9 @@ import { RootState } from '../types';
 export const actions: ActionTree<downloaderState, RootState> = {
   download({ commit }, params): void {
     commit('download', params);
+  },
+
+  init({ commit }, params): void {
+    commit('init', params);
   }
 };

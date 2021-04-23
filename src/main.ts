@@ -8,7 +8,7 @@ import './assets/styles/theme/font.scss'
 // components
 import Toast from "@/components/toast/toast"
 import Confirm from "@/components/confirm/confirm"
-
+  
 const app = createApp(App)
 
 for (const component in components) {

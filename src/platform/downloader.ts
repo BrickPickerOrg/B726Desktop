@@ -14,15 +14,16 @@ export default () => {
       onStarted(downloadItem: any) {
         (win as BrowserWindow).webContents.send('downloadOnStarted', {
           id: params.id,
+          name: params.filename,
           totalBytes: downloadItem.getTotalBytes(),
         })
       },
       onProgress(progress: any) {
-        // (win as BrowserWindow).webContents.send('download-onProgress', {
-        //   id: args.id,
-        //   progress: progress.percent * 100,
-        //   state: downloads[args.id].getState(),
-        // })
+        (win as BrowserWindow).webContents.send('downloadOnProgress', {
+          id: params.id,
+          name: params.filename,
+          progress: progress.percent * 100,
+        })
       },
     })
     // .then(() => {
