@@ -14,7 +14,11 @@
         </div>
         <div class="layout-main-wrapper">
           <LayoutHeader></LayoutHeader>
-          <router-view></router-view>
+          <router-view v-slot="{ Component }">
+            <transition name="container">
+              <component :is="Component" />
+            </transition>
+          </router-view>
         </div>
       </div>
       <div class="layout-bottom">
@@ -30,18 +34,19 @@
 <script lang="ts">
 import { ref } from "vue";
 import { provideRequest } from "@/plugins/request";
+import { useStore } from "vuex";
 import LayoutHeader from "@/layout/header/header.vue";
 import LayoutFooter from "@/layout/footer/footer.vue";
 import LayoutSidebar from "@/layout/sidebar/sidebar.vue";
-import { useStore } from "vuex";
 
 export default {
   setup() {
     // 注册全局request请求
     provideRequest();
 
-const $store = useStore();
-$store.dispatch("downloader/init")
+    const $store = useStore();
+    // 注册download事件监听
+    $store.dispatch("downloader/init");
 
     const container = ref<HTMLElement>();
     const layoutFooter = ref();
@@ -61,7 +66,7 @@ $store.dispatch("downloader/init")
     const rangeMousemove = (e: any) => {
       if (mouseDown.value) {
         const totalWidth = container.value?.offsetWidth as number;
-        const leftDistance = 10;// 底部播放器到左侧的距离
+        const leftDistance = 10; // 底部播放器到左侧的距离
         const moveX = e.pageX - originX.value - leftDistance;
         moveProgress.value = (moveX / totalWidth) * 100;
         layoutFooter.value.rangeMousemove();
@@ -111,10 +116,14 @@ body {
   display: flex;
   flex-flow: column nowrap;
   width: 1200px;
-  /* background: $body-bg; */
-  background-image: linear-gradient(45deg, $gradient-bg-s, $gradient-bg-c, $gradient-bg-e);
+  /* background-image: linear-gradient(
+    45deg,
+    $gradient-bg-s,
+    $gradient-bg-c,
+    $gradient-bg-e
+  ); */
   margin: 0 auto;
-  border-radius: 20px;
+  /* border-radius: 20px; */
   overflow: hidden;
 
   .layout-center {
@@ -129,10 +138,10 @@ body {
     .layout-main-wrapper {
       background-color: $card-color;
       flex: 1;
-      margin:10px 10px 20px 10px;
+      margin: 10px 10px 20px 10px;
       box-sizing: border-box;
       border-radius: 20px;
-      padding:5px 10px 5px;
+      padding: 5px 10px 5px;
     }
   }
 
@@ -145,5 +154,18 @@ body {
     right: 10px;
     border-radius: 20px;
   }
+}
+
+.container-enter-active{
+  transition: all 1.5s ease;
+}
+
+.container-leave-active {
+  transition: none;
+}
+
+.container-enter-from,
+.container-leave-to {
+  opacity: 0;
 }
 </style>

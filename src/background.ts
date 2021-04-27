@@ -1,4 +1,4 @@
-import { app, protocol, BrowserWindow, Menu, dialog } from 'electron'
+import { app, protocol, BrowserWindow, Menu, remote } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 const isDevelopment = process.env.NODE_ENV !== 'production'
 import initDownloader from './platform/downloader'
@@ -10,8 +10,8 @@ protocol.registerSchemesAsPrivileged([
 async function createWindow() {
   Menu.setApplicationMenu(null)
   const win = new BrowserWindow({
-    width: isDevelopment ? 1700 : 1200,
-    // width: 1200,
+    // width: isDevelopment ? 1700 : 1200,
+    width: 1200,
     height: 660,
     fullscreenable: false, // 是否允许全屏
     backgroundColor: '#00000000', // 背景颜色
@@ -22,12 +22,13 @@ async function createWindow() {
     autoHideMenuBar: true,
     title: '听青',
     webPreferences: {
-      devTools: isDevelopment,
-      // devTools: false,
+      // devTools: isDevelopment,
+      devTools: false,
       webSecurity: false, //跨域限制
       contextIsolation: false,
       enableRemoteModule: true,
-      nodeIntegration: true
+      nodeIntegration: true,
+      experimentalFeatures: true
     },
   })
 
@@ -38,6 +39,9 @@ async function createWindow() {
     createProtocol('app')
     win.loadURL('app://./index.html')
   }
+
+  // 窗口设置毛玻璃效果
+  win.setVibrancy('light');
 
   initDownloader()
 }
