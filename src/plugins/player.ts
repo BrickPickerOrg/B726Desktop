@@ -38,6 +38,7 @@ const usePlayerFn = () => {
     const audioUrl = await getMiGuMusicAudioUrlApi({
       id: song.id,
       name: song.songName,
+      contentId: song.contentId,
       singer: getSingersName(song.singers),
     })
 

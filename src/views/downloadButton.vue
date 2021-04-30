@@ -68,22 +68,17 @@ export default defineComponent({
     }
 
     const download = async () => {
-      let url = "";
-      try {
-        const audioUrl = await getMiGuMusicAudioUrlApi({
-          id: song.value.id,
-          name: song.value.songName,
-          singer: getSingersName(song.value.singers),
-        });
-        url = audioUrl.data.url;
-        $store.dispatch("downloader/download", {
-          id: song.value.id,
-          downloadUrl: url,
-          filename: song.value.songName,
-        });
-      } catch (error) {
-        url = "";
-      }
+      const audioUrl = await getMiGuMusicAudioUrlApi({
+        id: song.value.id,
+        name: song.value.songName,
+        contentId: song.value.contentId,
+        singer: getSingersName(song.value.singers),
+      });
+      $store.dispatch("downloader/download", {
+        id: song.value.id,
+        downloadUrl: audioUrl.data.url,
+        filename: song.value.songName,
+      });
     };
 
     return {

@@ -7,7 +7,7 @@ interface ServiceModel {
 }
 
 export const service: ServiceModel = new Service({
-  baseUrl: 'http://bknds.jiajiale.site',
+  baseUrl: 'http://localhost:3030',
   timeout: 5000
 });
 

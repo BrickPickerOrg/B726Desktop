@@ -41,7 +41,7 @@ async function createWindow() {
   }
 
   // 窗口设置毛玻璃效果
-  win.setVibrancy('light');
+  // win.setVibrancy('light');
 
   initDownloader()
 }

@@ -164,6 +164,7 @@ export default defineComponent({
         const audioUrl = await getMiGuMusicAudioUrlApi({
           id: song.id,
           name: song.songName,
+          contentId: song.contentId,
           singer: getSingersName(song.singers),
         });
         url = audioUrl.data.url;

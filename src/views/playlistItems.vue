@@ -61,15 +61,16 @@ export default defineComponent({
 
   .playlist-item {
     margin-top: 20px;
-    width: 155px;
+    width: 145px;
     box-sizing: border-box;
+    margin: 10px;
 
     .cover-img-wrap {
-      width: 155px;
-      height: 155px;
+      width: 145px;
+      height: 145px;
       position: relative;
       top: 0;
-      border-radius: 20px;
+      border-radius: 15px;
       overflow: hidden;
       cursor: pointer;
       margin-bottom: 10px;

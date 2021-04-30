@@ -13,6 +13,11 @@ const MENU = [
     title: '排行榜',
     icon: 'top',
     path: 'top'
+  },
+  {
+    title: '我的下载',
+    icon: 'download',
+    path: 'download'
   }
 ]
 

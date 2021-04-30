@@ -116,14 +116,14 @@ body {
   display: flex;
   flex-flow: column nowrap;
   width: 1200px;
-  /* background-image: linear-gradient(
+  background-image: linear-gradient(
     45deg,
     $gradient-bg-s,
     $gradient-bg-c,
     $gradient-bg-e
-  ); */
+  );
   margin: 0 auto;
-  /* border-radius: 20px; */
+  border-radius: 20px;
   overflow: hidden;
 
   .layout-center {
