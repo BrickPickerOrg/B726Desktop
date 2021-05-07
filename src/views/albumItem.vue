@@ -2,16 +2,16 @@
   <div :class="digital ? 'digital-item-wrap' : 'album-item-wrap'" v-occupy="ownOccupy">
     <!-- <div class="cover-img-wrap" data-occupy="occupy"> -->
     <div class="cover-img-wrap" @click.stop="viewAlbumDetail(ownAlbum.id)">
-      <mg-image :src="ownAlbum.coverUrl" :alt="ownAlbum.albumName" class="cover-img" />
+      <bknds-image :src="ownAlbum.coverUrl" :alt="ownAlbum.albumName" class="cover-img" />
       <div class="digital-tag" v-if="digital">数字专辑</div>
       <span class="update-time">{{ ownAlbum.time }}</span>
     </div>
     <!-- <div class="playlist-name" data-occupy="occupy"> -->
     <div class="playlist-name">
-      <mg-text :text="ownAlbum.albumName" />
+      <bknds-text :text="ownAlbum.albumName" />
     </div>
     <div class="singers-name">
-      <mg-text :text="getSingersName(ownAlbum.singers)" />
+      <bknds-text :text="getSingersName(ownAlbum.singers)" />
     </div>
   </div>
 </template>

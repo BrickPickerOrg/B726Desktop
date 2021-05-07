@@ -17,8 +17,8 @@
     <div class="top-content" v-occupy="occupy">
       <div class="top-content-header">
         <div class="cover-wrap" data-occupy="occupy">
-          <mg-image :src="topMusicInfo.cover" alt="" class="cover-img" />
-          <mg-image :src="topMusicInfo.coverMask" alt="" class="cover-img-mask" />
+          <bknds-image :src="topMusicInfo.cover" alt="" class="cover-img" />
+          <bknds-image :src="topMusicInfo.coverMask" alt="" class="cover-img-mask" />
         </div>
         <div class="top-content-header-info">
           <span class="top-name" data-occupy="occupy">{{ checkedTopType.typeName }}</span>

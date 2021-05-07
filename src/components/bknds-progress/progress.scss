@@ -1,0 +1,26 @@
+@import '@/assets/styles/theme/conf.scss';
+
+.bknds-progress {
+  position: relative;
+
+  .bknds-progress-circle {
+    position: relative;
+
+    .bknds-progress-circle__background {
+      stroke: lighten($primary-color, 50%);
+    }
+
+    .bknds-progress-circle__certain {
+      transition: all 0.2s;
+      stroke: $primary-color;
+      position: absolute;
+    }
+
+    .bknds-progress-circle__label {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}

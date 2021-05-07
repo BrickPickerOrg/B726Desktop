@@ -2,7 +2,7 @@
   <div class="detail-container">
     <div class="detail-content-header" v-occupy="occupy">
       <div class="cover-wrap" data-occupy="occupy">
-        <mg-image :src="albumDetail.cover" alt="" class="cover-img" />
+        <bknds-image :src="albumDetail.cover" alt="" class="cover-img" />
       </div>
       <div class="detail-content-header-info">
         <span class="name" data-occupy="occupy">{{ albumDetail.albumName }}</span>

@@ -36,6 +36,7 @@ export default defineComponent({
         title: "清空列表",
         message: "确认清空本地播放列表？",
         confirmText: "确认删除",
+        showCancel: true,
         confirmHandle: () => {
           $localList.clear()
           removeMusicSuccess()

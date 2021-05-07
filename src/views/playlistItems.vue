@@ -2,7 +2,7 @@
   <div class="playlist-items-content" v-occupy="ownOccupy">
     <div class="playlist-item" v-for="playlist in items" :key="playlist.id">
       <div class="cover-img-wrap" @click.stop="viewPlaylistDetail(playlist)" data-occupy="occupy">
-        <mg-image :src="playlist.cover" :alt="playlist.name" class="cover-img" />
+        <bknds-image :src="playlist.cover" :alt="playlist.name" class="cover-img" />
         <div class="cover-icon"><i class="iconfont-play"></i></div>
         <span class="playcount"><i class="iconfont-headset"></i> {{ playlist.playcount }}</span>
       </div>

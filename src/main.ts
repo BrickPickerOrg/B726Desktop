@@ -2,17 +2,19 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import components from './components/components'
+import components from './components/index'
 import { LoadingDirective, Occupy } from './plugins/directive'
-import './assets/styles/theme/font.scss'
+
 // components
-import Toast from "@/components/toast/toast"
-import Confirm from "@/components/confirm/confirm"
-  
+import Toast from "@/components/bknds-toast/toast"
+import Confirm from "@/components/bknds-confirm/confirm"
+
+import './assets/styles/theme/font.scss'
+
 const app = createApp(App)
 
 for (const component in components) {
-  app.component(`mg-${component}`, components[component]) //
+  app.component(`bknds-${component}`, components[component])
 }
 
 //全局注册Confirm插件

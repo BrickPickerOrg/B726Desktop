@@ -2,7 +2,7 @@
   <div class="singer-container">
     <div class="singer-content-header" v-occupy="occupy">
       <div class="avatar-wrap" data-occupy="occupy">
-        <mg-image :src="singerDetail.avatar" alt="" class="avatar-img" />
+        <bknds-image :src="singerDetail.avatar" alt="" class="avatar-img" />
       </div>
       <div class="singer-content-header-info">
         <span class="name" data-occupy="occupy">{{ singerDetail.name }}</span>

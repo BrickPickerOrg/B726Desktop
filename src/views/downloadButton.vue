@@ -1,16 +1,6 @@
 <template>
   <div class="wapper">
-    <div
-      class="loading-wrap"
-      v-if="downloadInfo && downloadInfo.progress !== 100"
-    >
-      <div class="rect right">
-        <div class="circle circle_right" :style="getLeftProgressStyle"></div>
-      </div>
-      <div class="rect left">
-        <div class="circle circle_left" :style="getLeftProgressStyle"></div>
-      </div>
-    </div>
+    <bknds-progress v-if="downloadInfo && downloadInfo.progress !== 100" color="#000" :value="downloadInfo.progress" size="18" />
     <a
       class="music-list-btn iconfont-download"
       href="javascript:;"
@@ -53,20 +43,6 @@ export default defineComponent({
     };
     const downloadInfo = computed(() => getDownloadInfo()[0]);
 
-    const getLeftProgressStyle = () => {
-      if(downloadInfo.value && downloadInfo.value.progress > 50) {
-        return `transform: rotate(${180 * ((downloadInfo.value.progress - 50) / 50)}deg)`
-      }
-      return 'transform: rotate(0deg)'
-    }
-
-    const getRightProgressStyle = () => {
-      if(downloadInfo.value && downloadInfo.value.progress <= 50) {
-        return `transform: rotate(${180 * (downloadInfo.value.progress / 50)}deg)`
-      }
-      return 'transform: rotate(0deg)'
-    }
-
     const download = async () => {
       const audioUrl = await getMiGuMusicAudioUrlApi({
         id: song.value.id,
@@ -84,8 +60,6 @@ export default defineComponent({
     return {
       download,
       downloadInfo,
-      getLeftProgressStyle,
-      getRightProgressStyle
     };
   },
 });

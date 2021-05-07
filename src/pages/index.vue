@@ -16,14 +16,14 @@
       <div class="song-items-wrap-right">
         <div class="song-item" v-for="song in homeData.songs" :key="song.id">
           <div class="cover-wrap">
-            <mg-image :src="song.cover" alt="" class="cover-img" />
+            <bknds-image :src="song.cover" alt="" class="cover-img" />
           </div>
           <div class="info">
             <p class="song-name">
-              <mg-text :text="song.songName" />
+              <bknds-text :text="song.songName" />
             </p>
             <p class="singer-text">
-              <mg-text :text="getSingersName(song.singers)" />
+              <bknds-text :text="getSingersName(song.singers)" />
             </p>
           </div>
           <div class="options">

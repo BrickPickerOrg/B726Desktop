@@ -18,12 +18,9 @@ export default {
       const container = document.createElement('div')
       render(vm, container)
       document.body.appendChild(container)
+
+      vm.component.props = Object.assign(vm.component.props, opts)
    
-      vm.component.props.title = opts.title || '提示'
-      vm.component.props.message = opts.message || ''
-      vm.component.props.showCancel = opts.showCancel || true
-      vm.component.props.cancelText = opts.cancelText || '取消'
-      vm.component.props.confirmText = opts.confirmText || '确定'
       vm.component.props.cancelHandle = () => {
         document.body.removeChild(container)
         if (opts.cancelHandle) opts.cancelHandle()

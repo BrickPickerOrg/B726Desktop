@@ -13,7 +13,7 @@
       ></AudioPlayer>
     </div>
     <div class="artist-info-wrapper">
-      <mg-loading v-show="playing.id" class="voiceprint" />
+      <bknds-loading v-show="playing.id" class="voiceprint" />
       <img :src="playing.cover" class="artist-cover" />
       <div class="artist-text-wrapper">
         <span class="artist-name"
@@ -85,6 +85,8 @@ export default defineComponent({
     const $router = useRouter();
     const playing = computed(() => $store.state.playing);
     const moveProgress = ref(() => props.moveProgress);
+    // 播放器audio
+    const audioPlayer: any = ref(null);
 
     // 默认列表循环播放
     const playMode = ref(
@@ -111,8 +113,6 @@ export default defineComponent({
       currentLyric = playing.value.lyric[position.value] || currentLyric;
       return currentLyric;
     };
-
-    const audioPlayer: any = ref(null);
 
     const load = (url: string) => {
       audioPlayer.value.load(url);

@@ -19,7 +19,7 @@
         >
           <td v-if="!hideList.includes('index')">
             <div class="flex">
-              <mg-loading v-show="isPlayingMusic(item)" class="voiceprint" />
+              <bknds-loading v-show="isPlayingMusic(item)" class="voiceprint" />
               <span v-show="!isPlayingMusic(item)" class="music-index">{{
                 index + 1
               }}</span>
@@ -27,7 +27,7 @@
           </td>
           <td v-if="!hideList.includes('cover')">
             <div class="cover-wrap">
-              <mg-image :src="item.cover" alt="" class="cover-img" />
+              <bknds-image :src="item.cover" alt="" class="cover-img" />
             </div>
           </td>
           <td v-if="!hideList.includes('name')">

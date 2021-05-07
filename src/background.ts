@@ -10,8 +10,8 @@ protocol.registerSchemesAsPrivileged([
 async function createWindow() {
   Menu.setApplicationMenu(null)
   const win = new BrowserWindow({
-    // width: isDevelopment ? 1700 : 1200,
-    width: 1200,
+    width: isDevelopment ? 1700 : 1200,
+    // width: 1200,
     height: 660,
     fullscreenable: false, // 是否允许全屏
     backgroundColor: '#00000000', // 背景颜色
@@ -22,8 +22,8 @@ async function createWindow() {
     autoHideMenuBar: true,
     title: '听青',
     webPreferences: {
-      // devTools: isDevelopment,
-      devTools: false,
+      devTools: isDevelopment,
+      // devTools: false,
       webSecurity: false, //跨域限制
       contextIsolation: false,
       enableRemoteModule: true,
