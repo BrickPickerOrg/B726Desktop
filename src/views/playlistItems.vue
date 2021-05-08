@@ -61,16 +61,16 @@ export default defineComponent({
 
   .playlist-item {
     margin-top: 20px;
-    width: 145px;
+    width: 100px;
     box-sizing: border-box;
-    margin: 10px;
+    margin: 0 10px 20px;
 
     .cover-img-wrap {
-      width: 145px;
-      height: 145px;
+      width: 100px;
+      height: 100px;
       position: relative;
       top: 0;
-      border-radius: 15px;
+      border-radius: 3px;
       overflow: hidden;
       cursor: pointer;
       margin-bottom: 10px;
@@ -98,7 +98,7 @@ export default defineComponent({
           left: 50%;
           transform: translate(-50%, -50%);
           font-size: 50px;
-          color: $body-bg;
+          color: $background-color;
         }
       }
 
@@ -108,7 +108,7 @@ export default defineComponent({
         bottom: 10px;
         right: 5px;
         background-color: rgba($font-color, 0.7);
-        color: $body-bg;
+        color: $background-color;
         border-radius: 20px;
         font-size: 12px;
         transition: all 350ms;
@@ -116,7 +116,7 @@ export default defineComponent({
 
         i {
           font-size: 14px;
-          color: $body-bg;
+          color: $background-color;
         }
       }
 
@@ -141,15 +141,14 @@ export default defineComponent({
     }
 
     .playlist-name {
-      font-size: 12px;
+      font-size: 11px;
       display: -webkit-box;
       overflow: hidden;
-      line-height: 1.3em;
-      font-weight: 500;
+      line-height: 1.7em;
       color: $font-color;
+      cursor: pointer;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
-      cursor: pointer;
 
       &:hover {
         color: $primary-color;

@@ -90,7 +90,7 @@ export default defineComponent({
 @import '@/assets/styles/theme/conf.scss';
 
 .top-container {
-  height: 488px;
+  height: 570px;
   overflow-x: hidden;
   display: flex;
   flex-flow: row nowrap;
@@ -125,7 +125,7 @@ export default defineComponent({
   }
 
   .top-content {
-    height: 488px;
+    height: 570px;
     overflow-x: hidden;
   }
 
@@ -194,7 +194,7 @@ export default defineComponent({
 
           &.fill-button {
             border: 1px solid $primary-color;
-            color: $body-bg;
+            color: $background-color;
             background-color: $primary-color;
           }
         }

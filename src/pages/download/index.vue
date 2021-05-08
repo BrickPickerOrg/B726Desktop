@@ -35,7 +35,7 @@ export default defineComponent({
 @import "@/assets/styles/theme/conf.scss";
 
 .download-page-container {
-  height: 488px;
+  height: 570px;
   overflow-x: hidden;
 }
 </style>

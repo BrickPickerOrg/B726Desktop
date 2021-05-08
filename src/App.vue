@@ -1,31 +1,15 @@
 <template>
   <div id="app" onselectstart="return false;">
-    <div
-      class="app-container"
-      ref="container"
-      @mousedown="rangeMousedown"
-      @mousemove="rangeMousemove"
-      @mouseleave="mouseleave"
-      @mouseup="mouseup"
-    >
-      <div class="layout-center">
-        <div class="layout-sidebar-wrapper">
-          <LayoutSidebar></LayoutSidebar>
-        </div>
-        <div class="layout-main-wrapper">
-          <LayoutHeader></LayoutHeader>
-          <router-view v-slot="{ Component }">
-            <transition name="container">
-              <component :is="Component" />
-            </transition>
-          </router-view>
-        </div>
+    <div class="app-container">
+      <div class="layout-sidebar-wrapper">
+        <LayoutSidebar></LayoutSidebar>
       </div>
-      <div class="layout-bottom">
-        <LayoutFooter
-          ref="layoutFooter"
-          :moveProgress="moveProgress"
-        ></LayoutFooter>
+      <div class="layout-center-wrapper">
+        <LayoutHeader></LayoutHeader>
+        <router-view></router-view>
+      </div>
+      <div class="layout-player-wrapper">
+        <LayoutPlayer></LayoutPlayer>
       </div>
     </div>
   </div>
@@ -36,7 +20,7 @@ import { ref } from "vue";
 import { provideRequest } from "@/plugins/request";
 import { useStore } from "vuex";
 import LayoutHeader from "@/layout/header/header.vue";
-import LayoutFooter from "@/layout/footer/footer.vue";
+import LayoutPlayer from "@/layout/player/player.vue";
 import LayoutSidebar from "@/layout/sidebar/sidebar.vue";
 
 export default {
@@ -51,52 +35,15 @@ export default {
     const container = ref<HTMLElement>();
     const layoutFooter = ref();
 
-    const mouseDown = ref(false);
-    const originX = ref(0);
-    const moveProgress = ref(0);
-
-    const rangeMousedown = (e: any) => {
-      if (e.srcElement.className === "range") {
-        mouseDown.value = true;
-        originX.value = container.value?.offsetLeft as number;
-        layoutFooter.value.rangeMousedown();
-      }
-    };
-
-    const rangeMousemove = (e: any) => {
-      if (mouseDown.value) {
-        const totalWidth = container.value?.offsetWidth as number;
-        const leftDistance = 10; // 底部播放器到左侧的距离
-        const moveX = e.pageX - originX.value - leftDistance;
-        moveProgress.value = (moveX / totalWidth) * 100;
-        layoutFooter.value.rangeMousemove();
-      }
-    };
-
-    const mouseleave = () => {
-      mouseDown.value = false;
-      layoutFooter.value.rangeMouseleave();
-    };
-
-    const mouseup = () => {
-      mouseDown.value = false;
-      layoutFooter.value.rangeMouseup();
-    };
-
     return {
       container,
-      rangeMousedown,
-      rangeMousemove,
-      mouseleave,
-      mouseup,
-      moveProgress,
       layoutFooter,
     };
   },
 
   components: {
     LayoutHeader,
-    LayoutFooter,
+    LayoutPlayer,
     LayoutSidebar,
   },
 };
@@ -111,61 +58,31 @@ body {
 }
 
 .app-container {
-  position: relative;
-  padding-bottom: 70px;
   display: flex;
-  flex-flow: column nowrap;
-  width: 1200px;
-  background-image: linear-gradient(
-    45deg,
-    $gradient-bg-s,
-    $gradient-bg-c,
-    $gradient-bg-e
-  );
-  margin: 0 auto;
-  border-radius: 20px;
+  flex-flow: row nowrap;
+  position: relative;
+  width: 1040px;
+  background-color: $background-color;
+  /* border: 2px solid $primary-color; */
+  border-radius: 10px 10px 7px 7px;
+  box-sizing: border-box;
   overflow: hidden;
 
-  .layout-center {
+  .layout-sidebar-wrapper {
+    width: 150px;
+    border-right: 1px solid $border-color;
+  }
+
+  .layout-center-wrapper {
     flex: 1;
-    display: flex;
-    flex-flow: row nowrap;
-
-    .layout-sidebar-wrapper {
-      width: 200px;
-    }
-
-    .layout-main-wrapper {
-      background-color: $card-color;
-      flex: 1;
-      margin: 10px 10px 20px 10px;
-      box-sizing: border-box;
-      border-radius: 20px;
-      padding: 5px 10px 5px;
-    }
-  }
-
-  .layout-bottom {
-    height: 70px;
-    background: $player-bg;
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    right: 10px;
+    box-sizing: border-box;
     border-radius: 20px;
+    padding: 5px 10px 5px;
   }
-}
 
-.container-enter-active{
-  transition: all 1.5s ease;
-}
-
-.container-leave-active {
-  transition: none;
-}
-
-.container-enter-from,
-.container-leave-to {
-  opacity: 0;
+  .layout-player-wrapper {
+    border-left: 1px solid $border-color;
+    width: 220px;
+  }
 }
 </style>

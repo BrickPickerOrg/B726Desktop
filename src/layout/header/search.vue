@@ -36,14 +36,16 @@ export default defineComponent({
 @import '@/assets/styles/theme/conf.scss';
 
 .search-wrapper {
-  background-color: rgba($font-second-color, 0.15);
-  padding: 9px 10px;
-  border-radius: 20px;
+  background-color: rgba($border-color, 0.5);
+  padding: 5px 10px;
+  border-radius: 2px;
   overflow: hidden;
   margin-left: 20px;
 
   .search-input {
-    width: 170px;
+    position: relative;
+    top: -2px;
+    width: 240px;
     background-color: transparent;
     outline: none;
     font-size: 12px;
@@ -63,6 +65,7 @@ export default defineComponent({
     line-height: 20px;
     text-align: center;
     font-size: 20px;
+    cursor: pointer;
   }
 }
 </style>

@@ -1,4 +1,5 @@
 export default class Utils {
+  // 格式化歌曲时间
   public static formatSeconds(value: number): string {
     const secondsNumber = parseInt(value.toString());
     const h =

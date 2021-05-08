@@ -144,7 +144,7 @@ export default defineComponent({
 @import '@/assets/styles/theme/conf.scss';
 
 .playlist-items-container {
-  height: 488px;
+  height: 570px;
   overflow-x: hidden;
   padding: 10px 20px 0 20px;
   box-sizing: border-box;
@@ -165,14 +165,14 @@ export default defineComponent({
       color: $font-second-color;
       text-align: center;
       font-size: 13px;
-      border-radius: 11px;
+      border-radius: 3px;
       cursor: pointer;
       transition: all 500ms;
 
       &:hover,
       &.checked {
         background-color: $primary-color;
-        color: $card-color;
+        color: $font-color;
       }
     }
   }

@@ -21,12 +21,11 @@ export default {
 
 .layout-header {
   height: 60px;
-  background-color: $card-color;
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: center;
-  border-radius: 20px;
-  -webkit-app-region: drag;
+  border-bottom: 1px solid $border-color;
+  -webkit-app-region: drag; //应用拖动柄
 }
 </style>

@@ -12,7 +12,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import {
+  defineComponent
+} from "vue";
 import MENU from "./menu";
 
 export default defineComponent({
@@ -29,23 +31,25 @@ export default defineComponent({
 @import "@/assets/styles/theme/conf.scss";
 
 .sidebar-container {
-  padding: 20px 0 0 0;
+  padding: 50px 0 0 0;
+
   .menu-item {
-    margin: 15px;
-    font-size: 13px;
+    font-size: 12px;
 
     .menu-link {
       position: relative;
-      padding: 10px 15px;
-      color: $sidebar-font-color;
+      padding: 6px 15px;
+      margin: 0 0 13px 0;
+      color: $font-second-color;
       display: flex;
       flex-flow: row nowrap;
       justify-content: flex-start;
       align-items: center;
-      border-radius: 14px;
       background-color: rgba($card-color, 0);
 
       .icon {
+        position: relative;
+        top: 1px;
         display: block;
         width: 30px;
         height: 20px;
@@ -61,6 +65,20 @@ export default defineComponent({
         font-size: 13px;
       }
 
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        display: block;
+        background-image: linear-gradient(90deg, transparent, rgba($font-color, 0.2));
+        box-sizing: border-box;
+        border-right: 0px solid $primary-color;
+        transition: all 300ms;
+      }
+
       &::after {
         position: absolute;
         top: 0;
@@ -74,8 +92,12 @@ export default defineComponent({
       }
 
       &.router-link-active {
-        background-color: $card-color;
-        transition: all 700ms;
+        color: $font-color;
+
+        &::before {
+          width: 150px;
+          border-right: 2px solid $primary-color;
+        }
       }
     }
 

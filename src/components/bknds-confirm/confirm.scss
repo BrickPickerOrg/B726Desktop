@@ -11,7 +11,7 @@
 }
 
 .bknds-confirm-wrap {
-  background-color: $body-bg;
+  background-color: $background-color;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -56,7 +56,7 @@
 
     .bknds-confrim-btn {
       background-color: $primary-color;
-      color: $body-bg;
+      color: $background-color;
 
       &:hover {
         background-color: darken($primary-color, 5);
