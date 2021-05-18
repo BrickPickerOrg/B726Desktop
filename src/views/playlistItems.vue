@@ -63,7 +63,7 @@ export default defineComponent({
     margin-top: 20px;
     width: 100px;
     box-sizing: border-box;
-    margin: 0 10px 20px;
+    margin: 0 15px 20px 0;
 
     .cover-img-wrap {
       width: 100px;

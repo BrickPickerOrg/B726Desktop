@@ -17,11 +17,11 @@ export default defineComponent({
   setup() {
     const $store = useStore();
     const openPathDialog = () => {
-      $store.dispatch("downloader/openPathDialog", {});
+      $store.dispatch("downloader/openPathDialog");
     };
     
     const openDownloadDirectory = () => {
-      $store.dispatch("downloader/openDownloadDirectory", {});
+      $store.dispatch("downloader/openDownloadDirectory");
     };
     return {
       openPathDialog,
@@ -35,7 +35,7 @@ export default defineComponent({
 @import "@/assets/styles/theme/conf.scss";
 
 .download-page-container {
-  height: 570px;
+  height: 580px;
   overflow-x: hidden;
 }
 </style>

@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, watch } from 'vue';
 import { props } from './props';
 
 export default defineComponent({
@@ -22,7 +22,12 @@ export default defineComponent({
   setup(props, { emit }) {
     const sliderBox = ref<HTMLElement>();
     const mouseDown = ref(false);
-    const progress = ref(props.modelValue);
+    const progress = ref(props.value);
+
+    watch(() => props.value, (newVal) => {
+      // console.log(newVal)
+      progress.value = newVal;
+    })
 
     const progressChange = (e: any) => {
       const totalWidth = sliderBox.value?.offsetWidth as number;

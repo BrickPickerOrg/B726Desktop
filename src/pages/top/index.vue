@@ -90,7 +90,7 @@ export default defineComponent({
 @import '@/assets/styles/theme/conf.scss';
 
 .top-container {
-  height: 570px;
+  height: 580px;
   overflow-x: hidden;
   display: flex;
   flex-flow: row nowrap;
@@ -125,7 +125,7 @@ export default defineComponent({
   }
 
   .top-content {
-    height: 570px;
+    height: 580px;
     overflow-x: hidden;
   }
 

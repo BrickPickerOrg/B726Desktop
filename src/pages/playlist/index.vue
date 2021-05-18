@@ -144,7 +144,7 @@ export default defineComponent({
 @import '@/assets/styles/theme/conf.scss';
 
 .playlist-items-container {
-  height: 570px;
+  height: 580px;
   overflow-x: hidden;
   padding: 10px 20px 0 20px;
   box-sizing: border-box;
@@ -182,6 +182,7 @@ export default defineComponent({
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
+    padding: 10px 15px 15px 0;
 
     .title {
       font-size: 20px;

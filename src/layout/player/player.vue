@@ -1,132 +1,105 @@
 <template>
   <div class="player-container">
     <h2 class="player-title">Now Playing</h2>
-    <AudioPlayer :autoplay="true" ref="audioPlayer" @onAudioPositionChanged="onAudioPositionChanged" @onPlayerStateChanged="onPlayerStateChanged"></AudioPlayer>
+    <AudioPlayer
+      :autoplay="true"
+      ref="audioPlayer"
+      @onAudioPositionChanged="onAudioPositionChanged"
+      @onPlayerStateChanged="onPlayerStateChanged"
+    />
     <img :src="playing.cover" class="artist-cover" />
     <div class="artist-text-wrapper">
       <div class="song-name">{{ playing.name }}</div>
       <div class="singer-name">{{ getSingersName(playing.singer) }}</div>
     </div>
-    <div class="lyric-area">
-      <ul class="lyric">
-        <li v-for="signleLrc in lrc" :key="signleLrc.key" :class="currentLrc() ? 'current-lrc' : ''">
-          {{ signleLrc.value }}
-        </li>
-      </ul>
-    </div>
+    <Lyric :position="position" />
     <div class="slider-wrapper">
-      <bknds-slider @onChange="seek" />
+      <bknds-slider @onChange="seek" :value="progress * 100" />
       <div class="duration-wrapper">
         <span class="time">{{ position }}</span>
         <span class="time">{{ duration }}</span>
       </div>
     </div>
     <div class="options-wrapper">
-      <button class="player-options-btn" :class="getPlayModeIcon()" @click.stop="changePlayMode"></button>
-      <button class="player-options-btn iconfont-prev" @click.stop="prevMusicHandle"></button>
-      <button class="player-options-btn" :class="playing.playState ? 'iconfont-pause' : 'iconfont-play'" @click.stop="changePlayState(audioPlayer)"></button>
-      <button class="player-options-btn iconfont-next" @click.stop="nextMusicHandle"></button>
-      <button class="player-options-btn iconfont-heart-line"></button>
-      <!-- <button class="player-options-btn iconfont-list" @click.stop="viewLocalList"></button> -->
+      <button
+        class="player-options-btn"
+        :class="getPlayModeIcon()"
+        @click.stop="changePlayMode"
+      ></button>
+      <button
+        class="player-options-btn iconfont-prev"
+        @click.stop="prevMusicHandle"
+      ></button>
+      <button
+        class="player-options-btn"
+        :class="playing.playState ? 'iconfont-pause' : 'iconfont-play'"
+        @click.stop="changePlayState(audioPlayer)"
+      ></button>
+      <button
+        class="player-options-btn iconfont-next"
+        @click.stop="nextMusicHandle"
+      ></button>
+      <!-- <button class="player-options-btn iconfont-heart-line"></button> -->
+      <button class="player-options-btn iconfont-list" @click.stop="viewLocalList"></button>
     </div>
     <div class="volume-wrapper">
       <div class="iconfont-volume"></div>
-      <bknds-slider :value="40" @onChange="volumeChangeHandle" />
+      <bknds-slider :value="initVolume" @onChange="volumeChangeHandle" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import {
-  useStore
-} from "vuex";
-import {
-  computed,
-  defineComponent,
-  ref,
-  watch
-} from "vue";
-import {
-  AudioPlayerState,
-  PlayMode
-} from "@/layout/audio-player/audioPlayer";
-import {
-  useRouter
-} from "vue-router";
+import { useStore } from "vuex";
+import { computed, defineComponent, ref, watch } from "vue";
+import { AudioPlayerState, PlayMode } from "@/layout/audio-player/audioPlayer";
+import { useRouter } from "vue-router";
 
 import Utils from "@/common/utils";
 import usePlayerFn from "@/plugins/player";
 import useLocalListHandle from "@/plugins/localList";
 
 import AudioPlayer from "@/layout/audio-player/audioPlayer.vue";
+import Lyric from "./lyric.vue";
 
 export default defineComponent({
   components: {
     AudioPlayer,
+    Lyric,
   },
 
   setup() {
-    const {
-      getSingersName,
-      playCheckMusic
-    } = usePlayerFn();
-    const {
-      prevMusic,
-      nextMusic
-    } = useLocalListHandle();
+    const { getSingersName, playCheckMusic } = usePlayerFn();
+    const { prevMusic, nextMusic } = useLocalListHandle();
 
     const $store = useStore();
     const $router = useRouter();
+
+    // 正在播放的歌曲信息
     const playing = computed(() => $store.state.playing);
+
     // 播放器audio实例
     const audioPlayer: any = ref(null);
 
-    // 默认列表循环播放
-    const playMode = ref(
-      localStorage.getItem("playMode") || PlayMode.LOOP.toString()
-    );
+    const initVolume = ref(40)
 
-    const duration = ref < string > ("00:00");
-    const position = ref < string > ("00:00");
-    const progress = ref(0);
+    // 本地无记录 默认列表循环播放
+    const modeString =
+      localStorage.getItem("playMode") || PlayMode.LOOP.toString();
+    const playMode = ref(modeString);
 
-    const mouseDown = ref(false);
-
-    const lrc: any = ref([]);
-
-    const formatLyric = (playing:any) => {
-      lrc.value = []
-      for (const key in playing.lyric) {
-        if (Object.prototype.hasOwnProperty.call(playing.lyric, key)) {
-          lrc.value.push({
-            time: key,
-            value: playing.lyric[key],
-            key: key + Date.now(),
-            current: false,
-          });
-        }
-      }
-    };
+    // 歌曲总时长
+    const duration = ref<string>("00:00");
+    // 歌曲当前时间
+    const position = ref<string>("00:00");
+    // 进度条进度
+    const progress = ref<number>(0);
 
     watch(playing.value, (nowPlaying) => {
       load(nowPlaying.url);
-      formatLyric(nowPlaying);
     });
 
-    // 获取当前时间该显示的歌词
-    const currentLyric = ref("");
-
-    const currentLrc = () => {
-      const filterRes = lrc.value.filter(
-        (lrc: any) => lrc.time === position.value
-      );
-      currentLyric.value =
-        filterRes.length > 0 ? filterRes[0] : currentLyric.value;
-
-      // lyricTop.value = `-${currentLrc && currentLrc.offsetTop - 30}px`;
-      return currentLyric;
-    };
-
+    // 重新加载歌曲信息
     const load = (url: string) => {
       audioPlayer.value.load(url);
     };
@@ -141,25 +114,25 @@ export default defineComponent({
       $store.dispatch("playing/setPlayState", false);
     };
 
-    const seek = (progress: number) => {
-      audioPlayer.value.seek(progress);
-    };
-
     const changePlayState = () => {
       if (!playing.value.url) return;
       !playing.value.playState ? play() : pause();
     };
 
+    // 调整歌曲进度
+    const seek = (progress: number) => {
+      audioPlayer.value.seek(progress);
+    };
+
+    // 播放进度改变事件
     const onAudioPositionChanged = (
       _duration: number,
       _position: number,
       _progress: number
     ) => {
-      if (!mouseDown.value) {
-        duration.value = Utils.formatSeconds(_duration || 0);
-        position.value = Utils.formatSeconds(_position || 0);
-        progress.value = _progress * 100;
-      }
+      duration.value = Utils.formatSeconds(_duration || 0);
+      position.value = Utils.formatSeconds(_position || 0);
+      progress.value = _progress;
     };
 
     // 音频播放状态改变
@@ -193,7 +166,7 @@ export default defineComponent({
       $router.push(`/localList`);
     };
 
-    // 改变播放模式
+    // 改变循环模式
     const changePlayMode = () => {
       if (playMode.value === PlayMode.LOOP.toString()) {
         localStorage.setItem("playMode", PlayMode.SINGLE_LOOP.toString());
@@ -207,6 +180,7 @@ export default defineComponent({
       }
     };
 
+    // 获取循环播放模式对应ICON
     const getPlayModeIcon = () => {
       if (playMode.value === PlayMode.LOOP.toString())
         return "iconfont-circle-list";
@@ -214,26 +188,25 @@ export default defineComponent({
         return "iconfont-circle-single";
     };
 
-    // 上一首
+    // 播放上一首
     const prevMusicHandle = () => {
       const prev = prevMusic(playing.value.id);
       playCheckMusic(prev);
     };
 
-    // 下一首
+    // 播放下一首
     const nextMusicHandle = () => {
       const next = nextMusic(playing.value.id);
       playCheckMusic(next);
     };
 
     return {
+      initVolume,
       playing,
       audioPlayer,
       duration,
       position,
       progress,
-      currentLrc,
-      lrc,
       changePlayState,
       load,
       play,

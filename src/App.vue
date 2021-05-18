@@ -77,7 +77,6 @@ body {
     flex: 1;
     box-sizing: border-box;
     border-radius: 20px;
-    padding: 5px 10px 5px;
   }
 
   .layout-player-wrapper {

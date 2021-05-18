@@ -89,7 +89,7 @@ export default defineComponent({
 @import '@/assets/styles/theme/conf.scss';
 
 .singer-container {
-  height: 570px;
+  height: 580px;
   overflow-x: hidden;
 
   .singer-content-header {

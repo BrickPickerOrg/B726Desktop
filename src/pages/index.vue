@@ -109,7 +109,7 @@ export default defineComponent({
 @import '@/assets/styles/theme/conf.scss';
 
 .home-container {
-  height: 570px;
+  height: 580px;
   padding: 15px;
   overflow-x: hidden;
   box-sizing: border-box;
@@ -119,7 +119,7 @@ export default defineComponent({
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
-    margin: 0 0 10px;
+    margin: 10px 0;
 
     .title {
       font-size: 18px;

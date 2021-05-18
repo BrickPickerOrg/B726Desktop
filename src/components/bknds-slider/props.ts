@@ -1,5 +1,5 @@
 export const props = {
-  modelValue: {
+  value: {
     type: Number,
     default: 0,
   },
