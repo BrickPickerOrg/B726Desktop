@@ -47,7 +47,7 @@ const usePlayerFn = () => {
     const lyricResult = await getMiGuMusicLyricApi({
       cid: song.cid,
     })
-    $store.dispatch('playing/setLyric', lyricResult.data)
+    $store.dispatch('lyric/setLyric', lyricResult.data)
     insertMusicToList(song)
   }
 

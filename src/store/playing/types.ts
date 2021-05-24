@@ -9,5 +9,4 @@ export interface playingState {
   albumId?: string;
   cover?: string;
   url?: string;
-  lyric: Record<string, string>;
 }

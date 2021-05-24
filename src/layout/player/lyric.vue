@@ -1,7 +1,15 @@
 <template>
   <div class="lyric-area">
-    <ul class="lyric">
-      <li v-for="lrc in lyricList" :key="lrc.key" :class="currentLrc() ? 'current-lrc' : ''">
+    <ul
+      class="lyric"
+      ref="lyricListNode"
+      :style="{ top: lyricStyleTop + 'px' }"
+    >
+      <li
+        v-for="lrc in formattingLyric"
+        :key="lrc.key"
+        :class="lrc.current ? 'current' : ''"
+      >
         {{ lrc.value }}
       </li>
     </ul>
@@ -9,36 +17,47 @@
 </template>
 
 <script lang="ts">
-import {
-  useStore
-} from "vuex";
-import {
-  computed,
-  defineComponent,
-  ref,
-  watch
-} from "vue";
+import { useStore } from "vuex";
+import { computed, defineComponent, ref, watch } from "vue";
+
+type Lrc = {
+  time: string;
+  value: string;
+  key: string;
+  current: boolean;
+};
 
 export default defineComponent({
   props: {
     position: {
       type: String,
-      default: '00:00'
-    }
+      default: "00:00",
+    },
   },
+
   setup(props) {
     const $store = useStore();
-    const lyric = computed(() => $store.state.playing.lyric);
-    const lyricList: any = ref([]);
-    const position = computed(() => props.position)
 
+    const lyricListNode = ref<HTMLElement>();
+
+    // store中的歌词数据
+    const lyric = computed(() => $store.state.lyric);
+    // 格式化的歌词数据
+    const formattingLyric = ref<Array<Lrc>>([]);
+    const position = computed(() => props.position);
+
+    const lyricStyleTop = ref(0);
+
+    // 格式化歌词数据
     const formatLyric = () => {
-      lyricList.value = []
-      for (const key in lyric.value) {
-        if (Object.prototype.hasOwnProperty.call(lyric.value, key)) {
-          lyricList.value.push({
+      formattingLyric.value = [];
+      const lrc = lyric.value.lrc;
+      lyricStyleTop.value = 0;
+      for (const key in lrc) {
+        if (Object.prototype.hasOwnProperty.call(lrc, key)) {
+          formattingLyric.value.push({
             time: key,
-            value: lyric.value[key],
+            value: lrc[key],
             key: key + Date.now(),
             current: false,
           });
@@ -46,27 +65,42 @@ export default defineComponent({
       }
     };
 
+    const resetLrcCurrentState = () => {
+      formattingLyric.value.forEach((lrc: any) => {
+        lrc.current = false;
+      });
+    };
+
+    // 获取展示当前歌词要调整的高度
+    const getLyricStyleTop = () => {
+      const lyric = lyricListNode.value as HTMLElement;
+      const nodes = lyric.getElementsByClassName("current");
+      const baseTop = 320;
+      if (nodes[0]) {
+        const top = (nodes[0] as HTMLElement).getBoundingClientRect().top;
+        lyricStyleTop.value = -(top - lyricStyleTop.value - baseTop);
+      }
+    };
+
     watch(lyric.value, () => {
       formatLyric();
     });
 
-    // 获取当前时间该显示的歌词
-    const currentLyric = ref("");
-
-    const currentLrc = () => {
-      const filterRes = lyricList.value.filter(
-        (lrc: any) => lrc.time === position.value
+    watch(position, (val) => {
+      const currentLrc: Array<Lrc> = formattingLyric.value.filter(
+        (lrc: Lrc) => lrc.time === val
       );
-      currentLyric.value =
-        filterRes.length > 0 ? filterRes[0] : currentLyric.value;
-
-      // lyricTop.value = `-${currentLrc && currentLrc.offsetTop - 30}px`;
-      return currentLyric;
-    };
+      if (currentLrc.length > 0) {
+        getLyricStyleTop();
+        resetLrcCurrentState();
+        currentLrc[0].current = true;
+      }
+    });
 
     return {
-      lyricList,
-      currentLrc,
+      lyricListNode,
+      formattingLyric,
+      lyricStyleTop,
     };
   },
 });
@@ -83,8 +117,19 @@ export default defineComponent({
   color: $font-second-color;
   line-height: 1.5em;
 
+  .lyric {
+    position: relative;
+    transition: all 0.5s;
+  }
+
   li {
     margin: 10px 0;
+    transition: all 0.5s;
+
+    &.current {
+      color: $font-color;
+      font-size: 13px;
+    }
   }
 }
 </style>
