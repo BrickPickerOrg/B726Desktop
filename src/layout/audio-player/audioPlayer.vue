@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue";
-import { AudioPlayerState, PlayMode } from "./audio_player";
+import { AudioPlayerState, PlayMode } from "./audioPlayer";
 import { useStore } from "vuex";
 import usePlayerFn from "@/plugins/player";
 import useLocalListHandle from "@/plugins/localList";
@@ -56,9 +56,10 @@ export default defineComponent({
 
     // 设置播放进度
     const seek = (progress: number) => {
-      const duration = (audioPlayer.value as HTMLMediaElement).duration;
-      (audioPlayer.value as HTMLMediaElement).currentTime =
-        duration * (progress / 100);
+      const player = audioPlayer.value as HTMLMediaElement
+      const duration = player.duration;
+      const position = parseInt((duration * progress).toString());
+      player.currentTime = position;
     };
 
     // 设置播放器音量

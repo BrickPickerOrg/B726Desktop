@@ -2,7 +2,7 @@
   <div class="playlist-items-content" v-occupy="ownOccupy">
     <div class="playlist-item" v-for="playlist in items" :key="playlist.id">
       <div class="cover-img-wrap" @click.stop="viewPlaylistDetail(playlist)" data-occupy="occupy">
-        <mg-image :src="playlist.cover" :alt="playlist.name" class="cover-img" />
+        <bknds-image :src="playlist.cover" :alt="playlist.name" class="cover-img" />
         <div class="cover-icon"><i class="iconfont-play"></i></div>
         <span class="playcount"><i class="iconfont-headset"></i> {{ playlist.playcount }}</span>
       </div>
@@ -16,7 +16,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { PLAYLIST_ITEMS_PLACEHOLDR } from './placeholder_data';
+import { PLAYLIST_ITEMS_PLACEHOLDR } from './placeholderData';
 
 export default defineComponent({
   props: {
@@ -61,15 +61,16 @@ export default defineComponent({
 
   .playlist-item {
     margin-top: 20px;
-    width: 155px;
+    width: 100px;
     box-sizing: border-box;
+    margin: 0 15px 20px 0;
 
     .cover-img-wrap {
-      width: 155px;
-      height: 155px;
+      width: 100px;
+      height: 100px;
       position: relative;
       top: 0;
-      border-radius: 20px;
+      border-radius: 3px;
       overflow: hidden;
       cursor: pointer;
       margin-bottom: 10px;
@@ -97,7 +98,7 @@ export default defineComponent({
           left: 50%;
           transform: translate(-50%, -50%);
           font-size: 50px;
-          color: $body-bg;
+          color: $background-color;
         }
       }
 
@@ -107,7 +108,7 @@ export default defineComponent({
         bottom: 10px;
         right: 5px;
         background-color: rgba($font-color, 0.7);
-        color: $body-bg;
+        color: $background-color;
         border-radius: 20px;
         font-size: 12px;
         transition: all 350ms;
@@ -115,7 +116,7 @@ export default defineComponent({
 
         i {
           font-size: 14px;
-          color: $body-bg;
+          color: $background-color;
         }
       }
 
@@ -140,15 +141,14 @@ export default defineComponent({
     }
 
     .playlist-name {
-      font-size: 12px;
+      font-size: 11px;
       display: -webkit-box;
       overflow: hidden;
-      line-height: 1.3em;
-      font-weight: 500;
+      line-height: 1.7em;
       color: $font-color;
+      cursor: pointer;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
-      cursor: pointer;
 
       &:hover {
         color: $primary-color;

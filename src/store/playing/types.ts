@@ -1,5 +1,3 @@
-/** @format */
-
 export interface playingState {
   platform: string;
   playState: boolean;
@@ -11,5 +9,4 @@ export interface playingState {
   albumId?: string;
   cover?: string;
   url?: string;
-  lyric: Record<string, string>;
 }

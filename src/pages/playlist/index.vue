@@ -43,7 +43,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { LIST_ITEMS_PLACEHOLDR, PLAYLIST_TYPES } from './playlist';
 import useApi from '@/plugins/api';
 import Paginator from '@/layout/paginator.vue';
-import PlaylistItems from '@/views/playlist_items.vue';
+import PlaylistItems from '@/views/playlistItems.vue';
 
 export default defineComponent({
   components: {
@@ -144,7 +144,7 @@ export default defineComponent({
 @import '@/assets/styles/theme/conf.scss';
 
 .playlist-items-container {
-  height: 488px;
+  height: 580px;
   overflow-x: hidden;
   padding: 10px 20px 0 20px;
   box-sizing: border-box;
@@ -165,14 +165,14 @@ export default defineComponent({
       color: $font-second-color;
       text-align: center;
       font-size: 13px;
-      border-radius: 11px;
+      border-radius: 3px;
       cursor: pointer;
       transition: all 500ms;
 
       &:hover,
       &.checked {
         background-color: $primary-color;
-        color: $card-color;
+        color: $font-color;
       }
     }
   }
@@ -182,6 +182,7 @@ export default defineComponent({
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
+    padding: 10px 15px 15px 0;
 
     .title {
       font-size: 20px;

@@ -1,5 +1,3 @@
-/** @format */
-
 import { playingState } from './types';
 import { ActionTree } from 'vuex';
 import { RootState } from '../types';
@@ -12,8 +10,4 @@ export const actions: ActionTree<playingState, RootState> = {
   setPlayState({ commit }, playState): void {
     commit('setPlayState', playState);
   },
-
-  setLyric({ commit }, lyric): void {
-    commit('setLyric', lyric);
-  }
 };

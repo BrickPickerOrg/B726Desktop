@@ -21,12 +21,13 @@ const useApi = () => {
   }
 
   // 获取歌曲播放链接
-  const getMiGuMusicAudioUrlApi = ({ id = '', name = '', singer = '' }) => {
+  const getMiGuMusicAudioUrlApi = ({ id = '', name = '', singer = '', contentId = '' }) => {
     return service.req({
       url: '/migu/search/song_url',
       data: {
         id,
         name,
+        contentId,
         singer
       }
     })

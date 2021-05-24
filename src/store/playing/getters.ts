@@ -1,5 +1,3 @@
-/** @format */
-
 import { GetterTree } from 'vuex';
 import { playingState } from './types';
 import { RootState } from '../types';

@@ -1,4 +1,4 @@
-import Loading from '@/components/loading/loading.vue';
+import Loading from '@/components/bknds-loading/loading.vue';
 import { h, defineComponent } from 'vue';
 
 const insertDom = (parent: HTMLElement, el: any) => {

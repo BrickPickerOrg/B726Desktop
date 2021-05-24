@@ -101,7 +101,7 @@ export default defineComponent({
 
     &:hover {
       background-color: $primary-color;
-      color: $body-bg;
+      color: $background-color;
     }
 
     &:disabled {

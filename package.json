@@ -16,13 +16,13 @@
   "dependencies": {
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
+    "electron-dl": "^3.2.0",
     "node-sass": "^4.14.1",
     "request": "^2.88.2",
     "rxdb": "^9.15.0",
     "sass-loader": "^8.0.1",
-    "vue": "^3.0.0",
+    "vue": "^3.0.4",
     "vue-class-component": "^8.0.0-0",
-    "electron-dl": "^3.2.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
   },

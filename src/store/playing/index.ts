@@ -1,5 +1,3 @@
-/** @format */
-
 import { Module } from 'vuex';
 import { playingState } from './types';
 import { RootState } from '../types';
@@ -18,7 +16,6 @@ const state: playingState = {
   albumId: '',
   cover: 'https://data.quanziapp.com/files/sBAKxwj/FEF818C9-51CF-430C-AE8A-4EE9A4C47CD1.png',
   url: '',
-  lyric: { '': '' }
 };
 
 export const playing: Module<playingState, RootState> = {

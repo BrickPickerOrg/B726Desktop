@@ -5,10 +5,7 @@
 </template>
 
 <script>
-import {
-  ref,
-  watch
-} from "vue";
+import { ref, watch } from "vue";
 
 export default {
   props: {
@@ -17,6 +14,7 @@ export default {
       default: ""
     }
   },
+  
   setup(props) {
     const msg = ref("");
     watch(() => props.message, (newVal) => {

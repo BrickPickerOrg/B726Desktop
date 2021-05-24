@@ -28,6 +28,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../pages/playlist/index.vue')
   },
   {
+    path: '/download', //下载页
+    name: 'Download',
+    component: () => import('../pages/download/index.vue')
+  },
+  {
     path: '/playlistDetail', //歌单详情
     name: 'PlaylistDetail',
     component: () => import('../pages/playlist/detail.vue')

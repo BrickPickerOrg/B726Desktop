@@ -1,0 +1,4 @@
+@mixin blur {
+  background-color: rgba(29, 29, 31, 0.407);
+  backdrop-filter: saturate(180%) blur(20px);
+}

@@ -2,16 +2,16 @@
   <div :class="digital ? 'digital-item-wrap' : 'album-item-wrap'" v-occupy="ownOccupy">
     <!-- <div class="cover-img-wrap" data-occupy="occupy"> -->
     <div class="cover-img-wrap" @click.stop="viewAlbumDetail(ownAlbum.id)">
-      <mg-image :src="ownAlbum.coverUrl" :alt="ownAlbum.albumName" class="cover-img" />
+      <bknds-image :src="ownAlbum.coverUrl" :alt="ownAlbum.albumName" class="cover-img" />
       <div class="digital-tag" v-if="digital">数字专辑</div>
       <span class="update-time">{{ ownAlbum.time }}</span>
     </div>
     <!-- <div class="playlist-name" data-occupy="occupy"> -->
     <div class="playlist-name">
-      <mg-text :text="ownAlbum.albumName" />
+      <bknds-text :text="ownAlbum.albumName" />
     </div>
     <div class="singers-name">
-      <mg-text :text="getSingersName(ownAlbum.singers)" />
+      <bknds-text :text="getSingersName(ownAlbum.singers)" />
     </div>
   </div>
 </template>
@@ -68,14 +68,14 @@ export default defineComponent({
 .album-item-wrap,
 .digital-item-wrap {
   position: relative;
-  width: 165px;
-  height: 175px;
+  width: 115px;
+  height: 125px;
   background-image: url('https://cdnmusic.migu.cn/v3/static/img/index/album-cover-gold.png');
-  background-size: 135px auto;
+  background-size: 85px auto;
   background-repeat: no-repeat;
   background-position: 13px 5px;
   margin-bottom: 20px;
-  padding-top: 155px;
+  padding-top: 105px;
   box-sizing: border-box;
   cursor: pointer;
   transition: all 200ms;
@@ -84,9 +84,9 @@ export default defineComponent({
     position: absolute;
     top: 4px;
     left: 0;
-    width: 137px;
-    height: 137px;
-    border-radius: 5px;
+    width: 87px;
+    height: 87px;
+    border-radius: 3px;
     overflow: hidden;
 
     img {
@@ -98,14 +98,14 @@ export default defineComponent({
   .playlist-name {
     margin-right: 20px;
     color: $font-color;
-    font-size: 13px;
+    font-size: 12px;
     margin-bottom: 5px;
   }
 
   .singers-name {
     margin-right: 20px;
     color: $font-second-color;
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .digital-tag {
@@ -116,14 +116,14 @@ export default defineComponent({
     padding: 4px 5px;
     font-size: 12px;
     border-radius: 6px 0 6px 0;
-    color: $body-bg;
+    color: $background-color;
   }
 
   .update-time {
     position: absolute;
     bottom: 2px;
     right: 0;
-    background-color: rgba($body-bg, 0.9);
+    background-color: rgba($background-color, 0.9);
     padding: 4px 6px;
     font-size: 12px;
     border-radius: 16px;

@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { defineComponent, getCurrentInstance, ref } from "vue";
-import SongList from "@/views/song_list.vue";
+import SongList from "@/views/songList.vue";
 import useLocalListHandle from "@/plugins/localList";
 
 export default defineComponent({
@@ -36,6 +36,7 @@ export default defineComponent({
         title: "清空列表",
         message: "确认清空本地播放列表？",
         confirmText: "确认删除",
+        showCancel: true,
         confirmHandle: () => {
           $localList.clear()
           removeMusicSuccess()
@@ -60,7 +61,7 @@ export default defineComponent({
 @import "@/assets/styles/theme/conf.scss";
 
 .local-music-list {
-  height: 488px;
+  height: 580px;
   box-sizing: border-box;
   padding: 20px;
   overflow-x: hidden;

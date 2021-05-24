@@ -1,3 +1,4 @@
 export interface downloaderState {
-  downloadUrl?: string;
+  // 下载列表
+  downloads: Array<{id: string, name: string, totalBytes: number, progress: number}>;
 }

@@ -2,7 +2,7 @@
   <div class="detail-container">
     <div class="detail-content-header" v-occupy="occupy">
       <div class="cover-wrap" data-occupy="occupy">
-        <mg-image :src="albumDetail.cover" alt="" class="cover-img" />
+        <bknds-image :src="albumDetail.cover" alt="" class="cover-img" />
       </div>
       <div class="detail-content-header-info">
         <span class="name" data-occupy="occupy">{{ albumDetail.albumName }}</span>
@@ -34,7 +34,7 @@
 import { defineComponent, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import useApi from '@/plugins/api';
-import IntroSonglist from '@/views/intro_songlist.vue';
+import IntroSonglist from '@/views/introSongList.vue';
 import usePlayerFn from '@/plugins/player';
 
 export default defineComponent({
@@ -88,7 +88,7 @@ export default defineComponent({
 @import '@/assets/styles/theme/conf.scss';
 
 .detail-container {
-  height: 488px;
+  height: 580px;
   overflow-x: hidden;
 
   .detail-content-header {
@@ -196,7 +196,7 @@ export default defineComponent({
 
           &.fill-button {
             border: 1px solid $primary-color;
-            color: $body-bg;
+            color: $background-color;
             background-color: $primary-color;
           }
         }

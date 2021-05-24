@@ -1,5 +1,3 @@
-/** @format */
-
 import { MutationTree } from 'vuex';
 import { playingState } from './types';
 import Utils from '@/common/utils';
@@ -20,11 +18,4 @@ export const mutations: MutationTree<playingState> = {
   setPlayState(state, playState) {
     state.playState = playState;
   },
-
-  setLyric(state, lyric) {
-    state.lyric = {};
-    lyric.split('\n').forEach((singlelrc: string) => {
-      state.lyric[singlelrc.substr(1, 5)] = singlelrc.substr(10);
-    });
-  }
 };

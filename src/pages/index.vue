@@ -16,14 +16,14 @@
       <div class="song-items-wrap-right">
         <div class="song-item" v-for="song in homeData.songs" :key="song.id">
           <div class="cover-wrap">
-            <mg-image :src="song.cover" alt="" class="cover-img" />
+            <bknds-image :src="song.cover" alt="" class="cover-img" />
           </div>
           <div class="info">
             <p class="song-name">
-              <mg-text :text="song.songName" />
+              <bknds-text :text="song.songName" />
             </p>
             <p class="singer-text">
-              <mg-text :text="getSingersName(song.singers)" />
+              <bknds-text :text="getSingersName(song.singers)" />
             </p>
           </div>
           <div class="options">
@@ -57,8 +57,8 @@ import { defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import useApi from '@/plugins/api';
 import usePlayerFn from '@/plugins/player';
-import PlaylistItems from '@/views/playlist_items.vue';
-import Album from '@/views/album_item.vue';
+import PlaylistItems from '@/views/playlistItems.vue';
+import Album from '@/views/albumItem.vue';
 
 export default defineComponent({
   components: {
@@ -109,7 +109,7 @@ export default defineComponent({
 @import '@/assets/styles/theme/conf.scss';
 
 .home-container {
-  height: 488px;
+  height: 580px;
   padding: 15px;
   overflow-x: hidden;
   box-sizing: border-box;
@@ -119,7 +119,7 @@ export default defineComponent({
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
-    margin: 0 0 10px;
+    margin: 10px 0;
 
     .title {
       font-size: 18px;
@@ -145,14 +145,14 @@ export default defineComponent({
     .song-items-wrap-left {
       position: relative;
       padding: 8px;
-      width: 220px;
+      width: 180px;
       overflow: hidden;
       background-image: linear-gradient(135deg, $primary-color, lighten($primary-color, 30%));
 
       .img-box {
         display: inline-block;
-        width: 110px;
-        height: 110px;
+        width: 90px;
+        height: 90px;
 
         img {
           width: 100%;
@@ -181,7 +181,7 @@ export default defineComponent({
           right: 15px;
           bottom: 13px;
           background-color: rgba(lighten($primary-color, 10%), 0.9);
-          color: $body-bg;
+          color: $background-color;
           padding: 10px 20px;
           font-size: 13px;
           font-weight: 500;
@@ -212,9 +212,9 @@ export default defineComponent({
       overflow: hidden;
 
       .cover-wrap {
-        width: 50px;
-        height: 50px;
-        border-radius: 5px;
+        width: 40px;
+        height: 40px;
+        border-radius: 2px;
         overflow: hidden;
         flex-shrink: 0;
 
@@ -234,11 +234,11 @@ export default defineComponent({
         margin-left: 5px;
 
         .song-name {
-          font-size: 13px;
+          font-size: 12px;
         }
 
         .singer-text {
-          font-size: 12px;
+          font-size: 11px;
           color: $font-second-color;
         }
       }
@@ -246,7 +246,7 @@ export default defineComponent({
       .options {
         position: absolute;
         top: 0;
-        left: 65px;
+        left: 55px;
         right: 0;
         bottom: 0;
         padding-left: 60px;
@@ -260,19 +260,19 @@ export default defineComponent({
         transition: all 300ms;
 
         .btn {
-          width: 40px;
-          height: 40px;
+          width: 30px;
+          height: 30px;
           background: rgba($card-color, 0.4);
           border-radius: 50%;
           text-align: center;
-          line-height: 40px;
-          font-size: 24px;
+          line-height: 30px;
+          font-size: 18px;
           transition: all 500ms;
           cursor: pointer;
 
           &:hover {
             background-color: $primary-color;
-            color: $body-bg;
+            color: $background-color;
           }
         }
       }

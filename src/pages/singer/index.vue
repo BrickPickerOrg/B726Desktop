@@ -2,7 +2,7 @@
   <div class="singer-container">
     <div class="singer-content-header" v-occupy="occupy">
       <div class="avatar-wrap" data-occupy="occupy">
-        <mg-image :src="singerDetail.avatar" alt="" class="avatar-img" />
+        <bknds-image :src="singerDetail.avatar" alt="" class="avatar-img" />
       </div>
       <div class="singer-content-header-info">
         <span class="name" data-occupy="occupy">{{ singerDetail.name }}</span>
@@ -24,7 +24,7 @@
 import { defineComponent, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import useApi from '@/plugins/api';
-import IntroSonglist from '@/views/intro_songlist.vue';
+import IntroSonglist from '@/views/introSongList.vue';
 import Paginator from '@/layout/paginator.vue';
 import usePlayerFn from '@/plugins/player';
 
@@ -89,7 +89,7 @@ export default defineComponent({
 @import '@/assets/styles/theme/conf.scss';
 
 .singer-container {
-  height: 488px;
+  height: 580px;
   overflow-x: hidden;
 
   .singer-content-header {
@@ -173,7 +173,7 @@ export default defineComponent({
 
           &.fill-button {
             border: 1px solid $primary-color;
-            color: $body-bg;
+            color: $background-color;
             background-color: $primary-color;
           }
         }

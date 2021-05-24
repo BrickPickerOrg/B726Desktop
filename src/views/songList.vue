@@ -19,7 +19,7 @@
         >
           <td v-if="!hideList.includes('index')">
             <div class="flex">
-              <mg-loading v-show="isPlayingMusic(item)" class="voiceprint" />
+              <bknds-loading v-show="isPlayingMusic(item)" class="voiceprint" />
               <span v-show="!isPlayingMusic(item)" class="music-index">{{
                 index + 1
               }}</span>
@@ -27,7 +27,7 @@
           </td>
           <td v-if="!hideList.includes('cover')">
             <div class="cover-wrap">
-              <mg-image :src="item.cover" alt="" class="cover-img" />
+              <bknds-image :src="item.cover" alt="" class="cover-img" />
             </div>
           </td>
           <td v-if="!hideList.includes('name')">
@@ -71,11 +71,6 @@
                 href="javascript:;"
               ></a>
               <a
-                class="music-list-btn iconfont-download"
-                href="javascript:;"
-                @click="download(item)"
-              ></a>
-              <a
                 class="music-list-btn iconfont-delete"
                 href="javascript:;"
                 v-if="showDeleteButton"
@@ -86,6 +81,7 @@
                 href="javascript:;"
                 v-if="!showDeleteButton"
               ></a>
+              <downloadButton :song="item"></downloadButton>
             </div>
           </td>
         </tr>
@@ -99,9 +95,10 @@ import { defineComponent, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import usePlayerFn from "@/plugins/player";
-import { SONG_LIST_ITEMS_PLACEHOLDR } from "./placeholder_data";
+import { SONG_LIST_ITEMS_PLACEHOLDR } from "./placeholderData";
 import useRequests from "@/plugins/api";
 import useLocalListHandle from "@/plugins/localList";
+import downloadButton from "@/views/downloadButton.vue"
 
 export default defineComponent({
   props: {
@@ -117,6 +114,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+  },
+
+  components: {
+    downloadButton
   },
 
   setup(props, { emit }) {
@@ -163,6 +164,7 @@ export default defineComponent({
         const audioUrl = await getMiGuMusicAudioUrlApi({
           id: song.id,
           name: song.songName,
+          contentId: song.contentId,
           singer: getSingersName(song.singers),
         });
         url = audioUrl.data.url;

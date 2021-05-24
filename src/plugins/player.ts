@@ -38,6 +38,7 @@ const usePlayerFn = () => {
     const audioUrl = await getMiGuMusicAudioUrlApi({
       id: song.id,
       name: song.songName,
+      contentId: song.contentId,
       singer: getSingersName(song.singers),
     })
 
@@ -46,7 +47,7 @@ const usePlayerFn = () => {
     const lyricResult = await getMiGuMusicLyricApi({
       cid: song.cid,
     })
-    $store.dispatch('playing/setLyric', lyricResult.data)
+    $store.dispatch('lyric/setLyric', lyricResult.data)
     insertMusicToList(song)
   }
 

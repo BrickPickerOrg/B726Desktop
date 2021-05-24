@@ -1,0 +1,66 @@
+@import "@/assets/styles/theme/conf.scss";
+
+.layout-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba($font-second-color, .2);
+  z-index: 99;
+}
+
+.bknds-confirm-wrap {
+  background-color: $background-color;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  padding: 10px;
+  width: 300px;
+
+  .bknds-confirm-header {
+    color: $font-color;
+    font-size: 20px;
+    padding: 10px;
+  }
+
+  .bknds-confirm-center {
+    padding: 20px 10px;
+    font-size: 15px;
+    color: $font-second-color;
+  }
+
+  .bknds-confirm-footer {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+
+    .bknds-cancel-btn,
+    .bknds-confrim-btn {
+      flex: 1;
+      margin: 5px 10px;
+      text-align: center;
+      background-color: rgba($font-second-color, .15);
+      padding: 10px 0;
+      border-radius: 5px;
+      color: $font-second-color;
+      font-size: 13px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: darken(rgba($font-second-color, .15), 20);
+      }
+    }
+
+    .bknds-confrim-btn {
+      background-color: $primary-color;
+      color: $background-color;
+
+      &:hover {
+        background-color: darken($primary-color, 5);
+      }
+    }
+  }
+}

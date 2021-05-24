@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue';
-import SongList from '@/views/song_list.vue';
+import SongList from '@/views/songList.vue';
 
 export default defineComponent({
   props: {
